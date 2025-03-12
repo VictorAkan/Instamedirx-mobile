@@ -186,6 +186,196 @@ export default function HomeScreen() {
                             <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
                         </ThemedView>
                         <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Upcoming</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Upcoming</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Upcoming</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Completed</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Upcoming</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Completed</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
+                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        </TouchableOpacity>
+                    </ThemedView>
+                    <ThemedView style={styles.appointmentContainer}>
+                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <ThemedView style={styles.appointmentInfo}>
+                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity style={styles.ongoingButton}>
                             <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
                         </TouchableOpacity>
                     </ThemedView>
