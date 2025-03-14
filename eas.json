@@ -7,47 +7,64 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "env": {
-        "NODE_VERSION": "20.18.3"
+      "android": {
+        "node": "20.18.3"
+      },
+      "ios": {
+        "node": "20.18.3"
       }
     },
     "preview": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "node": "20.18.3"
       },
-      "env": {
-        "NODE_VERSION": "20.18.3"
+      "ios": {
+        "node": "20.18.3"
       }
     },
     "preview2": {
       "android": {
-        "gradleCommand": ":app:assembleRelease"
+        "gradleCommand": ":app:assembleRelease",
+        "node": "20.18.3"
       },
-      "env": {
-        "NODE_VERSION": "20.18.3"
+      "ios": {
+        "node": "20.18.3"
       }
     },
     "preview3": {
       "developmentClient": true,
-      "env": {
-        "NODE_VERSION": "20.18.3"
+      "android": {
+        "node": "20.18.3"
+      },
+      "ios": {
+        "node": "20.18.3"
       }
     },
     "preview4": {
       "distribution": "internal",
-      "env": {
-        "NODE_VERSION": "20.18.3"
+      "android": {
+        "node": "20.18.3"
+      },
+      "ios": {
+        "node": "20.18.3"
       }
     },
     "preview5": {
-      "env": {
-        "NODE_VERSION": "20.18.3"
+      "android": {
+        "node": "20.18.3"
+      },
+      "ios": {
+        "node": "20.18.3"
       }
     },
     "production": {
       "autoIncrement": true,
-      "env": {
-        "NODE_VERSION": "20.18.3"
+      "android": {
+        "node": "20.18.3"
+      },
+      "ios": {
+        "node": "20.18.3"
       }
     }
   },
