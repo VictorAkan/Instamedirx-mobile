@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     inputView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 70,
+        paddingHorizontal: 60,
     },
     arrowView: {
         backgroundColor: "#0866FF",

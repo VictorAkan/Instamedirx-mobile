@@ -155,9 +155,11 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         backgroundColor: 'white',
-        marginHorizontal: 10,
+        // marginHorizontal: 10,
+        width: '48%',
         // borderRadius: 10,
         // borderWidth: 1,
+        marginBottom: 10,
         borderColor: '#EAEAEA',
     },
     productImage: {

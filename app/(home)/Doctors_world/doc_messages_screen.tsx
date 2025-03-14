@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     headerView: {
-        marginTop: 60,
+        marginTop: 40,
         flexDirection: 'row',
         gap: 20,
         // alignItems: 'center',

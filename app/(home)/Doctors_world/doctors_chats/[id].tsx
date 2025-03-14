@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     headerView: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 50,
+        marginTop: 30,
         justifyContent: 'space-between',
         marginBottom: 30,
         borderBottomWidth: 2,

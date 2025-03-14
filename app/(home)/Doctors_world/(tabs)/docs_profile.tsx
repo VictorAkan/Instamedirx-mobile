@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         borderColor: '#ADCCFF',
         borderWidth: 1,
         padding: 10,
-        marginTop: 80,
+        marginTop: 50,
     },
     sideLine: {
         borderLeftWidth: 2,

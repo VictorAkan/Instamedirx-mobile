@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
@@ -17,7 +17,7 @@ export default function Appointment() {
     };
 
     return (
-        <View style={styles.container}>
+        <ThemedView style={styles.container}>
             <StatusBar style="auto" />
             <ThemedView style={styles.searchBar}>
                 <TouchableOpacity activeOpacity={0.9}>
@@ -37,35 +37,37 @@ export default function Appointment() {
                     <MaterialIcons name="search" size={24} color="#D6D6D6" />
                 </TouchableOpacity>
             </ThemedView>
-            <Text style={styles.title}>Appointment list</Text>
-            <Text style={styles.subtitle}>View appointments for the day</Text>
-
-            {appointments.map((appointment) => (
-                <View key={appointment.id} style={styles.card}>
-                    <View style={styles.header}>
-                        <Image
-                            source={require("../../../../assets/images/tricia.png")}
-                            style={styles.avatar}
-                        />
-                        <View style={styles.info}>
-                            <Text style={styles.name}>{appointment.name}</Text>
-                            <Text style={styles.details}>{appointment.condition}</Text>
-                            <Text style={styles.details}>{appointment.type}</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => handleDelete(appointment.id)}>
-                        <AntDesign name="close" size={24} color="#0866FF" />
+            <ThemedText style={styles.title}>Appointment list</ThemedText>
+            <ThemedText style={styles.subtitle}>View appointments for the day</ThemedText>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                {appointments.map((appointment) => (
+                    <ThemedView key={appointment.id} style={styles.card}>
+                        <ThemedView style={styles.header}>
+                            <Image
+                                source={require("../../../../assets/images/tricia.png")}
+                                style={styles.avatar}
+                            />
+                            <ThemedView style={styles.info}>
+                                <ThemedText style={styles.name}>{appointment.name}</ThemedText>
+                                <ThemedText style={styles.details}>{appointment.condition}</ThemedText>
+                                <ThemedText style={styles.details}>{appointment.type}</ThemedText>
+                            </ThemedView>
+                            <TouchableOpacity onPress={() => handleDelete(appointment.id)}>
+                                <AntDesign name="close" size={24} color="#0866FF" />
+                            </TouchableOpacity>
+                        </ThemedView>
+                        <ThemedView style={styles.dateContainer}>
+                            <ThemedText style={styles.date}>{appointment.date}</ThemedText>
+                            <ThemedText style={styles.time}>{appointment.time}</ThemedText>
+                        </ThemedView>
+                        <TouchableOpacity activeOpacity={0.9} style={styles.button}>
+                            <ThemedText style={styles.buttonText}>Reschedule</ThemedText>
                         </TouchableOpacity>
-                    </View>
-                    <View style={styles.dateContainer}>
-                        <Text style={styles.date}>{appointment.date}</Text>
-                        <Text style={styles.time}>{appointment.time}</Text>
-                    </View>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Reschedule</Text>
-                    </TouchableOpacity>
-                </View>
-            ))}
-        </View>
+                    </ThemedView>
+                ))}
+            </ScrollView>
+
+        </ThemedView>
     );
 }
 
@@ -73,7 +75,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFF',
-        padding: 20,
+        paddingTop: 20,
+        // paddingBottom: 10,
     },
     searchBar: {
         flexDirection: 'row',
@@ -82,7 +85,8 @@ const styles = StyleSheet.create({
         borderColor: '#ADCCFF',
         borderWidth: 1,
         padding: 10,
-        marginTop: 80,
+        marginTop: 60,
+        marginHorizontal: 20,
     },
     sideLine: {
         borderLeftWidth: 2,
@@ -102,12 +106,14 @@ const styles = StyleSheet.create({
         color: '#0866FF',
         fontFamily: 'OpenSans_700Bold',
         marginTop: 40,
+        marginHorizontal: 20,
     },
     subtitle: {
         color: '#043380',
         marginBottom: 10,
         marginTop: 9,
         fontFamily: 'OpenSans_400Regular',
+        marginHorizontal: 20,
     },
     card: {
         backgroundColor: 'white',
@@ -120,6 +126,7 @@ const styles = StyleSheet.create({
         elevation: 4,
         marginBottom: 10,
         marginTop: 30,
+        marginHorizontal: 20,
     },
     header: {
         flexDirection: 'row',
@@ -175,7 +182,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 4,
-        marginHorizontal: 110,
+        marginHorizontal: 90,
     },
     buttonText: {
         color: 'white',

@@ -37,7 +37,7 @@ export default function LoginScreen() {
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <View style={{ flex: 1, backgroundColor: "#0866FF" }}>
+            <ThemedView style={{ flex: 1, backgroundColor: "#0866FF" }}>
                 <Image
                     source={require("../../assets/images/logtopimg.png")}
                     style={{ width: "100%", height: height * 0.3, resizeMode: "contain", marginTop: 20, }}
@@ -66,10 +66,10 @@ export default function LoginScreen() {
                             source={require("../../assets/images/doctor.png")}
                             style={styles.doctorImage}
                         />
-                        <View style={styles.loginTxtView}>
+                        <ThemedView style={styles.loginTxtView}>
                             <ThemedText style={styles.loginTitle}>Login</ThemedText>
                             <ThemedText style={styles.procTxt}>Please login to continue.</ThemedText>
-                        </View>
+                        </ThemedView>
                         <ThemedView style={styles.inputContainer}>
                             <RegTextInput
                                 label="Email address"
@@ -129,7 +129,7 @@ export default function LoginScreen() {
                         </ThemedView>
                     </Animated.View>
                 </GestureDetector>
-            </View>
+            </ThemedView>
         </GestureHandlerRootView>
     )
 }
@@ -162,6 +162,8 @@ const styles = StyleSheet.create({
     loginTxtView: {
         alignItems: "flex-start",
         paddingHorizontal: 27,
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
     },
     loginTitle: {
         fontSize: 22,

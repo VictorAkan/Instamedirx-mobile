@@ -1,26 +1,19 @@
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
-import { Link } from "expo-router";
-import { StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, ScrollView } from "react-native";
+import { Link, useRouter } from "expo-router"; // Import useRouter
+import { StyleSheet, TouchableOpacity, ScrollView, View, Dimensions } from "react-native";
 import { RegTextInput } from "@/components/RegTextInput";
 import { AppBtn } from "@/components/AppButton";
 import { CustomDropdown } from "@/components/CustomDropDown";
 import { useState } from "react";
-import { useFonts } from "expo-font";
-import { useRouter } from "expo-router";
-import { View, Text, Dimensions } from "react-native";
-import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
-import { GestureDetector, GestureHandlerRootView, Gesture } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 
 const { height } = Dimensions.get("window");
-const WHITE_HEIGHT = height * 0.02;
 
 export default function PharmacistsDetails() {
     const [email, onChangeEmail] = useState("");
     const [password, onChangePassword] = useState("");
-    const router = useRouter();
-    const translateY = useSharedValue(WHITE_HEIGHT);
+    const router = useRouter(); // Initialize useRouter
 
     const ethOptions = [
         { label: "Yoruba", value: "1" },
@@ -33,71 +26,70 @@ export default function PharmacistsDetails() {
         { label: "French", value: "2" },
     ];
 
-    const animatedStyle = useAnimatedStyle(() => ({
-        transform: [{ translateY: translateY.value }],
-    }));
+    const handleContinue = () => {
+        console.log("Continue pressed");
+        try {
+            router.push("/registration_screens/pharmacists_registration_screens/pharmacists_qualifications")
+        } catch (error) {
+            console.error("Navigation error: ", error);
+        }
+    }
+
+    const handleLogout = () => {
+        console.log("Logout pressed");
+        try {
+            router.push("/");
+        } catch (error) {
+            console.error("Navigation error: ", error);
+        }
+    }
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
-            <View style={{ flex: 1, backgroundColor: "#0866FF" }}>
-                <ThemedView style={styles.arrowView}>
-                    <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
-                        <AntDesign name="arrowleft" size={24} color="black" />
-                    </TouchableOpacity>
+        <ThemedView style={{ flex: 1, backgroundColor: "#0866FF" }}>
+            <ThemedView style={styles.arrowView}>
+                <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
+                    <AntDesign name="arrowleft" size={24} color="black" />
+                </TouchableOpacity>
+            </ThemedView>
+            <ThemedView style={styles.whiteContainer}>
+                <ThemedView style={styles.regTxtView}>
+                    <ThemedText style={styles.regTitle}>Registration details</ThemedText>
+                    <ThemedText style={styles.procTxt}>Fill in the details as requested</ThemedText>
                 </ThemedView>
-                {/* <GestureDetector gesture={panGesture}> */}
-                    <Animated.View
-                        style={[
-                            {
-                                // position: "absolute",
-                                width: "100%",
-                                backgroundColor: "white",
-                                borderTopLeftRadius: 40,
-                                borderTopRightRadius: 40,
-                                padding: 10,
-                                paddingHorizontal: 4,
-                                flex: 1,
-                                height: height * 9.85,
-                                // height: '100%',
-                            },
-                            animatedStyle,
-                        ]}
-                    >
-                        <View style={styles.regTxtView}>
-                            <ThemedText style={styles.regTitle}>Registration details</ThemedText>
-                            <ThemedText style={styles.procTxt}>Fill in the details as requested</ThemedText>
-                        </View>
-                        <ScrollView 
-                            showsVerticalScrollIndicator={false} 
-                            contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
-                        >
-                            <View style={styles.inputContainer}>
-                                <RegTextInput label="Pharmacy name" onChangeText={onChangeEmail} />
-                                <RegTextInput label="Pharmacy address" onChangeText={onChangeEmail} />
-                                <RegTextInput label="Zip code" onChangeText={onChangeEmail} />
-                                <RegTextInput label="City" onChangeText={onChangeEmail} keyboardType="numberpad" />
-                                <RegTextInput label="Country" onChangeText={onChangePassword} />
-                                <RegTextInput label="Province/State" onChangeText={onChangePassword} />
-                                <CustomDropdown scope="Ethnicity" data={ethOptions} />
-                                <CustomDropdown scope="Language" data={langOptions} />
-                                <RegTextInput label="Years of experience" onChangeText={onChangeEmail} />
-                                <RegTextInput label="Pharmacy license number" onChangeText={onChangeEmail} />
-                                <ThemedView style={styles.buttonView}>
-                                    <Link href="/" asChild>
-                                    <TouchableOpacity activeOpacity={0.9} style={styles.lgOutBtn}>
-                                        <ThemedText style={styles.lgOutTxt}>Log out</ThemedText>
-                                    </TouchableOpacity>
-                                    </Link>
-                                    <AppBtn route="/registration_screens/pharmacists_registration_screens/pharmacists_qualifications" value="Continue" />
-                                </ThemedView>
-                            </View>
-                        </ScrollView>
-                    </Animated.View>
-                {/* </GestureDetector> */}
-            </View>
-        </GestureHandlerRootView>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.scrollContent} // Use separate style for scroll content
+                >
+                    <ThemedView style={styles.inputContainer}>
+                        <RegTextInput label="Pharmacy name" onChangeText={onChangeEmail} />
+                        <RegTextInput label="Pharmacy address" onChangeText={onChangeEmail} />
+                        <RegTextInput label="Zip code" onChangeText={onChangeEmail} />
+                        <RegTextInput label="City" onChangeText={onChangeEmail} keyboardType="numberpad" />
+                        <RegTextInput label="Country" onChangeText={onChangePassword} />
+                        <RegTextInput label="Province/State" onChangeText={onChangePassword} />
+                        <CustomDropdown scope="Ethnicity" data={ethOptions} />
+                        <CustomDropdown scope="Language" data={langOptions} />
+                        <RegTextInput label="Years of experience" onChangeText={onChangeEmail} />
+                        <RegTextInput label="Pharmacy license number" onChangeText={onChangeEmail} />
+                        <ThemedView style={styles.buttonView}>
+                            <TouchableOpacity activeOpacity={0.9} style={styles.lgOutBtn} onPress={handleLogout}>
+                                <ThemedText style={styles.lgOutTxt}>Log out</ThemedText>
+                            </TouchableOpacity>
+                            {/* <TouchableOpacity style={styles.contBtn} onPress={handleContinue}>
+                                <ThemedText style={styles.contTxt}>Continue</ThemedText>
+                            </TouchableOpacity> */}
+                            <AppBtn 
+                                route="/registration_screens/pharmacists_registration_screens/pharmacists_qualifications"
+                                value="Continue"
+                            />
+                        </ThemedView>
+                    </ThemedView>
+                </ScrollView>
+            </ThemedView>
+        </ThemedView>
     );
 }
+
 const styles = StyleSheet.create({
     arrowView: {
         backgroundColor: "#0866FF",
@@ -105,20 +97,22 @@ const styles = StyleSheet.create({
         marginTop: 50,
         paddingHorizontal: 27,
     },
-    scrollContent: {
-        paddingBottom: 20, // Add padding at the bottom for extra space
-    },
-    button: {
-        backgroundColor: "#0066FF",
-        padding: 15,
-        borderRadius: 10,
-        alignItems: "center",
-        marginTop: 20,
+    whiteContainer: {
+        width: "100%",
+        backgroundColor: "white",
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        padding: 10,
+        paddingHorizontal: 4,
+        flex: 1,
+        height: height * 9.85,
     },
     regTxtView: {
         alignItems: "flex-start",
         paddingHorizontal: 27,
         paddingBottom: 20,
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
     },
     regTitle: {
         fontSize: 22,
@@ -132,26 +126,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 2,
     },
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        // alignItems: 'center',
-    },
-    topContainer: {
-        // flex: 1,
-        marginTop: 110,
-        alignItems: 'center',
-    },
-    mainContainer: {
-        // flex: 1,
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 30,
-        marginTop: 20,
-        padding: 25,
-        // fontWeight: 700,
-        fontFamily: 'InriaSerif_700Bold',
+    scrollContent: {
+        flexGrow: 1,
+        paddingBottom: 60,
     },
     inputContainer: {
         flex: 1,
@@ -165,30 +142,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    loginButton: {
-        backgroundColor: '#007AFF',
-        height: 37,
-        borderRadius: 20,
-        paddingVertical: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5,
-    },
-    loginTxt: {
-        color: '#fff',
-        textAlign: 'center',
-        fontSize: 18,
-        fontFamily: 'Inter_700Bold',
-    },
-    separatorContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 15,
-        marginHorizontal: 65,
-        marginTop: 20,
-    },
     lgOutBtn: {
         padding: 10,
         backgroundColor: '#CEE0FF',
@@ -200,16 +153,17 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans_700Bold',
         color: '#043380',
     },
-    // privView: {
-    //     paddingHorizontal: 40,
-    //     marginTop: 20,
-    // },
-    // privText: {
-    //     color: '#767272',
-    //     fontSize: 15,
-    //     textAlign: 'center',
-    //     fontFamily: 'Inter_400Regular',
-    // },
-
+    contBtn: {
+        backgroundColor: "#0866FF",
+        padding: 10,
+        alignItems: 'center',
+        borderRadius: 12,
+        height: 47,
+        paddingHorizontal: 15,
+    },
+    contTxt: {
+        color: "#FFFFFF",
+        fontFamily: 'OpenSans_700Bold',
+        fontSize: 17,
+    }
 });
-

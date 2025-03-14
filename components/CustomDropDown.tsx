@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 5,
+        zIndex: 9,
     },
     item: {
         padding: 12,

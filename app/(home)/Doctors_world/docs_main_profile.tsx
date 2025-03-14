@@ -29,7 +29,7 @@ export default function DocsMainProfile() {
                 </TouchableOpacity>
             </ThemedView> */}
 
-            <ScrollView style={{ flexGrow: 1, marginTop: 30, }} showsVerticalScrollIndicator={false}>
+            <ScrollView style={{ flexGrow: 1, marginTop: 10, }} showsVerticalScrollIndicator={false}>
                 <ThemedView style={styles.titleView}>
                     <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
                         <AntDesign name="arrowleft" size={24} color="black" />
