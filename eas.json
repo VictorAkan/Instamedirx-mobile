@@ -14,7 +14,8 @@
       },
       "env": {
         "NODE_VERSION": "20.18.1"
-      }
+      },
+      "node": "20"
     },
     "preview2": {
       "android": {
