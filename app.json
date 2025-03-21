@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/mainlogo.ico",
+        "foregroundImage": "./assets/images/mainlogo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.vikiakan123.InstaMediRx"
