@@ -29,6 +29,7 @@ const DrawerMenu = ({ isVisible, onClose }:any) => {
             <Link href="/Doctors_world/doc_calender" asChild>
                 <TouchableOpacity style={styles.menuItem} activeOpacity={0.9}><ThemedText style={styles.menuText}>Calendar</ThemedText></TouchableOpacity>
             </Link>
+            <TouchableOpacity style={styles.menuItem} activeOpacity={0.9}><ThemedText style={styles.menuText}>Notification</ThemedText></TouchableOpacity>
             <TouchableOpacity style={styles.menuItem} activeOpacity={0.9}><ThemedText style={styles.menuText}>Settings</ThemedText></TouchableOpacity>
         </Animated.View>
     );

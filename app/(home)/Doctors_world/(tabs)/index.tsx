@@ -6,12 +6,55 @@ import { ThemedText } from '@/components/ThemedText';
 import Svg, { Circle } from 'react-native-svg';
 import { Link } from 'expo-router';
 import DrawerMenu from '@/components/DrawerMenu';
+import { RatingComponent } from '@/components/RatingComponent';
 // import StoryCircle from '@/components/SegmentedStoryCircle';
+
+const PharmacyCard = ({ item }: any) => {
+    return (
+        <ThemedView style={styles.card}>
+            {/* Logo and Details */}
+            <ThemedView style={styles.pharmHeader}>
+                <Image source={require("../../../../assets/images/pharmlog.png")} />
+                <ThemedView style={styles.details}>
+                    <ThemedView style={styles.titleRow}>
+                        <ThemedText style={styles.name}>{item.name}</ThemedText>
+                        <Image source={require("../../../../assets/images/checkmark.png")} />
+                    </ThemedView>
+                    <ThemedText style={styles.location}>{`${item.location} | ${item.phone}`}</ThemedText>
+                </ThemedView>
+                <TouchableOpacity>
+                    <MaterialIcons name="more-vert" size={20} color="#0544AA" />
+                </TouchableOpacity>
+            </ThemedView>
+
+            {/* Available Medications */}
+            <ThemedText style={styles.medsTitle}>Available meds</ThemedText>
+            <ThemedView style={styles.medsContainer}>
+                {item.meds.map((med: any, index: any) => (
+                    <ThemedView key={index} style={styles.medPill}>
+                        <ThemedText style={styles.medText}>{med}</ThemedText>
+                    </ThemedView>
+                ))}
+                <TouchableOpacity activeOpacity={0.8}>
+                    <ThemedText style={styles.moreText}>+ More</ThemedText>
+                </TouchableOpacity>
+            </ThemedView>
+
+            {/* Recommend Button */}
+            <TouchableOpacity style={styles.recommendButton}>
+                <Ionicons name="checkmark" size={18} color="white" />
+                <ThemedText style={styles.recommendText}>Recommend</ThemedText>
+            </TouchableOpacity>
+        </ThemedView>
+    );
+};
 
 export default function HomeScreen() {
     const [search, setSearch] = useState('');
     const [isDrawerVisible, setDrawerVisible] = useState(false);
     const [selectedStory, setSelectedStory] = useState<any | null>(null);
+    const truncateText = (text: any, maxLength: any) =>
+        text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     // { user: 'Your Story', stories: [], image: require("../../../../assets/images/doc1.png"), isYourStory: true },
     const storiesData = [
         { id: "1", user: "Your shorts", image: require("../../../../assets/images/doc1.png"), storyCount: 0, isYourStory: true },
@@ -20,7 +63,33 @@ export default function HomeScreen() {
         { id: "4", user: "Goodwill Sto...", image: require("../../../../assets/images/doc4.png"), storyCount: 3 },
         { id: "5", user: "Tess", image: require("../../../../assets/images/doc5.png"), storyCount: 1 },
     ];
-    const pharmacists = Array(3).fill(null).map((_, index) => ({ id: index }));
+    const pharmacistsP = Array(3).fill(null).map((_, index) => ({ id: index }));
+    const pharmacists = [
+        {
+            id: "1",
+            name: "HealthPlus Pharmacy",
+            location: "Ikoyi, Lagos",
+            phone: "07017809921",
+            meds: ["Panadol", "Panadol", "Panadol"],
+            logo: require("../../../../assets/images/pharm1.png"),
+        },
+        {
+            id: "2",
+            name: "HealthPlus Pharmacy",
+            location: "Ikoyi, Lagos",
+            phone: "07017809921",
+            meds: ["Panadol", "Panadol", "Panadol"],
+            logo: require("../../../../assets/images/pharm1.png"),
+        },
+        {
+            id: "3",
+            name: "HealthPlus Pharmacy",
+            location: "Ikoyi, Lagos",
+            phone: "07017809921",
+            meds: ["Panadol", "Panadol", "Panadol"],
+            logo: require("../../../../assets/images/pharm1.png"),
+        },
+    ];
 
     const getDashedBorder = (storyCount: number) => {
         const radius = 37; // Radius of the circle
@@ -86,9 +155,9 @@ export default function HomeScreen() {
                             <Ionicons name="ellipsis-vertical" size={22} color="#0544AA" />
                         </TouchableOpacity>
                         <Link href="/Doctors_world/doc_messages_screen" asChild>
-                        <TouchableOpacity activeOpacity={0.9}>
-                            <Image source={require("../../../../assets/images/chaticon.png")} />
-                        </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={0.9}>
+                                <Image source={require("../../../../assets/images/chaticon.png")} />
+                            </TouchableOpacity>
                         </Link>
                     </ThemedView>
                 </ThemedView>
@@ -148,23 +217,11 @@ export default function HomeScreen() {
                     <ThemedText style={styles.sectionTitle}>Pharmacists</ThemedText>
                     <FlatList
                         data={pharmacists}
-                        renderItem={({ item }) => (
-                            <ThemedView style={styles.pharmacistCard}>
-                                <Image source={require("../../../../assets/images/pharm1.png")} style={styles.pharmacistImage} />
-                                <ThemedView style={styles.pharmDets}>
-                                    <ThemedText style={styles.pharmacistName}>Uche David</ThemedText>
-                                    <ThemedText style={styles.pharmacistRole}>Pharmacist</ThemedText>
-                                    <ThemedView style={styles.starContainer}>
-                                        {[...Array(5)].map((_, i) => (
-                                            <Ionicons key={i} name="star" size={18} color="gold" />
-                                        ))}
-                                    </ThemedView>
-                                </ThemedView>
-                            </ThemedView>
-                        )}
-                        keyExtractor={item => item.id.toString()}
-                        horizontal={true}
+                        renderItem={({ item }) => <PharmacyCard item={item} />}
+                        keyExtractor={(item) => item.id}
+                        horizontal
                         showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.pharmacyList}
                     />
 
                     <ThemedText style={styles.sectionTitle}>Appointment list</ThemedText>
@@ -180,218 +237,81 @@ export default function HomeScreen() {
                         </TouchableOpacity>
                     </ThemedView>
                     <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <Image source={{ uri: "https://randomuser.me/api/portraits/men/2.jpg" }} style={styles.appointmentImage} />
                         <ThemedView style={styles.appointmentInfo}>
                             <ThemedText style={styles.appointmentName}>Fred Obi</ThemedText>
                             <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
                         </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Upcoming</ThemedText>
+                        <TouchableOpacity style={styles.timeButton}>
+                            <ThemedText style={styles.ongoingText}>11:45</ThemedText>
                         </TouchableOpacity>
                     </ThemedView>
                     <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <Image source={{ uri: "https://randomuser.me/api/portraits/men/7.jpg" }} style={styles.appointmentImage} />
                         <ThemedView style={styles.appointmentInfo}>
                             <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Video consultation</ThemedText>
                         </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+                        <TouchableOpacity style={styles.timeButton}>
+                            <ThemedText style={styles.ongoingText}>11:45</ThemedText>
                         </TouchableOpacity>
                     </ThemedView>
                     <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
+                        <Image source={{ uri: "https://randomuser.me/api/portraits/men/5.jpg" }} style={styles.appointmentImage} />
                         <ThemedView style={styles.appointmentInfo}>
                             <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
+                            <ThemedText style={styles.appointmentType}>Video consultation</ThemedText>
                         </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Upcoming</ThemedText>
+                        <TouchableOpacity style={styles.timeButton}>
+                            <ThemedText style={styles.ongoingText}>11:45</ThemedText>
                         </TouchableOpacity>
                     </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
+
+                    <ThemedText style={[styles.sectionTitle, { marginTop: 50 }]}>Notifications</ThemedText>
+                    <ThemedText style={styles.sectionSubtitle}>All recent activity received</ThemedText>
+                    <ThemedView style={styles.notificationView}>
+                        <TouchableOpacity activeOpacity={0.8} style={styles.notificationRow}>
+                            <Image source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }} style={styles.avatar} />
+                            <ThemedView style={styles.notGview}>
+                                <ThemedText style={styles.headNot}>New appointment added</ThemedText>
+                                <ThemedText style={styles.subNot}>{truncateText("Oscar David has been added to your appointment list", 30)}</ThemedText>
+                            </ThemedView>
+                            <ThemedText style={styles.timeText}>14:32</ThemedText>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={0.8} style={styles.notificationRow}>
+                            <ThemedView style={styles.iconRound}>
+                                <MaterialIcons name="message" size={24} color="#043380" />
+                            </ThemedView>
+                            <ThemedView style={styles.notGview}>
+                                <ThemedText style={styles.headNot}>Payment received</ThemedText>
+                                <ThemedText style={styles.subNot}>{truncateText("Dr Sandra a payment has been made to your account", 30)}</ThemedText>
+                            </ThemedView>
+                            <ThemedText style={styles.timeText}>14:32</ThemedText>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={0.8} style={styles.notificationRow}>
+                            <ThemedView style={styles.iconRound}>
+                                <Ionicons name="notifications-outline" size={24} color="#043380" />
+                            </ThemedView>
+                            <ThemedView style={styles.notGview}>
+                                <ThemedText style={styles.headNot}>Canceled appointment</ThemedText>
+                                <ThemedText style={styles.subNot}>{truncateText("You have a recently canceled appointment", 30)}</ThemedText>
+                            </ThemedView>
+                            <ThemedText style={styles.timeText}>14:32</ThemedText>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={0.8} style={styles.notificationRow}>
+                            <Image source={{ uri: "https://randomuser.me/api/portraits/men/4.jpg" }} style={styles.avatar} />
+                            <ThemedView style={styles.notGview}>
+                                <ThemedText style={styles.headNot}>Completed appointment</ThemedText>
+                                <ThemedText style={styles.subNot}>{truncateText("Your appointment with David is completed", 30)}</ThemedText>
+                            </ThemedView>
+                            <ThemedText style={styles.timeText}>14:32</ThemedText>
                         </TouchableOpacity>
                     </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Upcoming</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Completed</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Upcoming</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Completed</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                    <ThemedView style={styles.appointmentContainer}>
-                        <Image source={require("../../../../assets/images/patientwithfixedappointment1.png")} style={styles.appointmentImage} />
-                        <ThemedView style={styles.appointmentInfo}>
-                            <ThemedText style={styles.appointmentName}>David Olu</ThemedText>
-                            <ThemedText style={styles.appointmentType}>Voice call</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity style={styles.ongoingButton}>
-                            <ThemedText style={styles.ongoingText}>Ongoing</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
+
+                    <ThemedText style={[styles.sectionTitle, { marginTop: 50 }]}>Ratings</ThemedText>
+                    <RatingComponent />
                 </ScrollView>
             </ThemedView>
-
             {isDrawerVisible && <DrawerMenu isVisible={isDrawerVisible} onClose={() => setDrawerVisible(false)} />}
         </ThemedView>
     );
@@ -406,12 +326,13 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         marginTop: 60,
         flex: 1,
-        paddingHorizontal: 20,
+        // paddingHorizontal: 20,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginHorizontal: 20,
     },
     welcomeText: {
         fontSize: 20,
@@ -427,6 +348,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         marginTop: 15,
+        marginHorizontal: 20,
     },
     sideLine: {
         borderLeftWidth: 2,
@@ -446,12 +368,14 @@ const styles = StyleSheet.create({
         color: '#0866FF',
         marginTop: 35,
         fontFamily: 'OpenSans_700Bold',
+        marginHorizontal: 20,
     },
     sectionSubtitle: {
         color: '#043380',
         marginBottom: 10,
         marginTop: 9,
         fontFamily: 'OpenSans_400Regular',
+        marginHorizontal: 20,
     },
     segCont: {
         width: 70,
@@ -482,7 +406,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
     },
     storyList: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
     },
     storyWrapper: {
         marginRight: 10,
@@ -536,6 +460,97 @@ const styles = StyleSheet.create({
         color: '#043380',
         fontFamily: 'OpenSans_600SemiBold',
     },
+    card: {
+        backgroundColor: "white",
+        borderRadius: 15,
+        padding: 15,
+        marginRight: 20,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 3,
+        // width: 300,
+    },
+    pharmHeader: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: 'space-between'
+    },
+    logo: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        marginRight: 10,
+    },
+    details: {
+        // flex: 1,
+    },
+    titleRow: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    name: {
+        fontSize: 14,
+        marginRight: 10,
+        fontFamily: 'OpenSans_600SemiBold',
+        color: '#043380',
+    },
+    location: {
+        fontSize: 13,
+        color: "#043380",
+        fontFamily: 'OpenSans_400Regular',
+    },
+    medsTitle: {
+        fontSize: 13,
+        fontFamily: 'OpenSans_600SemiBold',
+        color: "#0866FF",
+        marginTop: 10,
+    },
+    medsContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 5,
+        flexWrap: "wrap",
+    },
+    medPill: {
+        borderWidth: 1,
+        borderColor: "#0866FF",
+        paddingVertical: 2,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+        marginRight: 5,
+        backgroundColor: '#F1FAFF',
+    },
+    medText: {
+        color: "#0866FF",
+        fontSize: 13,
+        fontFamily: 'OpenSans_400Regular',
+    },
+    moreText: {
+        color: "#0866FF",
+        fontSize: 13,
+        fontFamily: 'OpenSans_400Regular',
+    },
+    recommendButton: {
+        flexDirection: "row",
+        backgroundColor: "#0866FF",
+        borderRadius: 20,
+        paddingVertical: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 15,
+        marginHorizontal: 70,
+    },
+    recommendText: {
+        color: "white",
+        fontSize: 13,
+        marginLeft: 5,
+        fontFamily: 'OpenSans_600SemiBold',
+    },
+    pharmacyList: {
+        padding: 20,
+    },
     pharmacistCard: {
         backgroundColor: '#fff',
         borderRadius: 20,
@@ -571,6 +586,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         marginTop: 30,
+        marginHorizontal: 20,
     },
     appointmentImage: {
         width: 50,
@@ -599,12 +615,64 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'Inter_700Bold',
     },
+    timeButton: {
+        backgroundColor: '#0866FF',
+        paddingVertical: 5,
+        paddingHorizontal: 25,
+        borderRadius: 20,
+    },
+    notificationView: {
+        backgroundColor: '#ebf3ff',
+        borderRadius: 20,
+        padding: 20,
+        paddingHorizontal: 15,
+        gap: 30,
+    },
+    notificationRow: {
+        backgroundColor: '#ebf3ff',
+        flexDirection: 'row',
+        gap: 15,
+    },
+    avatar: {
+        width: 45,
+        height: 45,
+        borderRadius: 25,
+        marginRight: 10,
+    },
+    iconRound: {
+        backgroundColor: '#ebf3ff',
+        width: 45,
+        height: 45,
+        borderColor: '#0866FF',
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 30,
+        marginRight: 5,
+    },
+    notGview: {
+        backgroundColor: '#ebf3ff',
+    },
+    headNot: {
+        fontSize: 17,
+        color: '#043380',
+        fontFamily: 'Inter_600SemiBold',
+    },
+    subNot: {
+        color: '#043380',
+        fontFamily: 'OpenSans_400Regular',
+    },
+    timeText: {
+        alignSelf: 'flex-end',
+        color: '#043380',
+        fontFamily: 'Inter_500Medium',
+    },
     pharmDets: {
         // 
     },
     sideView: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 15
+        gap: 15,
     }
 });

@@ -9,6 +9,7 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
+import { Calendar } from "@/components/Calendar";
 
 export default function CalendarScreen() {
     const [step, setStep] = useState(1);
@@ -17,56 +18,62 @@ export default function CalendarScreen() {
     const [timezone, setTimezone] = useState("Africa, Nigeria");
     const [duration, setDuration] = useState(30);
     const [availability, setAvailability] = useState<{
-        [key: string]: string;
+        [key: string]: {
+            StartTime: string;
+            closingTime: string;
+            unavailable: boolean;
+        }[]
     }>({
-        Monday: "9:00am - 6:00pm",
-        Tuesday: "9:00am - 6:00pm",
-        Wednesday: "9:00am - 6:00pm",
-        Thursday: "9:00am - 6:00pm",
-        Friday: "9:00am - 6:00pm",
-        Saturday: "Unavailable",
-        Sunday: "Unavailable",
+        Monday: [
+            {
+                StartTime: "From 9:00am",
+                closingTime: "To 6:00pm",
+                unavailable: false,
+            },
+        ],
+        Tuesday: [
+            {
+                StartTime: "From 9:00am",
+                closingTime: "To 6:00pm",
+                unavailable: false,
+            },
+        ],
+        Wednesday: [
+            {
+                StartTime: "From 9:00am",
+                closingTime: "To 6:00pm",
+                unavailable: false,
+            },
+        ],
+        Thursday: [
+            {
+                StartTime: "From 9:00am",
+                closingTime: "To 6:00pm",
+                unavailable: false,
+            },
+        ],
+        Friday: [
+            {
+                StartTime: "From 9:00am",
+                closingTime: "To 6:00pm",
+                unavailable: false,
+            },
+        ],
+        Saturday: [
+            {
+                StartTime: "Unavailable",
+                closingTime: "",
+                unavailable: true,
+            },
+        ],
+        Sunday: [
+            {
+                StartTime: "Unavailable",
+                closingTime: "",
+                unavailable: true,
+            },
+        ],
     });
-
-    const renderCalendar = () => {
-        const daysInMonth = [
-            [28, 29, 30, 31, 1, 2, 3],
-            [4, 5, 6, 7, 8, 9, 10],
-            [11, 12, 13, 14, 15, 16, 17],
-            [18, 19, 20, 21, 22, 23, 24],
-            [25, 26, 27, 28, 29, 30, 31],
-        ];
-
-        return (
-            <ThemedView style={styles.calendarContainer}>
-                <ThemedView style={styles.calendarHeaderContainer}>
-                    <TouchableOpacity activeOpacity={0.9}>
-                        <ThemedText style={styles.navArrow}>{"<"}</ThemedText>
-                    </TouchableOpacity>
-                    <ThemedText style={styles.calendarHeader}>Nov 2024</ThemedText>
-                    <TouchableOpacity activeOpacity={0.9}>
-                        <ThemedText style={styles.navArrow}>{">"}</ThemedText>
-                    </TouchableOpacity>
-                </ThemedView>
-
-                {daysInMonth.map((week, index) => (
-                    <ThemedView key={index} style={styles.weekRow}>
-                        {week.map((day, idx) => (
-                            <ThemedText
-                                key={idx}
-                                style={[
-                                    styles.dayText,
-                                    day <= 31 && day >= 28 ? styles.inactiveDay : null,
-                                ]}
-                            >
-                                {day}
-                            </ThemedText>
-                        ))}
-                    </ThemedView>
-                ))}
-            </ThemedView>
-        );
-    };
 
     return (
         <ThemedView style={styles.container}>
@@ -109,14 +116,16 @@ export default function CalendarScreen() {
                             value={String(appointmentInterval)}
                             onChangeText={(text) => setAppointmentInterval(Number(text || 0))}
                             style={styles.input}
+                            placeholderTextColor="#898686"
                         />
                         <ThemedText style={styles.label}>Time zone</ThemedText>
-                        <TextInput value={timezone} onChangeText={setTimezone} style={styles.input} />
+                        <TextInput value={timezone} placeholderTextColor="#898686" onChangeText={setTimezone} style={styles.input} />
                         <ThemedText style={styles.label}>Appointment duration</ThemedText>
                         <TextInput
                             value={String(duration)}
                             onChangeText={(text) => setDuration(Number(text || 0))}
                             style={styles.input}
+                            placeholderTextColor="#898686"
                         />
                     </ThemedView>
                 )}
@@ -126,7 +135,18 @@ export default function CalendarScreen() {
                         {Object.keys(availability).map((day) => (
                             <ThemedView key={day} style={styles.availabilityRow}>
                                 <ThemedText style={styles.dayText}>{day}</ThemedText>
-                                <ThemedText style={styles.timeText}>{availability[day]}</ThemedText>
+                                {availability[day].map((dayInterval, i) => (
+                                    <ThemedView key={i} style={[styles.timeView, {
+                                        gap: dayInterval.unavailable === true ? 0 : 30,
+                                        flexDirection: dayInterval.unavailable === true ? 'column' : 'row',
+                                        width: dayInterval.unavailable === true ? '68%' : 'auto',
+                                    }]}>
+                                        <ThemedText style={styles.timeText}>{dayInterval.StartTime}</ThemedText>
+                                        {dayInterval.unavailable === false ? <ThemedText style={[styles.timeText, {
+                                            paddingHorizontal: dayInterval.unavailable === false ? 10 : 50
+                                        }]}>{dayInterval.closingTime}</ThemedText> : ""}
+                                    </ThemedView>
+                                ))}
                             </ThemedView>
                         ))}
                     </ThemedView>
@@ -136,7 +156,7 @@ export default function CalendarScreen() {
                     <ThemedText style={styles.calendarHeader}>Calendar</ThemedText>
 
                     {/* Calendar UI */}
-                    {renderCalendar()}
+                    <Calendar />
 
                     <ThemedText style={styles.subText}>Available hours, Mon to Friday</ThemedText>
                     <ThemedText style={styles.subText}>Unavailable days, set specific dates</ThemedText>
@@ -196,7 +216,7 @@ const styles = StyleSheet.create({
     },
     section: {
         padding: 15,
-        backgroundColor: "#f5f5f5",
+        // backgroundColor: "#f5f5f5",
         borderRadius: 10,
     },
     emptySection: {
@@ -213,35 +233,51 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_500Medium',
     },
     label: {
-        fontSize: 14,
-        fontWeight: "bold",
-        marginTop: 10,
+        fontSize: 15,
+        fontFamily: 'Inter_400Regular',
+        marginTop: 20,
+        color: '#043380',
+        marginBottom: 10,
     },
     input: {
         borderWidth: 1,
-        borderColor: "#ddd",
+        borderColor: "#0866FF",
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 20,
         marginTop: 5,
         backgroundColor: "#fff",
+        fontFamily: 'Inter_500Medium',
+        color: '#898686',
     },
     availabilityRow: {
         flexDirection: "row",
         justifyContent: "space-between",
         paddingVertical: 5,
-        borderBottomWidth: 1,
-        borderBottomColor: "#ddd",
     },
     dayText: {
-        fontSize: 16,
-        fontWeight: "bold",
+        fontSize: 15,
         padding: 5,
         textAlign: "center",
+        color: '#043380',
+        fontFamily: 'OpenSans_600SemiBold',
+        // marginLeft: 2,
         // width: 30,
     },
+    timeView: {
+        flexDirection: 'row',
+        // alignItems: 'center',
+        gap: 30,
+    },
     timeText: {
-        fontSize: 16,
-        color: "#666",
+        fontSize: 15,
+        color: "#043380",
+        fontFamily: 'Inter_400Regular',
+        borderColor: '#0866FF',
+        borderWidth: 1,
+        padding: 3,
+        borderRadius: 20,
+        paddingHorizontal: 10,
+        textAlign: 'center',
     },
     calendarSection: {
         marginTop: 70,
@@ -250,7 +286,7 @@ const styles = StyleSheet.create({
     calendarContainer: {
         width: "100%",
         padding: 10,
-        backgroundColor: "#ECF2FF",
+        backgroundColor: "#CEE0FF66",
         borderRadius: 10,
         alignItems: "center",
     },
@@ -259,12 +295,14 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         width: "90%",
         paddingVertical: 10,
+        backgroundColor: '#CEE0FF66',
     },
     calendarHeader: {
         fontSize: 16,
         color: "#043380",
         textAlign: 'left',
         fontFamily: 'Inter_700Bold',
+        marginBottom: 15,
     },
     navArrow: {
         fontSize: 18,
@@ -291,6 +329,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#0866FF",
         padding: 10,
         borderRadius: 20,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
     },
     buttonView: {
         paddingHorizontal: 120,

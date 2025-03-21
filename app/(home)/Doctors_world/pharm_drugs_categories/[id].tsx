@@ -64,7 +64,7 @@ export default function ProductList() {
                             </ThemedView>
                             <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
                             <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                            <TouchableOpacity style={styles.addToCartButton}>
+                            <TouchableOpacity activeOpacity={0.9} style={styles.addToCartButton}>
                                 <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
                                 <ThemedView style={styles.sideView}>
                                     <AntDesign name="arrowright" size={20} color="#0866FF" />

@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Ionicons, AntDesign, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
 const products = {
     Malaria: [
@@ -69,12 +70,14 @@ export default function DocsPharmShop() {
                                         </ThemedView>
                                         <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
                                         <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                                        <TouchableOpacity style={styles.addToCartButton}>
-                                            <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                                            <ThemedView style={styles.sideView}>
-                                                <AntDesign name="arrowright" size={20} color="#0866FF" />
-                                            </ThemedView>
-                                        </TouchableOpacity>
+                                        <Link href="/Doctors_world/Delivery_screens/delivery_options" asChild>
+                                            <TouchableOpacity activeOpacity={0.9} style={styles.addToCartButton}>
+                                                <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
+                                                <ThemedView style={styles.sideView}>
+                                                    <AntDesign name="arrowright" size={20} color="#0866FF" />
+                                                </ThemedView>
+                                            </TouchableOpacity>
+                                        </Link>
                                     </ThemedView>
                                 ))}
                             </ScrollView>

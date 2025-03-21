@@ -35,6 +35,21 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/doc_messages_screen" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/Delivery_screens/delivery_options" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/Delivery_screens/home_delivery" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/Delivery_screens/click_and_collect" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/Delivery_screens/order_tracking" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/Delivery_screens/payment" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="Doctors_world/docs_main_profile" options={{
                 headerShown: false,
             }} />

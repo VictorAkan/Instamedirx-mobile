@@ -12,7 +12,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-na
 import { GestureDetector, GestureHandlerRootView, Gesture } from "react-native-gesture-handler";
 
 const { height } = Dimensions.get("window");
-const WHITE_HEIGHT = height * 0.37;
+const WHITE_HEIGHT = height * 0.33;
 
 export default function LoginScreen() {
     const [email, onChangeEmail] = useState("");
