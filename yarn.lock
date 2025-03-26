@@ -1579,6 +1579,11 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.0"
 
+"@react-native-community/slider@^4.5.6":
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-4.5.6.tgz#dfbfdd6a582b160d41719ad42a7b524794b06dd5"
+  integrity sha512-UhLPFeqx0YfPLrEz8ffT3uqAyXWu6iqFjohNsbp4cOU7hnJwg2RXtDnYHoHMr7MOkZDVdlLMdrSrAuzY6KGqrg==
+
 "@react-native/assets-registry@0.76.7":
   version "0.76.7"
   resolved "https://registry.yarnpkg.com/@react-native/assets-registry/-/assets-registry-0.76.7.tgz#b9a82d67826edebeb0537393ad984694e8b82395"
@@ -3448,6 +3453,11 @@ expo-system-ui@~4.0.8:
   dependencies:
     "@react-native/normalize-colors" "0.76.7"
     debug "^4.3.2"
+
+expo-video@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/expo-video/-/expo-video-2.0.6.tgz#4da4e4d427ad42649881a5336697b5a7164aaab3"
+  integrity sha512-oDorKwjreHT596oY6ZfktbDa3VF+Sq7gVsTbnQ4QVqGYL13mIO0s+h4y9xMyG/cDWyFpiRc4UT8KkPdxL0wViQ==
 
 expo-web-browser@~14.0.2:
   version "14.0.2"

@@ -103,7 +103,7 @@ export default function PharmacistRegistration() {
                             <ThemedText style={styles.loginTxt}>Login</ThemedText>
                         </TouchableOpacity> */}
                                 <AppBtn
-                                    route="/registration_screens/pharmacists_registration_screens/pharmacists_details"
+                                    route="/registration_screens/pharmacists_registration_screens/pharm_email_verification"
                                     value="Sign up"
                                 />
                             </ThemedView>

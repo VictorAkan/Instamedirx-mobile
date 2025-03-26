@@ -103,7 +103,7 @@ export default function DoctorsRegistration() {
                             <ThemedText style={styles.loginTxt}>Login</ThemedText>
                         </TouchableOpacity> */}
                                 <AppBtn
-                                    route="/registration_screens/doctors_registration_screens/doctors_details"
+                                    route="/registration_screens/doctors_registration_screens/doc_email_verification"
                                     value="Sign up"
                                 />
                             </ThemedView>

@@ -18,7 +18,7 @@ import { ProgressBar } from "react-native-paper";
 export default function OrderTracking() {
     const [email, onChangeEmail] = useState("");
     const [search, setSearch] = useState("");
-    const [progress, setProgress] = useState(1); // Adjust based on order stage
+    const [progress, setProgress] = useState(0.25); // Adjust based on order stage
     const router = useRouter();
     return (
         <ThemedView style={styles.container}>

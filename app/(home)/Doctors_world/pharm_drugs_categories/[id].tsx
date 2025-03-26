@@ -1,6 +1,6 @@
 import { Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter, Link } from 'expo-router';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 import { Ionicons, AntDesign, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -50,9 +50,11 @@ export default function ProductList() {
                     <TouchableOpacity activeOpacity={0.9}>
                         <MaterialIcons name="search" size={24} color="#0544AA" />
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9}>
-                        <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
-                    </TouchableOpacity>
+                    <Link href="/Doctors_world/doc_cart_screen" asChild>
+                        <TouchableOpacity activeOpacity={0.9}>
+                            <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
+                        </TouchableOpacity>
+                    </Link>
                 </ThemedView>
             </ThemedView>
             <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
@@ -64,12 +66,14 @@ export default function ProductList() {
                             </ThemedView>
                             <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
                             <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                            <TouchableOpacity activeOpacity={0.9} style={styles.addToCartButton}>
-                                <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                                <ThemedView style={styles.sideView}>
-                                    <AntDesign name="arrowright" size={20} color="#0866FF" />
-                                </ThemedView>
-                            </TouchableOpacity>
+                            <Link href="/Doctors_world/doc_cart_screen" asChild>
+                                <TouchableOpacity activeOpacity={0.9} style={styles.addToCartButton}>
+                                    <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
+                                    <ThemedView style={styles.sideView}>
+                                        <AntDesign name="arrowright" size={20} color="#0866FF" />
+                                    </ThemedView>
+                                </TouchableOpacity>
+                            </Link>
                         </ThemedView>
                     ))}
                 </ThemedView>

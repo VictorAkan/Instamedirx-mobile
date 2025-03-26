@@ -62,7 +62,14 @@ This depends on customer location and time of order
                 </TouchableOpacity>
             </ThemedView>
             <ScrollView style={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-                <ThemedText style={styles.subHeader}>1. Choose delivery option</ThemedText>
+                <ThemedView style={styles.changeOption}>
+                    <ThemedText style={styles.fSubHeader}>1. Choose delivery option</ThemedText>
+                    <Link href="/Doctors_world/Delivery_screens/delivery_options" asChild>
+                        <TouchableOpacity style={styles.changeBtn} activeOpacity={0.8}>
+                            <ThemedText style={styles.changeTxt}>Change</ThemedText>
+                        </TouchableOpacity>
+                    </Link>
+                </ThemedView>
                 <ThemedView style={styles.optionContainer}>
                     <ThemedView style={{ gap: 15 }}>
                         <ThemedText style={styles.delName}>John Mercy</ThemedText>
@@ -165,10 +172,34 @@ const styles = StyleSheet.create({
         color: '#043380',
         fontFamily: 'Inter_600SemiBold',
     },
+    fSubHeader: {
+        fontSize: 16,
+        // marginHorizontal: 50,
+        // marginTop: 30,
+        color: '#043380',
+        fontFamily: 'Inter_600SemiBold',
+    },
     inputContainer: {
         flex: 1,
         marginTop: 30,
         gap: 27,
+    },
+    changeOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginHorizontal: 50,
+        marginTop: 30,
+    },
+    changeBtn: {
+        backgroundColor: '#CEE0FF66',
+        paddingHorizontal: 15,
+        borderRadius: 20,
+    },
+    changeTxt: {
+        fontSize: 14,
+        color: '#043380',
+        fontFamily: 'Inter_500Medium',
     },
     optionContainer: {
         flexDirection: 'row',

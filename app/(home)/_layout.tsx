@@ -35,6 +35,9 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/doc_messages_screen" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/doc_cart_screen" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="Doctors_world/Delivery_screens/delivery_options" options={{
                 headerShown: false,
             }} />
@@ -77,6 +80,9 @@ export default function HomeLayout() {
             <Stack.Screen name="registration_screens/doctors_registration_screens/doctors_qualifications" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="registration_screens/doctors_registration_screens/doc_email_verification" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="registration_screens/pharmacists_registration_screens/pharmacists_registration" options={{
                 headerShown: false,
             }} />
@@ -84,6 +90,9 @@ export default function HomeLayout() {
                 headerShown: false,
             }} />
             <Stack.Screen name="registration_screens/pharmacists_registration_screens/pharmacists_details" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="registration_screens/pharmacists_registration_screens/pharm_email_verification" options={{
                 headerShown: false,
             }} />
         </Stack>

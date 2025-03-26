@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import { MaterialIcons, Ionicons, FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
+import { ThemedView } from '@/components/ThemedView';
 
 export default function TabLayout() {
     return (
@@ -22,7 +23,7 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     tabBarIcon: ({ color, focused }) => (
-                        <View
+                        <ThemedView
                             style={{
                                 backgroundColor: focused ? '#CEE0FF' : 'transparent',
                                 borderRadius: 50,
@@ -33,8 +34,8 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            { focused ? <MaterialIcons name="home" size={28} color={focused ? '#0544AA' : 'gray'} /> : <MaterialCommunityIcons name="home-outline" size={28} color="gray" /> }
-                        </View>
+                            { focused ? <MaterialIcons name="home" size={28} color={focused ? '#0544AA' : '#698fcc'} /> : <MaterialCommunityIcons name="home-outline" size={28} color="#698fcc" /> }
+                        </ThemedView>
                     ),
                 }}
             />
@@ -42,7 +43,7 @@ export default function TabLayout() {
                 name="appointment"
                 options={{
                     tabBarIcon: ({ color, focused }) => (
-                        <View
+                        <ThemedView
                             style={{
                                 backgroundColor: focused ? '#CEE0FF' : 'transparent',
                                 borderRadius: 50,
@@ -53,8 +54,8 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            {focused ? <Ionicons name="calendar" size={28} color={focused ? '#0544AA' : 'gray'} /> : <Ionicons name="calendar-outline" size={28} color="gray"/> }
-                        </View>
+                            {focused ? <Image source={require("../../../../assets/images/bookcontact.png")} /> : <Image source={require("../../../../assets/images/contactoutline.png")} /> }
+                        </ThemedView>
                     ),
                 }}
             />
@@ -62,7 +63,7 @@ export default function TabLayout() {
                 name="docs_pharm_shop"
                 options={{
                     tabBarIcon: ({ color, focused }) => (
-                        <View
+                        <ThemedView
                             style={{
                                 backgroundColor: focused ? '#CEE0FF' : 'transparent',
                                 borderRadius: 50,
@@ -73,16 +74,16 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            {focused ? <MaterialCommunityIcons name="flower-tulip" size={28} color={focused ? '#0544AA' : 'gray'} /> : <MaterialCommunityIcons name="flower-tulip-outline" size={28} color="gray" /> }
-                        </View>
+                            {focused ? <MaterialCommunityIcons name="flower-tulip" size={28} color={focused ? '#0544AA' : '#698fcc'} /> : <MaterialCommunityIcons name="flower-tulip-outline" size={28} color="#698fcc" /> }
+                        </ThemedView>
                     ),
                 }}
             />
             <Tabs.Screen
-                name="notifications"
+                name="doc_video_post"
                 options={{
                     tabBarIcon: ({ color, focused }) => (
-                        <View
+                        <ThemedView
                             style={{
                                 backgroundColor: focused ? '#CEE0FF' : 'transparent',
                                 borderRadius: 50,
@@ -93,8 +94,8 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            {focused ? <Ionicons name="notifications" size={28} color={focused ? '#0544AA' : 'gray'} /> : <Ionicons name="notifications-outline" size={28} color="gray" /> }
-                        </View>
+                            {focused ? <Image source={require("../../../../assets/images/vidoutline.png")} /> : <Image source={require("../../../../assets/images/vid.png")} /> }
+                        </ThemedView>
                     ),
                 }}
             />
@@ -102,7 +103,7 @@ export default function TabLayout() {
                 name="docs_profile"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View
+                        <ThemedView
                             style={{
                                 backgroundColor: focused ? '#CEE0FF' : 'transparent',
                                 borderRadius: 50,
@@ -113,8 +114,8 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            {focused ? <Ionicons name="person-circle" size={28} color={focused ? '#0544AA' : 'gray'} /> : <FontAwesome6 name="user-circle" size={24} color="gray" /> }
-                        </View>
+                            {focused ? <Ionicons name="person-circle" size={28} color={focused ? '#0544AA' : '#698fcc'} /> : <FontAwesome6 name="user-circle" size={24} color="#698fcc" /> }
+                        </ThemedView>
                     ),
                 }}
             />

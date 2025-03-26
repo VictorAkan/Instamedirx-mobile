@@ -187,7 +187,7 @@ export default function PharmacistsQualifications() {
                                         <ThemedText style={styles.lgOutTxt}>Log out</ThemedText>
                                     </TouchableOpacity>
                                 </Link>
-                                <AppBtn route="/registration_screens/email_verificaion" value="Continue" />
+                                <AppBtn route="/" value="Continue" />
                             </ThemedView>
                         </ThemedView>
                     </ScrollView>
