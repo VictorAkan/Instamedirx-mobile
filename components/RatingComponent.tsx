@@ -68,7 +68,7 @@ export const RatingComponent = () => {
 
             {/* Reviews */}
             <ThemedView style={{ flex: 1 }}>
-            <FlatList
+                <FlatList
                     data={reviews}
                     keyExtractor={(item) => item.id}
                     scrollEnabled={false}

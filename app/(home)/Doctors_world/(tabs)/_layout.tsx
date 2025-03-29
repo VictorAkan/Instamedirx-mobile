@@ -114,7 +114,7 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            {focused ? <Ionicons name="person-circle" size={28} color={focused ? '#0544AA' : '#698fcc'} /> : <FontAwesome6 name="user-circle" size={24} color="#698fcc" /> }
+                            <Image style={{ width: 25, height: 25, borderWidth: 1, borderColor: '#0866FF', borderRadius: 30 }} source={require("../../../../assets/images/docprofile.png")} />
                         </ThemedView>
                     ),
                 }}

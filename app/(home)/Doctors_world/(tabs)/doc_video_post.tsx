@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, Dimensions, Animated } from 'react-native';
 import { useVideoPlayer, VideoView } from 'expo-video';
-import { FontAwesome, AntDesign, MaterialCommunityIcons, Fontisto, FontAwesome6, Foundation } from '@expo/vector-icons';
+import { FontAwesome, AntDesign, MaterialCommunityIcons, Fontisto, FontAwesome6, MaterialIcons } from '@expo/vector-icons';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
+import { useRouter } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,6 +28,8 @@ export default function ReelsScreen() {
     const [progress, setProgress] = useState(0);
     const playerRefs = useRef<{ [key: number]: Player }>({});
 
+    const router = useRouter();
+
     // Create video players outside of renderItem
     const videoPlayers = videos.map((video, index) =>
         useVideoPlayer(video.source, (player) => {
@@ -39,13 +42,13 @@ export default function ReelsScreen() {
         const player = videoPlayers[currentIndex];
         const updateProgress = (payload: any) => {
             const duration = player.duration ? player.duration : payload.duration;
-        
+
             if (!duration) return;
-        
+
             const progress = payload.currentTime / duration;
             setProgress(progress);
         };
-    
+
         const subscription = player.addListener('timeUpdate', updateProgress);
         return () => {
             subscription.remove();
@@ -76,6 +79,17 @@ export default function ReelsScreen() {
         return (
             <TouchableOpacity style={styles.container} onPress={handleTap}>
                 <VideoView player={player} style={styles.video} contentFit='cover' allowsFullscreen allowsPictureInPicture nativeControls={false} />
+                <View style={styles.headerView}>
+                    <View>
+                    <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
+                        <AntDesign name="arrowleft" size={24} color="#032255" />
+                    </TouchableOpacity>
+                    </View>
+                    <View style={styles.rightView}>
+                        <MaterialIcons name="search" size={24} color="#6389c8" />
+                        <Image source={require("../../../../assets/images/addvid.png")} />
+                    </View>
+                </View>
                 {showControls && (
                     <TouchableOpacity style={styles.overlay} onPress={handlePlayPause}>
                         <ThemedView style={styles.playView}>
@@ -142,6 +156,22 @@ export default function ReelsScreen() {
 const styles = StyleSheet.create({
     container: { width, height: height - 100, backgroundColor: 'black', alignItems: 'center', },
     video: { width, height },
+    headerView: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 20,
+        marginTop: 40,
+        paddingVertical: 20,
+        position: "absolute",
+        marginHorizontal: 20,
+        justifyContent: "space-between",
+        gap: '75%',
+    },
+    rightView: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 20,
+    },
     overlay: { position: 'absolute', width, height, justifyContent: 'center', alignItems: 'center' },
     sidebar: { position: 'absolute', right: 20, bottom: 100, alignItems: 'center', gap: 25 },
     iconText: { color: 'white', fontSize: 16, fontFamily: 'OpenSans_600SemiBold', marginTop: 5, textAlign: 'center' },

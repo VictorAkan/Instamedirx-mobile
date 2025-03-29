@@ -1,4 +1,4 @@
-import { Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { Image, TouchableOpacity, ScrollView, StyleSheet, View, Text } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
@@ -19,14 +19,13 @@ const products = {
     ],
 };
 
-// Create a mapping of categories to IDs
-const categoriesWithIds = Object.keys(products).map((category, index) => ({
-    id: index + 1, // Simple incrementing ID
-    category,
-}));
-
 export default function DocsPharmShop() {
     const router = useRouter();
+    const [cartCount, setCartCount] = useState(0);
+
+    const addToCart = () => {
+        setCartCount(cartCount + 1);
+    };
 
     return (
         <ThemedView style={styles.container}>
@@ -43,49 +42,43 @@ export default function DocsPharmShop() {
                     </TouchableOpacity>
                     <Link href="/Doctors_world/doc_cart_screen" asChild>
                         <TouchableOpacity activeOpacity={0.9}>
-                            <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
+                            <View style={styles.cartIconContainer}>
+                                <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
+                                {cartCount >= 0 && (
+                                    <View style={styles.cartBadge}>
+                                        <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                                    </View>
+                                )}
+                            </View>
                         </TouchableOpacity>
                     </Link>
                 </ThemedView>
             </ThemedView>
             <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
-                {Object.entries(products).map(([category, items]) => {
-                    // Find the ID for the current category
-                    const categoryId = categoriesWithIds.find(c => c.category === category)!.id;
-
-                    return (
-                        <ThemedView key={category} style={styles.categoryContainer}>
-                            <ThemedView style={styles.categoryHeader}>
-                                <ThemedText style={styles.categoryText}>{category}</ThemedText>
-                                <TouchableOpacity activeOpacity={0.9} onPress={() => router.push({
-                                    pathname: "/Doctors_world/pharm_drugs_categories/[id]",
-                                    params: { id: categoryId },
-                                })}>
-                                    <ThemedText style={styles.viewAll}>View all</ThemedText>
-                                </TouchableOpacity>
-                            </ThemedView>
-                            <ScrollView style={{ marginTop: 15, flexGrow: 1 }} horizontal showsHorizontalScrollIndicator={false}>
-                                {items.map((product) => (
-                                    <ThemedView key={product.id} style={styles.productCard}>
-                                        <ThemedView style={styles.imageContainer}>
-                                            <Image source={product.image} style={styles.productImage} />
-                                        </ThemedView>
-                                        <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
-                                        <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                                        <Link href="/Doctors_world/doc_cart_screen" asChild>
-                                            <TouchableOpacity activeOpacity={0.9} style={styles.addToCartButton}>
-                                                <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                                                <ThemedView style={styles.sideView}>
-                                                    <AntDesign name="arrowright" size={20} color="#0866FF" />
-                                                </ThemedView>
-                                            </TouchableOpacity>
-                                        </Link>
-                                    </ThemedView>
-                                ))}
-                            </ScrollView>
+                {Object.entries(products).map(([category, items]) => (
+                    <ThemedView key={category} style={styles.categoryContainer}>
+                        <ThemedView style={styles.categoryHeader}>
+                            <ThemedText style={styles.categoryText}>{category}</ThemedText>
                         </ThemedView>
-                    );
-                })}
+                        <ScrollView style={{ marginTop: 15, flexGrow: 1 }} horizontal showsHorizontalScrollIndicator={false}>
+                            {items.map((product) => (
+                                <ThemedView key={product.id} style={styles.productCard}>
+                                    <ThemedView style={styles.imageContainer}>
+                                        <Image source={product.image} style={styles.productImage} />
+                                    </ThemedView>
+                                    <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
+                                    <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
+                                    <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>
+                                        <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
+                                        <ThemedView style={styles.sideView}>
+                                            <AntDesign name="arrowright" size={20} color="#0866FF" />
+                                        </ThemedView>
+                                    </TouchableOpacity>
+                                </ThemedView>
+                            ))}
+                        </ScrollView>
+                    </ThemedView>
+                ))}
             </ScrollView>
         </ThemedView>
     );
@@ -131,6 +124,25 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'OpenSans_700Bold',
         color: '#0755D4',
+    },
+    cartIconContainer: {
+        position: 'relative',
+    },
+    cartBadge: {
+        position: 'absolute',
+        right: -8,
+        top: -5,
+        backgroundColor: 'red',
+        borderRadius: 10,
+        width: 18,
+        height: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cartBadgeText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
     },
     categoryContainer: {
         marginBottom: 20,

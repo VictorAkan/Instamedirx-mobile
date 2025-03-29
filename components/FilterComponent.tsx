@@ -69,7 +69,7 @@ export default function FilterPage() {
                         {expanded[title] && options.length > 0 && (
                             <FlatList
                                 data={options}
-                                numColumns={2}
+                                numColumns={1}
                                 scrollEnabled={false}
                                 keyExtractor={(item) => item}
                                 renderItem={({ item }) => (
@@ -116,7 +116,7 @@ export default function FilterPage() {
                         {expanded[title] && options.length > 0 && (
                             <FlatList
                                 data={options}
-                                numColumns={2}
+                                numColumns={1}
                                 scrollEnabled={false}
                                 keyExtractor={(item) => item}
                                 renderItem={({ item }) => (
@@ -146,6 +146,14 @@ export default function FilterPage() {
                     value={price}
                     onValueChange={setPrice}
                 />
+            </ThemedView>
+            <ThemedView style={styles.minMaxView}>
+                <TouchableOpacity onPress={() => setPrice(0)} style={styles.minMaxBtn} activeOpacity={0.8}>
+                    <ThemedText style={styles.minMaxTxt}>Min</ThemedText>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setPrice(10000)} style={styles.minMaxBtn} activeOpacity={0.8}>
+                    <ThemedText style={styles.minMaxTxt}>Max</ThemedText>
+                </TouchableOpacity>
             </ThemedView>
             <ThemedView style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.applyButton}><ThemedText style={styles.buttonText}>Apply Filter</ThemedText></TouchableOpacity>
@@ -183,7 +191,7 @@ const styles = StyleSheet.create({
     option: { padding: 5, borderWidth: 1, borderColor: '#CEE0FF', borderRadius: 10, margin: 5, paddingHorizontal: 20, },
     selectedOption: { backgroundColor: '#CEE0FF', color: 'white' },
     priceLabel: { fontSize: 16, fontFamily: 'OpenSans_600SemiBold', marginVertical: 10, color: '#0755D4', },
-    buttonContainer: { flexDirection: 'row', marginTop: 20, marginHorizontal: 20, marginBottom: 30, alignItems: 'center' },
+    buttonContainer: { flexDirection: 'row', marginTop: 60, marginHorizontal: 20, marginBottom: 30, alignItems: 'center' },
     applyButton: { backgroundColor: '#0866FF', padding: 10, borderRadius: 15, paddingHorizontal: 20 },
     buttonText: { color: 'white', fontFamily: 'OpenSans_700Bold', fontSize: 14 },
     clearButton: { color: '#043380', fontFamily: 'OpenSans_700Bold', marginLeft: 30, fontSize: 16 },
@@ -210,5 +218,24 @@ const styles = StyleSheet.create({
     },
     star: {
         fontSize: 18,
+    },
+    minMaxView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        marginHorizontal: 20,
+    },
+    minMaxBtn: {
+        backgroundColor: '#F1FAFF',
+        borderWidth: 1,
+        borderColor: '#CEE0FF',
+        borderRadius: 10,
+        paddingHorizontal: 30,
+        paddingVertical: 5,
+    },
+    minMaxTxt: {
+        color: '#04338099',
+        fontFamily: 'OpenSans_600SemiBold',
+        fontSize: 15,
     },
 });

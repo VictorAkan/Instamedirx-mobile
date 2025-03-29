@@ -10,24 +10,6 @@ export default function DocsMainProfile() {
     const router = useRouter();
     return (
         <ThemedView style={styles.container}>
-            {/* <ThemedView style={styles.searchBar}>
-                <TouchableOpacity activeOpacity={0.9}>
-                    <Ionicons name="filter" size={20} color="#0544AA" style={styles.searchIcon} />
-                </TouchableOpacity>
-                <ThemedView style={styles.sideLine}>
-                    <ThemedText></ThemedText>
-                </ThemedView>
-                <TextInput
-                    placeholder="Browse doctors and medications"
-                    placeholderTextColor="#8F8F8F"
-                    value={search}
-                    onChangeText={setSearch}
-                    style={styles.searchInput}
-                />
-                <TouchableOpacity activeOpacity={0.9}>
-                    <MaterialIcons name="search" size={24} color="#D6D6D6" />
-                </TouchableOpacity>
-            </ThemedView> */}
 
             <ScrollView style={{ flexGrow: 1, marginTop: 10, }} showsVerticalScrollIndicator={false}>
                 <ThemedView style={styles.titleView}>

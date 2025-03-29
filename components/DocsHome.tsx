@@ -153,18 +153,18 @@ export default function DocsHome() {
                 contentContainerStyle={styles.storyList}
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => setSelectedStory(item.image)} activeOpacity={0.9}>
-                        <View style={styles.storyWrapper}>
-                            <View style={styles.storyBorder}>
+                        <ThemedView style={styles.storyWrapper}>
+                            <ThemedView style={styles.storyBorder}>
                                 {getDashedBorder(item.storyCount)}
                                 <Image source={item.image} style={styles.storyImage} />
                                 {item.isYourStory && (
-                                    <View style={styles.addStoryIcon}>
-                                        <Text style={styles.plusText}>+</Text>
-                                    </View>
+                                    <ThemedView style={styles.addStoryIcon}>
+                                        <ThemedText style={styles.plusText}>+</ThemedText>
+                                    </ThemedView>
                                 )}
-                            </View>
-                            <Text style={styles.storyText}>{item.user}</Text>
-                        </View>
+                            </ThemedView>
+                            <ThemedText style={styles.storyText}>{item.user}</ThemedText>
+                        </ThemedView>
                     </TouchableOpacity>
                 )}
             />
