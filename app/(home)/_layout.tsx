@@ -38,6 +38,18 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/doc_cart_screen" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/edit_doc_profile" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/edit_profile_screens/change_password" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/edit_profile_screens/personal_information" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/edit_profile_screens/professional_details" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="Doctors_world/Delivery_screens/delivery_options" options={{
                 headerShown: false,
             }} />

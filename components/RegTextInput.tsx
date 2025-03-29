@@ -6,6 +6,7 @@ export function RegTextInput({
     value,
     onChangeText,
     placeholder,
+    placeholderTextColor,
     style,
     label,
     secureTextEntry,
@@ -18,6 +19,8 @@ export function RegTextInput({
             <TextInput
                 style={styles.inputStyle}
                 secureTextEntry={secureTextEntry}
+                placeholder={placeholder}
+                placeholderTextColor={placeholderTextColor}
                 value={value}
                 {...rest}
             />

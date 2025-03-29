@@ -31,9 +31,11 @@ const DocDrawerMenu = ({ isVisible, onClose }: any) => {
                         <Ionicons name="close" size={24} color="#043380" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.menuItem}>
-                        <ThemedText style={styles.menuText}>Edit profile</ThemedText>
-                    </TouchableOpacity>
+                    <Link href="/Doctors_world/edit_doc_profile" asChild>
+                        <TouchableOpacity style={styles.menuItem}>
+                            <ThemedText style={styles.menuText}>Edit profile</ThemedText>
+                        </TouchableOpacity>
+                    </Link>
                     <TouchableOpacity style={styles.menuItem}>
                         <ThemedText style={styles.menuText}>Add story</ThemedText>
                     </TouchableOpacity>
@@ -43,7 +45,7 @@ const DocDrawerMenu = ({ isVisible, onClose }: any) => {
                     <TouchableOpacity style={styles.menuItem}>
                         <ThemedText style={styles.menuText}>Settings</ThemedText>
                     </TouchableOpacity>
-                    <Link href="/">
+                    <Link href="/" asChild>
                         <TouchableOpacity style={styles.menuItem}>
                             <ThemedText style={styles.menuText}>Log out</ThemedText>
                         </TouchableOpacity>
