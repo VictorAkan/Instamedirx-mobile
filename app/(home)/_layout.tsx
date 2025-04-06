@@ -74,7 +74,16 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/doctors_chats/[id]" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/product_details/[id]" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="Doctors_world/pharm_drugs_categories/[id]" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/Call_screens/call_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/Call_screens/video_call_screen" options={{
                 headerShown: false,
             }} />
             <Stack.Screen name="registration_screens/client_registration" options={{

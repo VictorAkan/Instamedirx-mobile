@@ -27,6 +27,13 @@ const reviews: Review[] = [
         comment: "Dr Sandra is good at what she does",
         image: "https://randomuser.me/api/portraits/men/9.jpg",
     },
+    {
+        id: "3",
+        name: "Susan",
+        rating: 4,
+        comment: "Dr Sandra is good at what she does",
+        image: "https://randomuser.me/api/portraits/women/1.jpg",
+    },
 ];
 
 export const RatingComponent = () => {

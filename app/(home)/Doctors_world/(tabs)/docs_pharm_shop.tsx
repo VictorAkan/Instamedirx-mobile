@@ -63,9 +63,17 @@ export default function DocsPharmShop() {
                         <ScrollView style={{ marginTop: 15, flexGrow: 1 }} horizontal showsHorizontalScrollIndicator={false}>
                             {items.map((product) => (
                                 <ThemedView key={product.id} style={styles.productCard}>
-                                    <ThemedView style={styles.imageContainer}>
+                                    <TouchableOpacity style={styles.imageContainer} activeOpacity={0.8} onPress={() => {
+                                        router.push({
+                                            pathname: "/Doctors_world/product_details/[id]",
+                                            params: {
+                                                id: product.id,
+                                                image: product.image,
+                                            }
+                                        })
+                                    }}>
                                         <Image source={product.image} style={styles.productImage} />
-                                    </ThemedView>
+                                    </TouchableOpacity>
                                     <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
                                     <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
                                     <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>

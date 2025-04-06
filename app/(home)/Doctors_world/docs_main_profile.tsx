@@ -1,194 +1,284 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native';
-import { useState } from 'react';
-import { ThemedView } from '@/components/ThemedView';
-import { ThemedText } from '@/components/ThemedText';
-import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Platform, ScrollView } from "react-native";
+import { ThemedView } from "@/components/ThemedView";
+import { ThemedText } from "@/components/ThemedText";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import Svg, { Circle } from 'react-native-svg';
+import FeedScreen from "@/components/Posts";
+import Qualifications from "@/components/Qualifications";
+import DocDrawerMenu from "@/components/DocDrawerMenu";
 
-export default function DocsMainProfile() {
-    const [search, setSearch] = useState('');
+const DocsMainProfile = () => {
+    const [selectedTab, setSelectedTab] = useState("Posts");
+    const [isDrawerVisible, setDrawerVisible] = useState(false);
     const router = useRouter();
+
+    const getDashedBorder = (storyCount: number) => {
+            const radius = 41; // Radius of the circle
+            const circumference = 2 * Math.PI * radius;
+    
+            if (storyCount === 0) {
+                // No border
+                return (
+                    <Svg width="80" height="80" style={{ position: 'absolute' }}>
+                        <Circle
+                            cx="40"
+                            cy="40"
+                            r={radius}
+                            stroke="#D6D6D6" // Change stroke color to gray
+                            strokeWidth="2"
+                            fill="none"
+                        />
+                    </Svg>
+                );
+            } else if (storyCount === 1) {
+                // Solid, filled border
+                return (
+                    <Svg width="420" height="420" style={{ position: 'absolute' }}>
+                        <Circle
+                            cx="60"
+                            cy="60"
+                            r={radius}
+                            stroke="#007AFF"
+                            strokeWidth="2"
+                            fill="none"
+                        />
+                    </Svg>
+                );
+            } else {
+                // Dashed border (storyCount > 1)
+                const dashLength = circumference / (storyCount * 2);
+                const gapLength = 7;
+                const dashArray = Array(storyCount).fill(`${dashLength},${gapLength}`).join(' ');
+    
+                return (
+                    <Svg width="220" height="220" style={{ position: 'absolute' }}>
+                        <Circle
+                            cx="110"
+                            cy="45"
+                            r={radius}
+                            stroke="#007AFF"
+                            strokeWidth="3"
+                            strokeDasharray={dashArray}
+                            fill="none"
+                        />
+                    </Svg>
+                );
+            }
+        };
+
     return (
-        <ThemedView style={styles.container}>
-
-            <ScrollView style={{ flexGrow: 1, marginTop: 10, }} showsVerticalScrollIndicator={false}>
-                <ThemedView style={styles.titleView}>
-                    <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
-                        <AntDesign name="arrowleft" size={24} color="black" />
-                    </TouchableOpacity>
-                    <ThemedText style={styles.title}>My profile</ThemedText>
+            <ScrollView style={{ flexGrow: 1, flex: 1 }} showsVerticalScrollIndicator={false}>
+                <ThemedView style={styles.container}>
+                {/* Profile Cover Photo */}
+                <ThemedView style={styles.coverPhoto}>
+                    <Image
+                        source={require("../../../assets/images/coverimg.png")} // Replace with actual image
+                        style={styles.coverImage}
+                    />
                 </ThemedView>
-                {/* Profile Section */}
-                <ThemedView style={styles.profileContainer}>
-                    <Image source={require("../../../assets/images/docprofile.png")} style={styles.profileImage} />
-                    <ThemedView style={styles.profileInfo}>
-                        <Text style={styles.profileName}>Dr. Sandra Davis</Text>
-                        <Text style={styles.profileTitle}>Gynecologist</Text>
-                    </ThemedView>
-                    <TouchableOpacity activeOpacity={0.9} style={styles.editButton}>
-                        <Text style={styles.editText}>Edit</Text>
+
+                <ThemedView style={styles.headerView}>
+                    <TouchableOpacity onPress={() => router.back()} activeOpacity={0.8}>
+                        <AntDesign name="arrowleft" size={24} color="#032255" />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setDrawerVisible(true)} activeOpacity={0.8} style={{ marginLeft: 5 }}>
+                        <Ionicons name="ellipsis-vertical" size={22} color="#0544AA" />
                     </TouchableOpacity>
                 </ThemedView>
 
-                {/* Personal Information Section */}
-                <Text style={styles.sectionTitle}>Personal information</Text>
-                <ThemedView style={styles.infoContainer}>
-                    <ThemedView style={[styles.deepBg, {
-                        borderTopLeftRadius: 30,
-                        borderTopRightRadius: 30,
-                    }]}>
-                        <Text style={styles.infoTitle}>Hospital name</Text>
-                        <Text style={styles.infoText}>• ST Lious Hospital</Text>
-                    </ThemedView>
+            {/* Profile Picture */}
+            <ThemedView style={styles.profileContainer}>
+                {getDashedBorder(4)}
+                <Image
+                    source={require("../../../assets/images/docprofile.png")} // Replace with actual profile picture
+                    style={styles.profileImage}
+                />
+            </ThemedView>
 
-                    <ThemedView style={styles.lightBg}>
-                        <Text style={styles.infoTitle}>Hospital address</Text>
-                        <Text style={styles.infoText}>• 23, Emmanuel Street, Off Awolowo Road, Ikoya, Lagos State, Nigeria</Text>
-                    </ThemedView>
+            {/* User Info */}
+            <ThemedText style={styles.name}>Dr. Sandra Davis</ThemedText>
+            <ThemedText style={styles.profession}>Gynecologist</ThemedText>
 
-                    <ThemedView style={styles.deepBg}>
-                        <Text style={styles.infoTitle}>Zip code</Text>
-                        <Text style={styles.infoText}>• 101233</Text>
-                    </ThemedView>
-
-                    <ThemedView style={styles.lightBg}>
-                        <Text style={styles.infoTitle}>City</Text>
-                        <Text style={styles.infoText}>• Lagos</Text>
-                    </ThemedView>
-
-                    <ThemedView style={[styles.deepBg, {
-                        borderBottomLeftRadius: 30,
-                        borderBottomRightRadius: 30,
-                    }]}>
-                        <Text style={styles.infoTitle}>Country</Text>
-                        <Text style={styles.infoText}>• Nigeria</Text>
-                    </ThemedView>
+            {/* Stats */}
+            <ThemedView style={styles.statsContainer}>
+                <ThemedView style={styles.statItem}>
+                    <ThemedText style={styles.statNumber}>48.5k</ThemedText>
+                    <ThemedText style={styles.statLabel}>Followers</ThemedText>
                 </ThemedView>
-            </ScrollView>
+                <ThemedView style={styles.statItem}>
+                    <ThemedText style={styles.statNumber}>49</ThemedText>
+                    <ThemedText style={styles.statLabel}>Post</ThemedText>
+                </ThemedView>
+                <ThemedView style={styles.statItem}>
+                    <ThemedText style={styles.statNumber}>1000</ThemedText>
+                    <ThemedText style={styles.statLabel}>Following</ThemedText>
+                </ThemedView>
+            </ThemedView>
+
+            {/* Bio */}
+            <ThemedText style={styles.bio}>
+                Compassionate and experienced gynecologist dedicated to women's health. Specializing in reproductive care, prenatal support, and wellness. Your health, my priority.
+            </ThemedText>
+
+            {/* Tabs */}
+            <ThemedView style={styles.tabContainer}>
+                <TouchableOpacity
+                    style={[styles.tab, selectedTab === "Posts" && styles.activeTab]}
+                    onPress={() => setSelectedTab("Posts")}
+                    activeOpacity={0.8}
+                >
+                    <ThemedText style={[styles.tabText, selectedTab === "Posts" && styles.activeTabText]}>Posts</ThemedText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.tab, selectedTab === "Qualifications" && styles.activeTab]}
+                    onPress={() => setSelectedTab("Qualifications")}
+                    activeOpacity={0.8}
+                >
+                    <ThemedText style={[styles.tabText, selectedTab === "Qualifications" && styles.activeTabText]}>Qualifications</ThemedText>
+                </TouchableOpacity>
+            </ThemedView>
+
+            {/* Tab Content */}
+            <ThemedView style={styles.tabContent}>
+                {selectedTab === "Posts" ? (
+                    <FeedScreen />
+                ) : (
+                    <Qualifications />
+                )}
+            </ThemedView>
+            <DocDrawerMenu isVisible={isDrawerVisible} onClose={() => setDrawerVisible(false)} />
         </ThemedView>
+        </ScrollView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        padding: 20,
+        backgroundColor: "#fff",
+        alignItems: "center",
     },
-    searchBar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 27,
-        borderColor: '#ADCCFF',
-        borderWidth: 1,
-        padding: 10,
-        marginTop: 80,
-    },
-    sideLine: {
-        borderLeftWidth: 2,
-        borderLeftColor: '#ADCCFF',
-        backgroundColor: 'white',
-        paddingLeft: 5,
-    },
-    searchIcon: {
-        marginRight: 10,
-    },
-    searchInput: {
-        flex: 1,
-        fontFamily: 'OpenSans_400Regular',
-    },
-    deepBg: {
-        backgroundColor: '#CEE0FF66',
-        padding: 15,
-        gap: 6,
-    },
-    lightBg: {
-        padding: 15,
-        gap: 6,
-    },
-    titleView: {
+    headerView: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: '80%',
+        marginBottom: 20,
         marginTop: 30,
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 20,
+        paddingVertical: 20,
+        position: "absolute",
+        backgroundColor: "transparent",
     },
-    title: {
-        color: '#043380',
-        fontFamily: 'Inter_700Bold',
-        fontSize: 21,
+    coverPhoto: {
+        width: "100%",
+        ...Platform.select({
+            ios: {
+                height: 150,
+            },
+            android: {
+                height: 200,
+            }
+        }),
+        position: "relative",
+    },
+    coverImage: {
+        width: "100%",
+        height: "100%",
+    },
+    imageBorder: {
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 3,
+        borderRadius: 40,
     },
     profileContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 25,
-        borderColor: '#0866FF80',
-        backgroundColor: '#CEE0FF33',
-        borderWidth: 2,
-        borderRadius: 30,
-        // height: 70,
-        // shadowColor: '#000',
-        // shadowOpacity: 0.1,
-        // shadowRadius: 5,
-        // elevation: 3,
-        marginTop: 15,
+        position: "absolute",
+        // justifyContent: "center",
+        top: 150,
+        alignItems: "center",
+        padding: 5,
+        borderRadius: 65,
+        backgroundColor: "transparent",
     },
     profileImage: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
+        width: 80,
+        height: 80,
+        borderRadius: 60,
+        borderWidth: 3,
+        borderColor: "#fff",
     },
-    profileInfo: {
-        flex: 1,
-        marginLeft: 10,
-        backgroundColor: '#CEE0FF3',
-    },
-    profileName: {
+    name: {
         fontSize: 16,
-        fontFamily: 'Inter_700Bold',
+        fontFamily: 'OpenSans_700Bold',
+        color: '#043380',
+        marginTop: 50,
+    },
+    profession: {
+        fontSize: 14,
+        color: "#043380",
+        fontFamily: 'OpenSans_400Regular',
+        marginTop: 3,
+    },
+    statsContainer: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        width: "80%",
+        marginTop: 10,
+    },
+    statItem: {
+        alignItems: "center",
+    },
+    statNumber: {
+        fontSize: 16,
+        fontFamily: 'OpenSans_700Bold',
         color: '#043380',
     },
-    profileTitle: {
-        fontSize: 15,
-        color: '#043380',
-        fontFamily: 'Inter_400Regular',
+    statLabel: {
+        fontSize: 14,
+        color: "#043380",
+        fontFamily: 'OpenSans_400Regular',
     },
-    editButton: {
-        backgroundColor: '#BA7FD6',
-        paddingHorizontal: 20,
-        paddingVertical: 7,
+    bio: {
+        textAlign: "center",
+        paddingHorizontal: 25,
+        marginTop: 10,
+        fontSize: 14,
+        color: '#043380',
+        fontFamily: 'OpenSans_400Regular',
+        lineHeight: 24,
+    },
+    tabContainer: {
+        flexDirection: "row",
+        backgroundColor: "#CEE0FF",
+        borderRadius: 30,
+        marginTop: 15,
+        width: "80%",
+        padding: 5,
+    },
+    tab: {
+        flex: 1,
+        paddingVertical: 8,
+        alignItems: "center",
         borderRadius: 20,
     },
-    editText: {
-        color: 'white',
-        fontWeight: 'bold',
+    activeTab: {
+        backgroundColor: "#fff",
     },
-    sectionTitle: {
-        color: '#043380',
-        fontFamily: 'Inter_700Bold',
-        fontSize: 21,
-        marginTop: 25,
-    },
-    infoContainer: {
-        backgroundColor: 'white',
-        marginTop: 10,
-        borderWidth: 2,
-        borderColor: '#0866FF80',
-        borderRadius: 30,
-        // shadowColor: '#000',
-        // shadowOpacity: 0.1,
-        // shadowRadius: 5,
-        // elevation: 3,
-    },
-    infoTitle: {
-        fontSize: 17,
-        fontFamily: 'Inter_700Bold',
-        color: '#043380',
-        marginTop: 10,
-    },
-    infoText: {
+    tabText: {
         fontSize: 16,
-        color: '#043380',
-        fontFamily: 'Inter_400Regular',
+        color: "#032255",
+        fontFamily: 'OpenSans_600SemiBold',
+    },
+    activeTabText: {
+        color: "#032255",
+        fontSize: 16,
+        fontFamily: 'OpenSans_600SemiBold',
+    },
+    tabContent: {
+        marginTop: 10,
+        width: '100%',
     },
 });
 
+export default DocsMainProfile;

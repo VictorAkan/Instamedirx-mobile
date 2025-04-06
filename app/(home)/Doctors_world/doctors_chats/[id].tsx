@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter, Link } from 'expo-router';
 import { View, Text, FlatList, TouchableOpacity, Image, TextInput, StyleSheet, ScrollView } from 'react-native';
 import { useState } from 'react';
 import { ThemedView } from '@/components/ThemedView';
@@ -49,9 +49,11 @@ export default function DocsChatScreen() {
                     <TouchableOpacity activeOpacity={0.9}>
                         <MaterialIcons name="call" size={28} color="#0755D4" />
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9}>
-                        <FontAwesome6 name="video" size={24} color="#0755D4" />
-                    </TouchableOpacity>
+                    <Link href="/Doctors_world/Call_screens/call_screen" asChild>
+                        <TouchableOpacity activeOpacity={0.9}>
+                            <FontAwesome6 name="video" size={24} color="#0755D4" />
+                        </TouchableOpacity>
+                    </Link>
                 </ThemedView>
             </ThemedView>
             <ThemedView style={styles.currentDay}>
