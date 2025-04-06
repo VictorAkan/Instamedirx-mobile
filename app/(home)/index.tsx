@@ -104,7 +104,7 @@ export default function LoginScreen() {
                                 <ThemedView style={styles.line} />
                             </ThemedView>
                             <ThemedView style={styles.socialsView}>
-                                <TouchableOpacity activeOpacity={0.8}>
+                                <TouchableOpacity activeOpacity={0.8} route="/Doctors_world/(tabs)">
                                     <Image style={styles.image} source={require("../../assets/images/googlelogo.png")} />
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.8}>
