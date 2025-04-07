@@ -76,7 +76,7 @@ export default function ForgotPassword() {
                                 value={password}
                                 onChangeText={onChangePassword}
                                 secureTextEntry={true}
-                            // required={true}
+                            // required={true} 
                             />
                             <RegTextInput
                                 label="Confirm password"
