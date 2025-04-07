@@ -19,12 +19,20 @@ const products = {
     ],
 };
 
+// Create a mapping of categories to IDs
+const categoriesWithIds = Object.keys(products).map((category, index) => ({
+    id: index + 1, // Simple incrementing ID
+    category,
+}));
+
 export default function DocsPharmShop() {
     const router = useRouter();
     const [cartCount, setCartCount] = useState(0);
+    const [disabledButtons, setDisabledButtons] = useState<{[key: string]: boolean}>({});
 
-    const addToCart = () => {
+    const addToCart = (id:any) => {
         setCartCount(cartCount + 1);
+        setDisabledButtons(prev => ({ ...prev, [id]: true }));
     };
 
     return (
@@ -55,38 +63,51 @@ export default function DocsPharmShop() {
                 </ThemedView>
             </ThemedView>
             <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
-                {Object.entries(products).map(([category, items]) => (
-                    <ThemedView key={category} style={styles.categoryContainer}>
-                        <ThemedView style={styles.categoryHeader}>
-                            <ThemedText style={styles.categoryText}>{category}</ThemedText>
+                {Object.entries(products).map(([category, items]) => {
+                    const categoryId = categoriesWithIds.find(c => c.category === category)!.id;
+                    return (
+                        <ThemedView key={category} style={styles.categoryContainer}>
+                            <ThemedView style={styles.categoryHeader}>
+                                <ThemedText style={styles.categoryText}>{category}</ThemedText>
+                                <TouchableOpacity activeOpacity={0.8} onPress={() => router.push({
+                                        pathname: "/Doctors_world/pharm_drugs_categories/[id]",
+                                        params: { id: categoryId },
+                                    })}>
+                                        <ThemedText style={styles.viewAll}>View all</ThemedText>
+                                    </TouchableOpacity>
+                            </ThemedView>
+                            <ScrollView style={{ marginTop: 15, flexGrow: 1 }} horizontal showsHorizontalScrollIndicator={false}>
+                                {items.map((product) => (
+                                    <ThemedView key={product.id} style={styles.productCard}>
+                                        <TouchableOpacity style={styles.imageContainer} activeOpacity={0.8} onPress={() => {
+                                            router.push({
+                                                pathname: "/Doctors_world/product_details/[id]",
+                                                params: {
+                                                    id: product.id,
+                                                    image: product.image,
+                                                }
+                                            })
+                                        }}>
+                                            <Image source={product.image} style={styles.productImage} />
+                                        </TouchableOpacity>
+                                        <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
+                                        <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
+                                        <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
+                                            backgroundColor: disabledButtons[product.id] ? "#CEE0FF" : "#0866FF"
+                                        }]} onPress={() => addToCart(product.id)} disabled={disabledButtons[product.id]}>
+                                            <ThemedText style={[styles.addToCartText, {
+                                                color: disabledButtons[product.id] ? '#8F8F8F' : '#fff'
+                                            }]}>Add to Cart</ThemedText>
+                                            <ThemedView style={styles.sideView}>
+                                                <AntDesign name="arrowright" size={20} color={disabledButtons[product.id] ? '#D6D6D6': '#0866FF'} />
+                                            </ThemedView>
+                                        </TouchableOpacity>
+                                    </ThemedView>
+                                ))}
+                            </ScrollView>
                         </ThemedView>
-                        <ScrollView style={{ marginTop: 15, flexGrow: 1 }} horizontal showsHorizontalScrollIndicator={false}>
-                            {items.map((product) => (
-                                <ThemedView key={product.id} style={styles.productCard}>
-                                    <TouchableOpacity style={styles.imageContainer} activeOpacity={0.8} onPress={() => {
-                                        router.push({
-                                            pathname: "/Doctors_world/product_details/[id]",
-                                            params: {
-                                                id: product.id,
-                                                image: product.image,
-                                            }
-                                        })
-                                    }}>
-                                        <Image source={product.image} style={styles.productImage} />
-                                    </TouchableOpacity>
-                                    <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
-                                    <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                                    <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>
-                                        <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                                        <ThemedView style={styles.sideView}>
-                                            <AntDesign name="arrowright" size={20} color="#0866FF" />
-                                        </ThemedView>
-                                    </TouchableOpacity>
-                                </ThemedView>
-                            ))}
-                        </ScrollView>
-                    </ThemedView>
-                ))}
+                    )
+                })}
             </ScrollView>
         </ThemedView>
     );

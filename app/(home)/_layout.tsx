@@ -77,6 +77,9 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/product_details/[id]" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/product_details/pharmcy_store_details" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="Doctors_world/pharm_drugs_categories/[id]" options={{
                 headerShown: false,
             }} />

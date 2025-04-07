@@ -15,7 +15,7 @@ const moreProducts = {
 };
 
 const ProductDetailScreen = () => {
-    const { image } = useLocalSearchParams();
+    const { image, disableButton, id } = useLocalSearchParams();
     const router = useRouter();
     const [cartCount, setCartCount] = useState(0);
 
@@ -23,11 +23,13 @@ const ProductDetailScreen = () => {
         setCartCount(cartCount + 1);
     };
 
+    const isDisabled = disableButton === 'true';
+
     return (
-        <ThemedView style={{ 
+        <ThemedView style={{
             flex: 1
         }}>
-        <ThemedView style={styles.headerView}>
+            <ThemedView style={styles.headerView}>
                 <ThemedView style={styles.leftSide}>
                     <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
                         <AntDesign name="arrowleft" size={24} color="#032255" />
@@ -53,68 +55,78 @@ const ProductDetailScreen = () => {
                 </ThemedView>
             </ThemedView>
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-            {/* Header */}
+                {/* Header */}
 
-            {/* Product Image */}
-            <ThemedView style={styles.imageContainer}>
-                <Image
-                    source={image as any}
-                    style={styles.productImage}
-                />
-            </ThemedView>
-
-            {/* Product Details */}
-            <ThemedText style={styles.category}>Antibiotics</ThemedText>
-            <ThemedText style={styles.title}>Amoxil (amoxicillin) 250mg - 1000mg</ThemedText>
-            <ThemedText style={styles.price}>₦12,000</ThemedText>
-
-            <ThemedText style={styles.description}>
-                Amoxicillin is an antibiotic effective against a broad range of bacterial infections. It works by inhibiting the formation of bacterial cell walls, making it useful in treating respiratory, urinary, and skin infections, among others.
-            </ThemedText>
-
-            {/* Store Link */}
-            <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
-                <ThemedText style={styles.storeText}>Visit PharmC Store</ThemedText>
-                <ThemedView style={styles.arrowContainer}>
-                    <Feather name="arrow-right" size={15} color="white" />
+                {/* Product Image */}
+                <ThemedView style={styles.imageContainer}>
+                    <Image
+                        source={image as any}
+                        style={styles.productImage}
+                    />
                 </ThemedView>
-            </TouchableOpacity>
 
-            {/* Add to Cart Button */}
-            <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>
-                <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                <ThemedView style={styles.sideView}>
-                    <AntDesign name="arrowright" size={20} color="#0866FF" />
-                </ThemedView>
-            </TouchableOpacity>
+                {/* Product Details */}
+                <ThemedText style={styles.category}>Antibiotics</ThemedText>
+                <ThemedText style={styles.title}>Amoxil (amoxicillin) 250mg - 1000mg</ThemedText>
+                <ThemedText style={styles.price}>₦12,000</ThemedText>
 
-            <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
-                {Object.entries(moreProducts).map(([category, items]) => (
-                    <ThemedView key={category} style={styles.categoryContainer}>
-                        <ThemedView style={styles.categoryHeader}>
-                            <ThemedText style={styles.categoryText}>{category}</ThemedText>
+                <ThemedText style={styles.description}>
+                    Amoxicillin is an antibiotic effective against a broad range of bacterial infections. It works by inhibiting the formation of bacterial cell walls, making it useful in treating respiratory, urinary, and skin infections, among others.
+                </ThemedText>
+
+                {/* Store Link */}
+                <Link href="/Doctors_world/product_details/pharmcy_store_details" asChild>
+                    <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
+                        <ThemedText style={styles.storeText}>Visit PharmC Store</ThemedText>
+                        <ThemedView style={styles.arrowContainer}>
+                            <Feather name="arrow-right" size={15} color="white" />
                         </ThemedView>
-                        <ScrollView style={{ marginTop: 15, flexGrow: 1, gap: 10 }} horizontal showsHorizontalScrollIndicator={false}>
-                            {items.map((product) => (
-                                <ThemedView key={product.id} style={styles.productCard}>
-                                    <TouchableOpacity style={styles.bottomImageContainer} activeOpacity={0.8}>
-                                        <Image source={product.image} style={styles.productImageB} />
-                                    </TouchableOpacity>
-                                    <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
-                                    <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                                    <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>
-                                        <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                                        <ThemedView style={styles.sideView}>
-                                            <AntDesign name="arrowright" size={20} color="#0866FF" />
-                                        </ThemedView>
-                                    </TouchableOpacity>
-                                </ThemedView>
-                            ))}
-                        </ScrollView>
+                    </TouchableOpacity>
+                </Link>
+
+                {/* Add to Cart Button */}
+                <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
+                    backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF"
+                }]} onPress={addToCart} disabled={isDisabled}>
+                    <ThemedText style={[styles.addToCartText, {
+                        color: isDisabled ? '#8F8F8F' : '#fff'
+                    }]}>Add to Cart</ThemedText>
+                    <ThemedView style={styles.sideView}>
+                        <AntDesign name="arrowright" size={20} color={isDisabled ? '#D6D6D6' : '#0866FF'} />
                     </ThemedView>
-                ))}
+                </TouchableOpacity>
+
+                <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
+                    {Object.entries(moreProducts).map(([category, items]) => (
+                        <ThemedView key={category} style={styles.categoryContainer}>
+                            <ThemedView style={styles.categoryHeader}>
+                                <ThemedText style={styles.categoryText}>{category}</ThemedText>
+                            </ThemedView>
+                            <ScrollView style={{ marginTop: 15, flexGrow: 1, gap: 10 }} horizontal showsHorizontalScrollIndicator={false}>
+                                {items.map((product) => (
+                                    <ThemedView key={product.id} style={styles.productCard}>
+                                        <TouchableOpacity style={styles.bottomImageContainer} activeOpacity={0.8}>
+                                            <Image source={product.image} style={styles.productImageB} />
+                                        </TouchableOpacity>
+                                        <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
+                                        <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
+                                        <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
+                                            backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF"
+                                        }]} onPress={() => addToCart()} disabled={isDisabled}>
+                                            <ThemedText style={[styles.addToCartText, {
+                                                color: isDisabled ? '#8F8F8F' : '#fff'
+                                            }]}>Add to Cart</ThemedText>
+                                            <ThemedView style={styles.sideView}>
+                                                <AntDesign name="arrowright" size={20} color={isDisabled ? '#D6D6D6' : '#0866FF'} />
+                                            </ThemedView>
+                                        </TouchableOpacity>
+                                    </ThemedView>
+                                ))}
+                            </ScrollView>
+                        </ThemedView>
+                    ))}
+                </ScrollView>
             </ScrollView>
-        </ScrollView>
         </ThemedView>
     );
 };
