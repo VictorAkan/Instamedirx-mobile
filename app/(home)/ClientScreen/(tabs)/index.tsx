@@ -9,7 +9,7 @@ import DocsHome from '@/components/DocsHome';
 import FilterPage from '@/components/FilterComponent';
 // import StoryCircle from '@/components/SegmentedStoryCircle';
 
- export default function ClientScreen() {
+export default function ClientScreen() {
     const [search, setSearch] = useState('');
     const [showFilter, setShowFilter] = useState(false);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
