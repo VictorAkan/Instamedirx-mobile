@@ -104,11 +104,11 @@ export default function LoginScreen() {
                                 <ThemedView style={styles.line} />
                             </ThemedView>
                             <ThemedView style={styles.socialsView}>
-                                <TouchableOpacity activeOpacity={0.8}>
+                                <TouchableOpacity activeOpacity={0.8} >
                                     <Image style={styles.image} source={require("../../assets/images/googlelogo.png")} />
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.8}>
-                                    <Image style={styles.facebookImage} source={require("../../assets/images/facebooklogo.png")} />
+                                    <Image style={styles.facebookImage} source={require("../../assets/images/facebooklogo.png")} route="/ClientScreen/(tabs)" />
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.8}>
                                     <Image style={styles.appleImage} source={require("../../assets/images/applelogo.png")} />
