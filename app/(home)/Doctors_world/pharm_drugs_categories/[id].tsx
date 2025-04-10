@@ -118,7 +118,7 @@ export default function ProductList() {
                                     color: disabledButtons[product.id] ? '#8F8F8F' : '#fff'
                                 }]}>Add to Cart</ThemedText>
                                 <ThemedView style={styles.sideView}>
-                                    <AntDesign name="arrowright" size={20} color={disabledButtons[product.id] ? '#D6D6D6' : '#0866FF'} />
+                                    <AntDesign name="arrowright" size={18} color={disabledButtons[product.id] ? '#D6D6D6' : '#0866FF'} />
                                 </ThemedView>
                             </TouchableOpacity>
                         </ThemedView>
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     },
     addToCartButton: {
         backgroundColor: "#0866FF",
-        padding: 10,
+        padding: 7,
         alignItems: 'center',
         borderRadius: 12,
         height: 47,
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     },
     sideView: {
         borderRadius: 29,
-        padding: 4,
+        padding: 2,
     },
     addToCartText: {
         color: "#FFFFFF",

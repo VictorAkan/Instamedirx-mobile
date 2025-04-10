@@ -29,6 +29,41 @@ export default function HomeLayout() {
             <Stack.Screen name="new_password" options={{
                 headerShown: false,
             }} />
+
+            {/* Client's routes */}
+            <Stack.Screen name="Clients_world/(tabs)" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/client_messages_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/clients_chats/[id]" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/patients_report" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/docs_list_filter" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/my_profile" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/client_cart_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/product_details/[id]" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/product_details/store_details" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/pharm_shop" options={{
+                headerShown: false,
+            }} />
+
+
+            {/* Doctor's routes */}
             <Stack.Screen name="Doctors_world/(tabs)" options={{
                 headerShown: false,
             }} />
@@ -117,9 +152,6 @@ export default function HomeLayout() {
                 headerShown: false,
             }} />
             <Stack.Screen name="registration_screens/pharmacists_registration_screens/pharm_email_verification" options={{
-                headerShown: false,
-            }} />
-            <Stack.Screen name="ClientScreen/(tabs)" options={{
                 headerShown: false,
             }} />
         </Stack>

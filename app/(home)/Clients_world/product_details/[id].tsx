@@ -47,7 +47,7 @@ const ProductDetailScreen = () => {
                     <TouchableOpacity activeOpacity={0.9}>
                         <MaterialIcons name="search" size={24} color="#698fcc" />
                     </TouchableOpacity>
-                    <Link href="/Doctors_world/doc_cart_screen" asChild>
+                    <Link href="/Clients_world/client_cart_screen" asChild>
                         <TouchableOpacity activeOpacity={0.9}>
                             <View style={styles.cartIconContainer}>
                                 <MaterialCommunityIcons name="cart-outline" size={24} color="#698fcc" />
@@ -82,7 +82,7 @@ const ProductDetailScreen = () => {
                 </ThemedText>
 
                 {/* Store Link */}
-                <Link href="/Doctors_world/product_details/pharmcy_store_details" asChild>
+                <Link href="/Clients_world/product_details/store_details" asChild>
                     <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
                         <ThemedText style={styles.storeText}>Visit {store}</ThemedText>
                         <ThemedView style={styles.arrowContainer}>

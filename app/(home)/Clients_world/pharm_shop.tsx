@@ -8,55 +8,55 @@ import { Link } from 'expo-router';
 
 const products = {
     Antibiotics: [
-        { id: 1, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/amoxil.png'), store: "PharmC Store", },
-        { id: 2, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/biot2.png'), store: "Iseoluwa Pharmacy", },
-        { id: 3, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/malaria1.png'), store: "GoodWill Pharmacy", },
-        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/pain1.png'), store: "NaijaMeds Hub", },
-        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/biot2.png'), store: "WellCare Pharmacy", },
-        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/amoxil.png'), store: "CuraMed Pharmacy", },
-        { id: 7, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/biot2.png'), store: "GreenLeaf Pharmacy", },
+        { id: 1, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/amoxil.png'), store: "PharmC Store", },
+        { id: 2, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/biot2.png'), store: "Iseoluwa Pharmacy", },
+        { id: 3, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/malaria1.png'), store: "GoodWill Pharmacy", },
+        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/pain1.png'), store: "NaijaMeds Hub", },
+        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/biot2.png'), store: "WellCare Pharmacy", },
+        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/amoxil.png'), store: "CuraMed Pharmacy", },
+        { id: 7, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/biot2.png'), store: "GreenLeaf Pharmacy", },
     ],
     Malaria: [
-        { id: 1, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/malaria1.png'), store: "RxHaven Nigeria", },
-        { id: 2, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/malaria2.png'), store: "GreenLeaf Pharmacy", },
-        { id: 3, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/malaria3.png'), store: "WellSpring Pharmacy", },
-        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/malaria2.png'), store: "GreenLeaf Pharmacy", },
-        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/malaria2.png'), store: "WellSpring Pharmacy", },
-        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/malaria2.png'), store: "RxHaven Nigeria", },
-        { id: 7, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/malaria1.png'), store: "GreenLeaf Pharmacy", },
+        { id: 1, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/malaria1.png'), store: "RxHaven Nigeria", },
+        { id: 2, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/malaria2.png'), store: "GreenLeaf Pharmacy", },
+        { id: 3, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/malaria3.png'), store: "WellSpring Pharmacy", },
+        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/malaria2.png'), store: "GreenLeaf Pharmacy", },
+        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/malaria2.png'), store: "WellSpring Pharmacy", },
+        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/malaria2.png'), store: "RxHaven Nigeria", },
+        { id: 7, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/malaria1.png'), store: "GreenLeaf Pharmacy", },
     ],
     'Pain Relief': [
-        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../../assets/images/pain1.png'), store: "CityMeds Hub", },
-        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../../assets/images/pain2.png'), store: "InfinityMeds", },
-        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../../assets/images/pain3.png'), store: "MyMediMart NG", },
-        { id: 7, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../../assets/images/pain2.png'), store: "InfinityMeds",  },
-        { id: 8, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../../assets/images/pain2.png'), store: "MyMediMart NG", },
-        { id: 9, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../../assets/images/pain2.png'), store: "CityMeds Hub", },
-        { id: 10, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../../assets/images/pain1.png'), store: "MyMediMart NG", },
+        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../assets/images/pain1.png'), store: "CityMeds Hub", },
+        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../assets/images/pain2.png'), store: "InfinityMeds", },
+        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../assets/images/pain3.png'), store: "MyMediMart NG", },
+        { id: 7, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../assets/images/pain2.png'), store: "InfinityMeds",  },
+        { id: 8, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../assets/images/pain2.png'), store: "MyMediMart NG", },
+        { id: 9, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../assets/images/pain2.png'), store: "CityMeds Hub", },
+        { id: 10, name: 'Vitacillin Met 500mg/1000mg', price: '₦2,500', image: require('../../../assets/images/pain1.png'), store: "MyMediMart NG", },
     ],
     'Protein Supplement': [
-        { id: 1, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/ps1.png'), store: "OptiMed Pharmacy", },
-        { id: 2, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/ps2.png'), store: "GreenLeaf Pharmacy", },
-        { id: 3, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/ps3.jpeg'), store: "WellSpring Pharmacy", },
-        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/ps2.png'), store: "GreenLeaf Pharmacy", },
-        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/ps2.png'), store: "GreenLeaf Pharmacy", },
-        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/ps1.png'), store: "OptiMed Pharmacy", },
+        { id: 1, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/ps1.png'), store: "OptiMed Pharmacy", },
+        { id: 2, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/ps2.png'), store: "GreenLeaf Pharmacy", },
+        { id: 3, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/ps3.jpeg'), store: "WellSpring Pharmacy", },
+        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/ps2.png'), store: "GreenLeaf Pharmacy", },
+        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/ps2.png'), store: "GreenLeaf Pharmacy", },
+        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/ps1.png'), store: "OptiMed Pharmacy", },
     ],
     'Medical Equipment': [
-        { id: 1, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/me1.png'), store: "OptiMed Pharmacy", },
-        { id: 2, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/me2.png'), store: "Reliance", },
-        { id: 3, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/me3.jpeg'), store: "WellSpring Pharmacy", },
-        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/me2.png'), store: "Reliance", },
-        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/me2.png'), store: "GreenLeaf Pharmacy", },
-        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../../assets/images/me1.png'), store: "OptiMed Pharmacy", },
+        { id: 1, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/me1.png'), store: "OptiMed Pharmacy", },
+        { id: 2, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/me2.png'), store: "Reliance", },
+        { id: 3, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/me3.jpeg'), store: "WellSpring Pharmacy", },
+        { id: 4, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/me2.png'), store: "Reliance", },
+        { id: 5, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/me2.png'), store: "GreenLeaf Pharmacy", },
+        { id: 6, name: 'Vitacillin Met 500mg/1000mg', price: '₦3,500', image: require('../../../assets/images/me1.png'), store: "OptiMed Pharmacy", },
     ],
 };
 
 const topDeals = [
-    { id: 1, name: 'Vitacillin Met 5...', price: '₦11,900', image: require('../../../../assets/images/prod1.png'), discount: 20  },
-    { id: 2, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/prod2.png'), discount: 50 },
-    { id: 3, name: 'Vitacillin Met 5...', price: '₦23,500', image: require('../../../../assets/images/prod3.png'), discount: 20 },
-    { id: 4, name: 'Vitacillin Met 5...', price: '₦19,500', image: require('../../../../assets/images/prod4.png'), discount: 20  },
+    { id: 1, name: 'Vitacillin Met 5...', price: '₦11,900', image: require('../../../assets/images/prod1.png'), discount: 20  },
+    { id: 2, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../assets/images/prod2.png'), discount: 50 },
+    { id: 3, name: 'Vitacillin Met 5...', price: '₦23,500', image: require('../../../assets/images/prod3.png'), discount: 20 },
+    { id: 4, name: 'Vitacillin Met 5...', price: '₦19,500', image: require('../../../assets/images/prod4.png'), discount: 20  },
 ]
 
 // Create a mapping of categories to IDs
@@ -65,7 +65,7 @@ const categoriesWithIds = Object.keys(products).map((category, index) => ({
     category,
 }));
 
-export default function DocsPharmShop() {
+export default function ClientsPharmShop() {
     const router = useRouter();
     const [cartCount, setCartCount] = useState(0);
     const [disabledButtons, setDisabledButtons] = useState<{[key: string]: boolean}>({});
@@ -91,7 +91,7 @@ export default function DocsPharmShop() {
                     <TouchableOpacity activeOpacity={0.9}>
                         <MaterialIcons name="search" size={24} color="#0544AA" />
                     </TouchableOpacity>
-                    <Link href="/Doctors_world/doc_cart_screen" asChild>
+                    <Link href="/Clients_world/client_cart_screen" asChild>
                         <TouchableOpacity activeOpacity={0.9}>
                             <View style={styles.cartIconContainer}>
                                 <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
@@ -124,7 +124,7 @@ export default function DocsPharmShop() {
                                     <ThemedView key={product.id} style={styles.productCard}>
                                         <TouchableOpacity style={styles.imageContainer} activeOpacity={0.8} onPress={() => {
                                             router.push({
-                                                pathname: "/Doctors_world/product_details/[id]",
+                                                pathname: "/Clients_world/product_details/[id]",
                                                 params: {
                                                     id: product.id,
                                                     image: product.image,
@@ -165,7 +165,7 @@ export default function DocsPharmShop() {
                                     <ThemedView key={product.id} style={styles.productListCard}>
                                         <TouchableOpacity style={styles.imageContainer} activeOpacity={0.8} onPress={() => {
                                             router.push({
-                                                pathname: "/Doctors_world/product_details/[id]",
+                                                pathname: "/Clients_world/product_details/[id]",
                                                 params: {
                                                     id: product.id,
                                                     image: product.image,

@@ -60,7 +60,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="docs_pharm_shop"
+                name="clients_pharm_shop"
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <ThemedView
@@ -100,7 +100,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="docs_profile"
+                name="clients_profile"
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <ThemedView
@@ -114,7 +114,7 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            <Image style={{ width: 25, height: 25, borderWidth: 1, borderColor: '#0866FF', borderRadius: 30 }} source={require("../../../../assets/images/docprofile.png")} />
+                            <Image style={{ width: 25, height: 25, borderWidth: 1, borderColor: '#0866FF', borderRadius: 30 }} source={require("../../../../assets/images/client_profile.png")} />
                         </ThemedView>
                     ),
                 }}
