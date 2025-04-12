@@ -1,6 +1,6 @@
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import { RegTextInput } from "@/components/RegTextInput";
 import { CustomBtn } from "@/components/CustomButton";
@@ -18,8 +18,14 @@ const WHITE_HEIGHT = height * 0.33;
 
 export default function LoginScreen() {
     const [email, onChangeEmail] = useState("");
-    const [password, onChangePassword] = useState("");
+    const [password, setPassword] = useState("");
     const translateY = useSharedValue(WHITE_HEIGHT);
+    const router = useRouter();
+
+    // const onChangePassword = (text:any) => {
+    //     console.log("Password changed to:", text);
+    //     setPassword(text);
+    // };
 
     const router = useRouter();
 
@@ -39,8 +45,20 @@ export default function LoginScreen() {
         transform: [{ translateY: translateY.value }],
     }));
 
+<<<<<<< HEAD
     const handleRoute = () => {
         router.push("/ClientScreen/(tabs)"); // Use router.push()
+=======
+    const handleLogin = () => {
+        console.log("Password entered:", password);
+        if (password === "client") {
+            router.push("/(home)/Clients_world/(tabs)");
+        } else if (password === "doctor") {
+            router.push("/(home)/Doctors_world/(tabs)");
+        } else {
+            router.push("/");
+        }
+>>>>>>> origin/master
     };
 
     return (
@@ -86,8 +104,9 @@ export default function LoginScreen() {
                             />
                             <RegTextInput
                                 label="Password"
-                                onChangeText={onChangePassword}
+                                onChangeText={setPassword}
                                 secureTextEntry={true}
+                                value={password}
                             // required={true}
                             />
                             <ThemedView style={styles.changePwdView}>
@@ -101,10 +120,13 @@ export default function LoginScreen() {
                                 {/* <TouchableOpacity activeOpacity={0.9} style={styles.loginButton}>
                             <ThemedText style={styles.loginTxt}>Login</ThemedText>
                         </TouchableOpacity> */}
-                                <CustomBtn
-                                    route="/Doctors_world/(tabs)"
-                                    value="Login"
-                                />
+                                <TouchableOpacity
+                                    activeOpacity={0.9}
+                                    style={styles.btn}
+                                    onPress={handleLogin}
+                                >
+                                    <ThemedText style={styles.buttonTxt}>Login</ThemedText>
+                                </TouchableOpacity>
                             </ThemedView>
                             <ThemedView style={styles.separatorContainer}>
                                 <ThemedView style={styles.line} />
@@ -116,7 +138,11 @@ export default function LoginScreen() {
                                     <Image style={styles.image} source={require("../../assets/images/googlelogo.png")} />
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.8}>
+<<<<<<< HEAD
                                     <Image style={styles.facebookImage} source={require("../../assets/images/facebooklogo.png")}  />
+=======
+                                    <Image style={styles.facebookImage} source={require("../../assets/images/facebooklogo.png")} />
+>>>>>>> origin/master
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.8} >
                                     <Image style={styles.appleImage} source={require("../../assets/images/applelogo.png")} />
@@ -223,22 +249,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 27,
         marginTop: 30,
     },
-    loginButton: {
-        backgroundColor: '#007AFF',
-        height: 37,
-        borderRadius: 20,
-        paddingVertical: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5,
+    btn: {
+        backgroundColor: "#0866FF",
+        padding: 10,
+        alignItems: 'center',
+        borderRadius: 21,
+        height: 45,
     },
-    loginTxt: {
-        color: '#fff',
-        textAlign: 'center',
-        fontSize: 18,
+    buttonTxt: {
+        color: "#FFFFFF",
         fontFamily: 'Inter_700Bold',
+        fontSize: 17,
     },
     separatorContainer: {
         flexDirection: 'row',

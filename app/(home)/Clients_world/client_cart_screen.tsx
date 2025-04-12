@@ -13,8 +13,7 @@ interface CartItem {
     quantity: number;
 }
 
-
-const clientcartscreen = () => {
+const ClientCartScreen = () => {
     // Initialize state with typed array
     const [cartItems, setCartItems] = useState<CartItem[]>([
         { id: '1', name: 'Amoxil (amoxicillin) 250mg/1000mg Tablets', price: 3500, quantity: 1 },
@@ -89,17 +88,15 @@ const clientcartscreen = () => {
             <ThemedView style={{
                 alignItems: 'flex-end',
             }}>
-                <AppBtn value="Proceed to Checkout" route="/ClientScreen/Delivery_Screen/CheckoutScreen" />
+                <AppBtn value="Proceed to Checkout" route="/Doctors_world/Delivery_screens/delivery_options" />
             </ThemedView>
             <ThemedText style={styles.note}>*View delivery mode and shipping cost in checkout</ThemedText>
         </ThemedView>
     );
-}
-
-export default clientcartscreen
+};
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff', padding: 10, paddingTop: 70 },
+    container: { flex: 1, backgroundColor: '#fff', padding: 10, paddingTop: 50 },
     itemContainer: { flexDirection: 'row', alignItems: 'center', marginBottom: 15, paddingBottom: 25, padding: 10, borderRadius: 10, position: 'relative', borderBottomWidth: 1, borderColor: '#ADCCFF' },
     itemBottom: {
         flexDirection: 'row',
@@ -134,3 +131,5 @@ const styles = StyleSheet.create({
     checkoutText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
     note: { textAlign: 'right', fontSize: 14, color: '#043380CC', marginBottom: 50, fontFamily: 'OpenSans_400Regular', marginTop: 10, },
 });
+
+export default ClientCartScreen;

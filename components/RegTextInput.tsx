@@ -21,6 +21,7 @@ export function RegTextInput({
                 secureTextEntry={secureTextEntry}
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
+                onChangeText={onChangeText}
                 value={value}
                 {...rest}
             />

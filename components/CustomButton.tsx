@@ -4,11 +4,13 @@ import { Link } from "expo-router";
 
 export function CustomBtn({
     value,
-    route
+    route,
+    disabled,
+    onPress,
 }: any) {
     return (
         <Link href={route} asChild>
-            <TouchableOpacity style={styles.btn} activeOpacity={0.9}>
+            <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.btn} activeOpacity={0.9}>
                 <ThemedText style={styles.buttonTxt}>
                     {value}
                 </ThemedText>

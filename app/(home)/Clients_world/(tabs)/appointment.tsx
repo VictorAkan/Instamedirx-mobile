@@ -102,18 +102,19 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans_400Regular',
     },
     title: {
-        fontSize: 17,
+        fontSize: 16,
         color: '#0866FF',
-        fontFamily: 'OpenSans_700Bold',
+        fontFamily: 'OpenSans_600SemiBold',
         marginTop: 40,
         marginHorizontal: 20,
     },
     subtitle: {
         color: '#043380',
         marginBottom: 10,
-        marginTop: 9,
+        // marginTop: 9,
         fontFamily: 'OpenSans_400Regular',
         marginHorizontal: 20,
+        fontSize: 14,
     },
     card: {
         backgroundColor: 'white',

@@ -1,4 +1,4 @@
-import { Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { Image, TouchableOpacity, ScrollView, StyleSheet, View, Text } from 'react-native';
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter, Link } from 'expo-router';
 import { ThemedView } from '@/components/ThemedView';
@@ -15,17 +15,46 @@ const products = {
         { id: 1, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
         { id: 2, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria2.png') },
         { id: 3, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria3.png') },
+        { id: 4, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 5, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 6, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 7, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 8, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 9, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 10, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 11, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 12, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 13, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 14, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
+        { id: 15, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png') },
     ],
     'Pain Relief': [
         { id: 4, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
         { id: 5, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain2.png') },
         { id: 6, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain3.png') },
+        { id: 7, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 8, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 9, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 10, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 11, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 12, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 13, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 14, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 15, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
+        { id: 16, name: 'Vitacillin Met 5...', price: '₦2,500', image: require('../../../../assets/images/pain1.png') },
     ],
 };
 
 export default function ProductList() {
     const { id } = useLocalSearchParams();
     const router = useRouter();
+    const [cartCount, setCartCount] = useState(0);
+    const [disabledButtons, setDisabledButtons] = useState<{ [key: string]: boolean }>({});
+
+    const addToCart = (id: any) => {
+        setCartCount(cartCount + 1);
+        setDisabledButtons(prev => ({ ...prev, [id]: true }));
+    };
 
     // Find the corresponding category using the ID
     const categoryData = categoriesWithIds.find(c => c.id === Number(id));
@@ -52,7 +81,14 @@ export default function ProductList() {
                     </TouchableOpacity>
                     <Link href="/Doctors_world/doc_cart_screen" asChild>
                         <TouchableOpacity activeOpacity={0.9}>
-                            <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
+                            <View style={styles.cartIconContainer}>
+                                <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
+                                {cartCount >= 0 && (
+                                    <View style={styles.cartBadge}>
+                                        <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                                    </View>
+                                )}
+                            </View>
                         </TouchableOpacity>
                     </Link>
                 </ThemedView>
@@ -61,19 +97,30 @@ export default function ProductList() {
                 <ThemedView style={styles.productGrid}>
                     {items.map((product) => (
                         <ThemedView key={product.id} style={styles.productListCard}>
-                            <ThemedView style={styles.imageContainer}>
+                            <TouchableOpacity style={styles.imageContainer} activeOpacity={0.8} onPress={() => {
+                                router.push({
+                                    pathname: "/Doctors_world/product_details/[id]",
+                                    params: {
+                                        id: product.id,
+                                        image: product.image,
+                                        disableButton: String(disabledButtons[product.id] || false)
+                                    }
+                                })
+                            }}>
                                 <Image source={product.image} style={styles.productImage} />
-                            </ThemedView>
+                            </TouchableOpacity>
                             <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
                             <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                            <Link href="/Doctors_world/doc_cart_screen" asChild>
-                                <TouchableOpacity activeOpacity={0.9} style={styles.addToCartButton}>
-                                    <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                                    <ThemedView style={styles.sideView}>
-                                        <AntDesign name="arrowright" size={20} color="#0866FF" />
-                                    </ThemedView>
-                                </TouchableOpacity>
-                            </Link>
+                            <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
+                                backgroundColor: disabledButtons[product.id] ? "#CEE0FF" : "#0866FF"
+                            }]} onPress={() => addToCart(product.id)} disabled={disabledButtons[product.id]}>
+                                <ThemedText style={[styles.addToCartText, {
+                                    color: disabledButtons[product.id] ? '#8F8F8F' : '#fff'
+                                }]}>Add to Cart</ThemedText>
+                                <ThemedView style={styles.sideView}>
+                                    <AntDesign name="arrowright" size={18} color={disabledButtons[product.id] ? '#D6D6D6' : '#0866FF'} />
+                                </ThemedView>
+                            </TouchableOpacity>
                         </ThemedView>
                     ))}
                 </ThemedView>
@@ -126,6 +173,26 @@ const styles = StyleSheet.create({
     categoryContainer: {
         marginBottom: 20,
         paddingTop: 30,
+    },
+
+    cartIconContainer: {
+        position: 'relative',
+    },
+    cartBadge: {
+        position: 'absolute',
+        right: -8,
+        top: -5,
+        backgroundColor: 'red',
+        borderRadius: 10,
+        width: 18,
+        height: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cartBadgeText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
     },
     // categoryHeader: {
     //     flexDirection: 'row',
@@ -192,7 +259,7 @@ const styles = StyleSheet.create({
     },
     addToCartButton: {
         backgroundColor: "#0866FF",
-        padding: 10,
+        padding: 7,
         alignItems: 'center',
         borderRadius: 12,
         height: 47,
@@ -205,7 +272,7 @@ const styles = StyleSheet.create({
     },
     sideView: {
         borderRadius: 29,
-        padding: 4,
+        padding: 2,
     },
     addToCartText: {
         color: "#FFFFFF",

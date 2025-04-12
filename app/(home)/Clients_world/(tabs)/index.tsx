@@ -6,14 +6,19 @@ import { ThemedText } from '@/components/ThemedText';
 import { Link } from 'expo-router';
 import { useRouter } from 'expo-router';
 import DrawerMenu from '@/components/DrawerMenu';
+<<<<<<< HEAD:app/(home)/ClientScreen/(tabs)/index.tsx
 import ClientHome from '@/components/ClientHome';
+=======
+>>>>>>> origin/master:app/(home)/Clients_world/(tabs)/index.tsx
 import FilterPage from '@/components/FilterComponent';
+import ClientsHome from '@/components/ClientsHome';
 // import StoryCircle from '@/components/SegmentedStoryCircle';
 
 export default function ClientScreen() {
     const [search, setSearch] = useState('');
     const [showFilter, setShowFilter] = useState(false);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
+<<<<<<< HEAD:app/(home)/ClientScreen/(tabs)/index.tsx
     const [clientUser, setClientUser] = useState("Alfred");
 
     const router = useRouter();
@@ -23,15 +28,25 @@ export default function ClientScreen() {
         setCartCount(prevCount => prevCount + increment);
     };
 
+=======
+    const [cartCount, setCartCount] = useState(0);
+    const [disabledButtons, setDisabledButtons] = useState<{ [key: string]: boolean }>({});
+>>>>>>> origin/master:app/(home)/Clients_world/(tabs)/index.tsx
 
     const revealFilter = () => {
         setShowFilter(!showFilter);
     }
 
+    const addToCart = (id: any) => {
+        setCartCount(cartCount + 1);
+        setDisabledButtons(prev => ({ ...prev, [id]: true }));
+    };
+
     return (
         <ThemedView style={styles.container}>
             <ThemedView style={styles.headerContainer}>
                 {showFilter === true ? "" : <ThemedView style={styles.header}>
+<<<<<<< HEAD:app/(home)/ClientScreen/(tabs)/index.tsx
                     <ThemedText style={styles.welcomeText}> Welcome, {clientUser}</ThemedText>
                     <ThemedView style={styles.sideView}>
                         <Link href="/Doctors_world/doc_cart_screen" asChild>
@@ -47,8 +62,23 @@ export default function ClientScreen() {
                             </TouchableOpacity>
                         </Link>
                         <Link href="/Doctors_world/doc_messages_screen" asChild>
+=======
+                    <ThemedText style={styles.welcomeText}>Welcome, Alfred</ThemedText>
+                    <ThemedView style={styles.sideView}>
+                        <Link href="/Clients_world/client_cart_screen" asChild>
+>>>>>>> origin/master:app/(home)/Clients_world/(tabs)/index.tsx
                             <TouchableOpacity activeOpacity={0.9}>
-                                <Image source={require("../../../../assets/images/chaticon.png")} />
+                                <MaterialCommunityIcons name="cart-outline" size={20} color="#698fcc" />
+                                {cartCount > 0 && (
+                                    <View style={styles.cartBadge}>
+                                        <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                                    </View>
+                                )}
+                            </TouchableOpacity>
+                        </Link>
+                        <Link href="/Clients_world/client_messages_screen" asChild>
+                            <TouchableOpacity activeOpacity={0.9}>
+                                <Image source={require("../../../../assets/images/chaticon.png")} style={{ width: 18, height: 18 }} />
                             </TouchableOpacity>
                         </Link>
                     </ThemedView>
@@ -73,8 +103,12 @@ export default function ClientScreen() {
                         <MaterialIcons name="search" size={24} color={showFilter === true ? '#8F8F8F' : '#D6D6D6'} />
                     </TouchableOpacity>
                 </ThemedView>
+<<<<<<< HEAD:app/(home)/ClientScreen/(tabs)/index.tsx
 
                 {showFilter === true ? <FilterPage /> : <ClientHome addToCart={addToCart} />}
+=======
+                {showFilter === true ? <FilterPage /> : <ClientsHome addToCart={addToCart} disabledButtons={disabledButtons} />}
+>>>>>>> origin/master:app/(home)/Clients_world/(tabs)/index.tsx
             </ThemedView>
         </ThemedView>
     );
@@ -98,10 +132,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
     },
     welcomeText: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
         color: '#0755D4',
-        fontFamily: 'OpenSans_700Bold',
+        fontFamily: 'OpenSans_600SemiBold',
     },
     searchBar: {
         flexDirection: 'row',
@@ -109,7 +143,7 @@ const styles = StyleSheet.create({
         borderRadius: 27,
         borderColor: '#ADCCFF',
         borderWidth: 1,
-        padding: 10,
+        padding: 8,
         marginTop: 15,
         marginHorizontal: 20,
     },
@@ -118,6 +152,22 @@ const styles = StyleSheet.create({
         borderLeftColor: '#ADCCFF',
         backgroundColor: 'white',
         paddingLeft: 5,
+    },
+    cartBadge: {
+        position: 'absolute',
+        right: -8,
+        top: -5,
+        backgroundColor: 'red',
+        borderRadius: 10,
+        width: 18,
+        height: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cartBadgeText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
     },
     searchIcon: {
         marginRight: 10,
@@ -136,6 +186,7 @@ const styles = StyleSheet.create({
     sideView: {
         flexDirection: 'row',
         alignItems: 'center',
+<<<<<<< HEAD:app/(home)/ClientScreen/(tabs)/index.tsx
         gap: 15,
     },
     cartIconContainer: {
@@ -177,4 +228,8 @@ const styles = StyleSheet.create({
     
    
 
+=======
+        gap: 25,
+    }
+>>>>>>> origin/master:app/(home)/Clients_world/(tabs)/index.tsx
 });
