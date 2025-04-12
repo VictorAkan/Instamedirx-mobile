@@ -119,6 +119,45 @@ export default function HomeLayout() {
             <Stack.Screen name="ClientScreen/(tabs)" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="ClientScreen/IndividualConsultation"
+                options={{
+                    headerShown: false,
+                    headerStyle: {},
+
+                }} />
+            <Stack.Screen name="ClientScreen/ProductScreen"
+                options={{
+                    headerShown: false,
+                    headerStyle: {},
+
+                }} />
+            <Stack.Screen name="ClientScreen/product_details/[id]"
+                options={{
+                    headerShown: false,
+                    headerStyle: {},
+
+                }} />
+            <Stack.Screen name="ClientScreen/client_cart_screen"
+                options={{
+                    headerShown: false,
+                    headerStyle: {},
+                }} />
+            <Stack.Screen name="ClientScreen/Delivery_Screen/CheckoutScreen"
+                options={{
+                    headerShown: false,
+                    headerStyle: {},
+                }} />
+            <Stack.Screen name="ClientScreen/Delivery_Screen/deliveryOptionsScreen"
+                options={{
+                    headerShown: false,
+                    headerStyle: {},
+                }} />
+            <Stack.Screen name="ClientScreen/Delivery_Screen/PaymentScreen"
+                options={{
+                    headerShown: false,
+                    headerStyle: {},
+                }} />
+
         </Stack>
     )
 }

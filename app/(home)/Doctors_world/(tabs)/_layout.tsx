@@ -11,11 +11,11 @@ export default function TabLayout() {
                 headerShown: false, // Hide header title
                 tabBarStyle: {
                     height: 75,
-                    paddingBottom: 5, 
+                    paddingBottom: 5,
                     paddingTop: 18,
                     backgroundColor: 'white',
                 },
-                tabBarActiveTintColor: '#0544AA', 
+                tabBarActiveTintColor: '#0544AA',
                 // tabBarActiveBackgroundColor: '#CEE0FF',// Active icon color
             }}
         >
@@ -34,7 +34,7 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            { focused ? <MaterialIcons name="home" size={28} color={focused ? '#0544AA' : '#698fcc'} /> : <MaterialCommunityIcons name="home-outline" size={28} color="#698fcc" /> }
+                            {focused ? <MaterialIcons name="home" size={28} color={focused ? '#0544AA' : '#698fcc'} /> : <MaterialCommunityIcons name="home-outline" size={28} color="#698fcc" />}
                         </ThemedView>
                     ),
                 }}
@@ -54,7 +54,7 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            {focused ? <Image source={require("../../../../assets/images/bookcontact.png")} /> : <Image source={require("../../../../assets/images/contactoutline.png")} /> }
+                            {focused ? <Image source={require("../../../../assets/images/bookcontact.png")} /> : <Image source={require("../../../../assets/images/contactoutline.png")} />}
                         </ThemedView>
                     ),
                 }}
@@ -74,7 +74,7 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            {focused ? <MaterialCommunityIcons name="flower-tulip" size={28} color={focused ? '#0544AA' : '#698fcc'} /> : <MaterialCommunityIcons name="flower-tulip-outline" size={28} color="#698fcc" /> }
+                            {focused ? <MaterialCommunityIcons name="flower-tulip" size={28} color={focused ? '#0544AA' : '#698fcc'} /> : <MaterialCommunityIcons name="flower-tulip-outline" size={28} color="#698fcc" />}
                         </ThemedView>
                     ),
                 }}
@@ -94,7 +94,7 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-                            {focused ? <Image source={require("../../../../assets/images/vidoutline.png")} /> : <Image source={require("../../../../assets/images/vid.png")} /> }
+                            {focused ? <Image source={require("../../../../assets/images/vidoutline.png")} /> : <Image source={require("../../../../assets/images/vid.png")} />}
                         </ThemedView>
                     ),
                 }}
