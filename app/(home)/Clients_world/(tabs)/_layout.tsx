@@ -59,11 +59,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-<<<<<<< HEAD:app/(home)/ClientScreen/(tabs)/_layout.tsx
-                name="Product"
-=======
                 name="clients_pharm_shop"
->>>>>>> origin/master:app/(home)/Clients_world/(tabs)/_layout.tsx
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <ThemedView
@@ -104,11 +100,7 @@ export default function TabLayout() {
             />
 
             <Tabs.Screen
-<<<<<<< HEAD:app/(home)/ClientScreen/(tabs)/_layout.tsx
-                name="aboutMe"
-=======
                 name="clients_profile"
->>>>>>> origin/master:app/(home)/Clients_world/(tabs)/_layout.tsx
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <ThemedView
@@ -122,11 +114,8 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-<<<<<<< HEAD:app/(home)/ClientScreen/(tabs)/_layout.tsx
-                            <Image style={{ width: 25, height: 25, borderWidth: 1, borderColor: '#0866FF', borderRadius: 30 }} source={require("../../../../assets/images/patientwithfixedappointment1.png")} />
-=======
+
                             <Image style={{ width: 25, height: 25, borderWidth: 1, borderColor: '#0866FF', borderRadius: 30 }} source={require("../../../../assets/images/client_profile.png")} />
->>>>>>> origin/master:app/(home)/Clients_world/(tabs)/_layout.tsx
                         </ThemedView>
                     ),
                 }}
