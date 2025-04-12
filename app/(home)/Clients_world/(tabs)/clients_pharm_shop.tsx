@@ -1,10 +1,23 @@
-import { Image, TouchableOpacity, ScrollView, StyleSheet, View, Text } from 'react-native';
-import { useState } from 'react';
+import {
+    Image,
+    TouchableOpacity,
+    ScrollView,
+    StyleSheet,
+    View,
+    Text,
+    Animated,
+    Dimensions,
+    TextInput,
+} from 'react-native';
+import { useState, useRef } from 'react';
 import { useRouter } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Ionicons, AntDesign, MaterialIcons, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import { useCart } from '@/utils/context/cart_context';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const products = {
     Antibiotics: [
@@ -70,9 +83,27 @@ const categoriesWithIds = Object.keys(products).map((category, index) => ({
 
 export default function ClientsPharmShop() {
     const router = useRouter();
-    const [cartCount, setCartCount] = useState(0);
-    const [disabledButtons, setDisabledButtons] = useState<{ [key: string]: boolean }>({});
-    const [cartItems, setCartItems] = useState<{ [key: string]: boolean }>({});
+    const [search, setSearch] = useState('');
+    const { cartCount, setCartCount, cartItems, setCartItems, disabledButtons, setDisabledButtons } = useCart();
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
+    const slideAnim = useRef(new Animated.Value(SCREEN_WIDTH)).current;
+
+    const openSearch = () => {
+        setIsSearchVisible(true);
+        Animated.timing(slideAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    const closeSearch = () => {
+        Animated.timing(slideAnim, {
+            toValue: SCREEN_WIDTH,
+            duration: 300,
+            useNativeDriver: true,
+        }).start(() => setIsSearchVisible(false));
+    };
 
     const truncateText = (text: string, maxLength: number) =>
         text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
@@ -94,29 +125,74 @@ export default function ClientsPharmShop() {
     return (
         <ThemedView style={styles.container}>
             <ThemedView style={styles.headerView}>
-                <ThemedView style={styles.leftSide}>
-                    <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
-                        <AntDesign name="arrowleft" size={24} color="#032255" />
-                    </TouchableOpacity>
-                    <ThemedText style={styles.header}>Shop Now</ThemedText>
-                </ThemedView>
-                <ThemedView style={styles.edgeIcons}>
-                    <TouchableOpacity activeOpacity={0.9}>
-                        <MaterialIcons name="search" size={24} color="#0544AA" />
-                    </TouchableOpacity>
-                    <Link href="/Clients_world/client_cart_screen" asChild>
-                        <TouchableOpacity activeOpacity={0.9}>
-                            <View style={styles.cartIconContainer}>
-                                <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
-                                {cartCount > 0 && (
-                                    <View style={styles.cartBadge}>
-                                        <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                {!isSearchVisible && (
+                    <>
+                        <ThemedView style={styles.leftSide}>
+                            <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
+                                <AntDesign name="arrowleft" size={24} color="#032255" />
+                            </TouchableOpacity>
+                            <ThemedText style={styles.header}>Shop Now</ThemedText>
+                        </ThemedView>
+                        <ThemedView style={styles.edgeIcons}>
+                            <TouchableOpacity onPress={openSearch} activeOpacity={0.9}>
+                                <MaterialIcons name="search" size={24} color="#0544AA" />
+                            </TouchableOpacity>
+                            <Link href="/Clients_world/client_cart_screen" asChild>
+                                <TouchableOpacity activeOpacity={0.9}>
+                                    <View style={styles.cartIconContainer}>
+                                        <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
+                                        {cartCount > 0 && (
+                                            <View style={styles.cartBadge}>
+                                                <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                                            </View>
+                                        )}
                                     </View>
-                                )}
-                            </View>
-                        </TouchableOpacity>
-                    </Link>
-                </ThemedView>
+                                </TouchableOpacity>
+                            </Link>
+                        </ThemedView>
+                    </>
+                )}
+
+                {isSearchVisible && (
+                    <Animated.View
+                        style={[
+                            styles.searchContainer,
+                            { transform: [{ translateX: slideAnim }] },
+                        ]}
+                    >
+                        <ThemedView style={styles.searchBar}>
+                            <ThemedView style={styles.sideLine}>
+                                <ThemedText></ThemedText>
+                            </ThemedView>
+                            <TextInput
+                                placeholder="Search products..."
+                                placeholderTextColor="#8F8F8F"
+                                value={search}
+                                onChangeText={setSearch}
+                                style={styles.searchInput}
+                                autoFocus
+                            />
+                            <TouchableOpacity activeOpacity={0.9}>
+                                <MaterialIcons name="search" size={24} color="#8F8F8F" />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={closeSearch} activeOpacity={0.8}>
+                                <AntDesign name="close" size={20} color="#032255" />
+                            </TouchableOpacity>
+                        </ThemedView>
+                        <Link href="/Clients_world/client_cart_screen" asChild>
+                            <TouchableOpacity activeOpacity={0.9}>
+                                <View style={styles.cartIconContainer}>
+                                    <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
+                                    {cartCount > 0 && (
+                                        <View style={styles.cartBadge}>
+                                            <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                                        </View>
+                                    )}
+                                </View>
+                            </TouchableOpacity>
+                        </Link>
+                    </Animated.View>
+                )}
             </ThemedView>
             <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
                 {Object.entries(products).map(([category, items]) => {
@@ -136,6 +212,9 @@ export default function ClientsPharmShop() {
                                                     id: product.id,
                                                     image: product.image,
                                                     store: product.store,
+                                                    // disableButton: String(disabledButtons[product.id]),
+                                                    // setCartItems: setCartItems,
+                                                    // setDisabledButtons: setDisabledButtons,
                                                 }
                                             })
                                         }}>
@@ -170,8 +249,8 @@ export default function ClientsPharmShop() {
                             </ThemedView>
                             <ScrollView style={{ marginTop: 15, flexGrow: 1 }} horizontal showsHorizontalScrollIndicator={false}>
                                 {items.map((product) => (
-                                    <ThemedView key={product.id} style={styles.productCard}>
-                                        <TouchableOpacity style={styles.imageContainer} activeOpacity={0.8} onPress={() => {
+                                    <ThemedView key={product.id} style={styles.moreProductCard}>
+                                        <TouchableOpacity style={styles.moreImageContainer} activeOpacity={0.8} onPress={() => {
                                             router.push({
                                                 pathname: "/Clients_world/product_details/[id]",
                                                 params: {
@@ -181,7 +260,7 @@ export default function ClientsPharmShop() {
                                                 }
                                             })
                                         }}>
-                                            <Image source={product.image} style={styles.productImage} />
+                                            <Image source={product.image} style={styles.moreProductImage} />
                                         </TouchableOpacity>
                                         <ThemedText style={styles.productTxt}>{truncateText(product.name, 16)}</ThemedText>
                                         <ThemedText style={styles.productStore}>{truncateText(product.store, 16)}</ThemedText>
@@ -218,7 +297,7 @@ export default function ClientsPharmShop() {
                                     params: {
                                         id: product.id,
                                         image: product.image,
-                                        disableButton: String(disabledButtons[product.id] || false)
+                                        store: 'PharmC Store',
                                     }
                                 })
                             }}>
@@ -266,6 +345,25 @@ const styles = StyleSheet.create({
         // marginBottom: 60,
         // // marginTop: 10,
     },
+    searchContainer: {
+        // position: 'absolute',
+        // top: 0,
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
+        paddingRight: 5,
+        // backgroundColor: '#fff',
+        zIndex: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        paddingLeft: 2,
+        width: '90%'
+    },
+    searchInput: {
+        flex: 1,
+        fontFamily: 'OpenSans_400Regular',
+    },
     headerView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -279,6 +377,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: 30,
+    },
+    searchBar: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 27,
+        borderColor: '#ADCCFF',
+        borderWidth: 1,
+        padding: 8,
+        // marginTop: 5,
+        // marginRight: 1,
+    },
+    sideLine: {
+        borderLeftWidth: 2,
+        borderLeftColor: '#ADCCFF',
+        backgroundColor: 'white',
+        paddingLeft: 5,
     },
     edgeIcons: {
         gap: 30,
@@ -342,6 +456,29 @@ const styles = StyleSheet.create({
         // borderRadius: 10,
         // borderWidth: 1,
         borderColor: '#EAEAEA',
+    },
+    moreProductCard: {
+        // width: 150,
+        padding: 10,
+        alignItems: 'center',
+        backgroundColor: 'white',
+        // marginRight: 10,
+        // borderRadius: 10,
+        // borderWidth: 1,
+        borderColor: '#EAEAEA',
+    },
+    moreProductImage: {
+        width: 130,
+        height: 130,
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
+    },
+    moreImageContainer: {
+        borderWidth: 1,
+        padding: 5,
+        borderColor: '#CEE0FF',
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
     },
     productListCard: {
         // width: '48%',

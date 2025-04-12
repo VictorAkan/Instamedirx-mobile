@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Ionicons, MaterialIcons, FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
+import { useCart } from '@/utils/context/cart_context';
 import { Link } from 'expo-router';
 import DrawerMenu from '@/components/DrawerMenu';
 import FilterPage from '@/components/FilterComponent';
@@ -13,16 +14,24 @@ export default function ClientScreen() {
     const [search, setSearch] = useState('');
     const [showFilter, setShowFilter] = useState(false);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
-    const [cartCount, setCartCount] = useState(0);
-    const [disabledButtons, setDisabledButtons] = useState<{ [key: string]: boolean }>({});
+    const { cartCount, setCartCount, cartItems, setCartItems, disabledButtons, setDisabledButtons } = useCart();
 
     const revealFilter = () => {
         setShowFilter(!showFilter);
     }
 
-    const addToCart = (id: any) => {
-        setCartCount(cartCount + 1);
-        setDisabledButtons(prev => ({ ...prev, [id]: true }));
+    const toggleCartItem = (id: any) => {
+        if (disabledButtons[id]) {
+            // Remove item from cart
+            setCartCount(cartCount - 1);
+            setCartItems(prev => ({ ...prev, [id]: false }));
+            setDisabledButtons(prev => ({ ...prev, [id]: false }));
+        } else {
+            // Add item to cart
+            setCartCount(cartCount + 1);
+            setCartItems(prev => ({ ...prev, [id]: true }));
+            setDisabledButtons(prev => ({ ...prev, [id]: true }));
+        }
     };
 
     return (
@@ -68,7 +77,7 @@ export default function ClientScreen() {
                         <MaterialIcons name="search" size={24} color={showFilter === true ? '#8F8F8F' : '#D6D6D6'} />
                     </TouchableOpacity>
                 </ThemedView>
-                {showFilter === true ? <FilterPage /> : <ClientsHome addToCart={addToCart} disabledButtons={disabledButtons} />}
+                {showFilter === true ? <FilterPage /> : <ClientsHome toggleCartItem={toggleCartItem} disabledButtons={disabledButtons} />}
             </ThemedView>
             {isDrawerVisible && <DrawerMenu isVisible={isDrawerVisible} onClose={() => setDrawerVisible(false)} />}
         </ThemedView>

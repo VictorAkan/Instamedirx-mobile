@@ -13,9 +13,9 @@ export function AppBtn({
         <Link href={route} asChild>
             <TouchableOpacity style={{
                 backgroundColor: "#0866FF",
-                padding: 7,
+                padding: 10,
                 alignItems: 'center',
-                borderRadius: 12,
+                borderRadius: 14,
                 // height: 47,
                 width: width,
                 paddingHorizontal: 15,
@@ -27,7 +27,7 @@ export function AppBtn({
                     {value}
                 </ThemedText>
                 <ThemedView style={styles.sideView}>
-                <AntDesign name="arrowright" size={18} color="#0866FF" />
+                <AntDesign name="arrowright" size={17} color="#0866FF" />
                 </ThemedView>
             </TouchableOpacity>
         </Link>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     sideView: {
-        borderRadius: 29,
-        padding: 2,
+        borderRadius: 35,
+        padding: 3,
     }
 })

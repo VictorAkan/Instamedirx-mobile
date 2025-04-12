@@ -80,7 +80,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="doc_video_post"
+                name="client_video_post"
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <ThemedView

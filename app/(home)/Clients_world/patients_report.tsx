@@ -1,5 +1,3 @@
-// File: HowYouFeelScreen.tsx
-
 import React, { useState } from 'react';
 import {
     View,
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
     },
     backButton: {
         marginBottom: 20,
-        marginTop: 40,
+        marginTop: 50,
     },
     header: {
         fontSize: 16,
