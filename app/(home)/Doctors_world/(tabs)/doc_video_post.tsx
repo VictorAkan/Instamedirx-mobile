@@ -154,7 +154,7 @@ export default function ReelsScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: { width, height: height - 100, backgroundColor: 'black', alignItems: 'center', },
+    container: { width, height: height, backgroundColor: 'black', alignItems: 'center', },
     video: { width, height },
     headerView: {
         flexDirection: "row",

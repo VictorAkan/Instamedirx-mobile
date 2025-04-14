@@ -15,38 +15,41 @@ import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 
 const DoctorCard = () => {
+    const router = useRouter();
     const truncateText = (text: any, maxLength: any) =>
         text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 
     return (
-        <ThemedView style={styles.card}>
-            {/* <ThemedView style={styles.imageContainer}> */}
+        <Link href="/Clients_world/doctors_profile" asChild>
+            <TouchableOpacity activeOpacity={0.8} style={styles.card}>
+                {/* <ThemedView style={styles.imageContainer}> */}
                 <Image source={require('../../../assets/images/docbg.jpeg')} style={styles.avatar} />
-            {/* </ThemedView> */}
-            <ThemedView style={styles.info}>
-                <ThemedView style={styles.header}>
-                    <ThemedText style={styles.name}>Dr. Chisom Okoli</ThemedText>
-                    <ThemedText style={styles.role}>Psychiatrist</ThemedText>
-                </ThemedView>
-                <ThemedText style={styles.description}>
-                    {truncateText("I am a Psychiatrist with 3 years experience working in both male and female sports with medical license as a chiropractor and intense workout", 60)}
-                </ThemedText>
-                <ThemedView style={styles.bottomRow}>
-                    <ThemedView style={styles.rating}>
-                        <ThemedText style={styles.ratingText}>4.5</ThemedText>
-                        <MaterialIcons name="star-border-purple500" size={18} color="#EEE600" />
+                {/* </ThemedView> */}
+                <ThemedView style={styles.info}>
+                    <ThemedView style={styles.header}>
+                        <ThemedText style={styles.name}>Dr. Chisom Okoli</ThemedText>
+                        <ThemedText style={styles.role}>Psychiatrist</ThemedText>
                     </ThemedView>
-                    <ThemedView style={styles.icons}>
-                        <TouchableOpacity style={styles.bottomBtn} activeOpacity={0.8}>
-                            <Image source={require("../../../assets/images/chaticon.png")} style={{ width: 15, height: 15 }} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.bottomBtn} activeOpacity={0.8}>
-                            <Ionicons name="videocam-outline" size={15} color="#0544AA" />
-                        </TouchableOpacity>
+                    <ThemedText style={styles.description}>
+                        {truncateText("I am a Psychiatrist with 3 years experience working in both male and female sports with medical license as a chiropractor and intense workout", 60)}
+                    </ThemedText>
+                    <ThemedView style={styles.bottomRow}>
+                        <ThemedView style={styles.rating}>
+                            <ThemedText style={styles.ratingText}>4.5</ThemedText>
+                            <MaterialIcons name="star-border-purple500" size={18} color="#EEE600" />
+                        </ThemedView>
+                        <ThemedView style={styles.icons}>
+                            <TouchableOpacity style={styles.bottomBtn} activeOpacity={0.8}>
+                                <Image source={require("../../../assets/images/chaticon.png")} style={{ width: 15, height: 15 }} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.bottomBtn} activeOpacity={0.8}>
+                                <Ionicons name="videocam-outline" size={15} color="#0544AA" />
+                            </TouchableOpacity>
+                        </ThemedView>
                     </ThemedView>
                 </ThemedView>
-            </ThemedView>
-        </ThemedView>
+            </TouchableOpacity>
+        </Link>
     );
 };
 

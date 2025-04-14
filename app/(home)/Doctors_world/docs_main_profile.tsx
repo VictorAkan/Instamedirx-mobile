@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
         width: "100%",
         ...Platform.select({
             ios: {
-                height: 150,
+                height: 200,
             },
             android: {
                 height: 200,

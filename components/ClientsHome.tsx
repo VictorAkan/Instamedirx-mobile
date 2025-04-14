@@ -7,11 +7,11 @@ import Svg, { Circle } from 'react-native-svg';
 import { Link, useRouter } from 'expo-router';
 
 interface ClientsHomeProps {
-    addToCart: (id: any) => void;
+    toggleCartItem: (id: any) => void;
     disabledButtons: { [key: string]: boolean };
 }
 
-const ClientsHome: React.FC<ClientsHomeProps> = ({ addToCart, disabledButtons }) => {
+const ClientsHome: React.FC<ClientsHomeProps> = ({ toggleCartItem, disabledButtons }) => {
     const [selectedStory, setSelectedStory] = useState<any | null>(null);
     const flatListRef = useRef<FlatList>(null);
     const router = useRouter();
@@ -50,10 +50,10 @@ const ClientsHome: React.FC<ClientsHomeProps> = ({ addToCart, disabledButtons })
     ];
 
     const medications = [
-        { id: 1, name: 'Vitacillin Met 5...', price: '₦11,900', image: require('../assets/images/prod1.png') },
-        { id: 2, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../assets/images/prod2.png'), discount: 50 },
-        { id: 3, name: 'Vitacillin Met 5...', price: '₦23,500', image: require('../assets/images/prod3.png'), discount: 20 },
-        { id: 4, name: 'Vitacillin Met 5...', price: '₦19,500', image: require('../assets/images/prod4.png') },
+        { id: 34, name: 'Vitacillin Met 5...', price: '₦11,900', image: require('../assets/images/prod1.png') },
+        { id: 35, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../assets/images/prod2.png'), discount: 50 },
+        { id: 36, name: 'Vitacillin Met 5...', price: '₦23,500', image: require('../assets/images/prod3.png'), discount: 20 },
+        { id: 37, name: 'Vitacillin Met 5...', price: '₦19,500', image: require('../assets/images/prod4.png') },
     ]
 
     const getDashedBorder = (storyCount: number) => {
@@ -176,11 +176,11 @@ const ClientsHome: React.FC<ClientsHomeProps> = ({ addToCart, disabledButtons })
                     <ThemedView key={product.id} style={styles.productListCard}>
                         <TouchableOpacity style={styles.imageContainer} activeOpacity={0.8} onPress={() => {
                             router.push({
-                                pathname: "/Doctors_world/product_details/[id]",
+                                pathname: "/Clients_world/product_details/[id]",
                                 params: {
                                     id: product.id,
                                     image: product.image,
-                                    disableButton: String(disabledButtons[product.id] || false)
+                                    store: 'PharmC Store',
                                 }
                             })
                         }}>
@@ -195,7 +195,7 @@ const ClientsHome: React.FC<ClientsHomeProps> = ({ addToCart, disabledButtons })
                         <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
                             backgroundColor: disabledButtons[product.id] ? "#CEE0FF" : "#0866FF",
                             marginTop: product.discount ? 0 : 25
-                        }]} onPress={() => addToCart(product.id)} disabled={disabledButtons[product.id]}>
+                        }]} onPress={() => toggleCartItem(product.id)}>
                             <ThemedText style={[styles.addToCartText, {
                                 color: disabledButtons[product.id] ? '#8F8F8F' : '#fff'
                             }]}>Add to Cart</ThemedText>

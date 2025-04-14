@@ -61,6 +61,9 @@ export default function HomeLayout() {
             <Stack.Screen name="Clients_world/pharm_shop" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Clients_world/doctors_profile" options={{
+                headerShown: false,
+            }} />
 
 
             {/* Doctor's routes */}
