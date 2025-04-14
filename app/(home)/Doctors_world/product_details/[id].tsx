@@ -167,6 +167,23 @@ const ProductDetailScreen = () => {
                 </ThemedText>
 
                 {/* Store Link */}
+<<<<<<< HEAD
+                <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
+                    <ThemedText style={styles.storeText}>Visit PharmC Store</ThemedText>
+                    <ThemedView style={styles.arrowContainer}>
+                        <Feather name="arrow-right" size={15} color="white" />
+                    </ThemedView>
+                </TouchableOpacity>
+
+                {/* Add to Cart Button */}
+                <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>
+                    <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
+                    <ThemedView style={styles.sideView}>
+                        <AntDesign name="arrowright" size={20} color="#0866FF" />
+                    </ThemedView>
+                </TouchableOpacity>
+
+=======
                 <Link href="/Doctors_world/product_details/pharmcy_store_details" asChild>
                     <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
                         <ThemedText style={styles.storeText}>Visit {store}</ThemedText>
@@ -188,6 +205,7 @@ const ProductDetailScreen = () => {
                     </ThemedView>
                 </TouchableOpacity>
 
+>>>>>>> origin/master
                 <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
                     {Object.entries(moreProducts).map(([category, items]) => (
                         <ThemedView key={category} style={styles.categoryContainer}>
@@ -200,6 +218,14 @@ const ProductDetailScreen = () => {
                                         <TouchableOpacity style={styles.bottomImageContainer} activeOpacity={0.8}>
                                             <Image source={product.image} style={styles.productImageB} />
                                         </TouchableOpacity>
+<<<<<<< HEAD
+                                        <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
+                                        <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
+                                        <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>
+                                            <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
+                                            <ThemedView style={styles.sideView}>
+                                                <AntDesign name="arrowright" size={20} color="#0866FF" />
+=======
                                         <ThemedText style={styles.productTxt}>{truncateText(product.name, 16)}</ThemedText>
                                         {product.discount && <ThemedView style={styles.discountRow}>
                                             <Feather name="tag" size={16} color="#FF5E5E" />
@@ -215,6 +241,7 @@ const ProductDetailScreen = () => {
                                             }]}>Add to Cart</ThemedText>
                                             <ThemedView style={styles.sideView}>
                                                 <AntDesign name="arrowright" size={18} color={isDisabled ? '#D6D6D6' : '#0866FF'} />
+>>>>>>> origin/master
                                             </ThemedView>
                                         </TouchableOpacity>
                                     </ThemedView>

@@ -10,6 +10,8 @@ import React from "react";
 import { View, Text, Dimensions } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { GestureDetector, GestureHandlerRootView, Gesture } from "react-native-gesture-handler";
+import { useRouter } from "expo-router";
+
 
 const { height } = Dimensions.get("window");
 const WHITE_HEIGHT = height * 0.33;
@@ -24,6 +26,8 @@ export default function LoginScreen() {
     //     console.log("Password changed to:", text);
     //     setPassword(text);
     // };
+
+    const router = useRouter();
 
     const panGesture = Gesture.Pan()
         .onUpdate((event) => {
@@ -41,6 +45,10 @@ export default function LoginScreen() {
         transform: [{ translateY: translateY.value }],
     }));
 
+<<<<<<< HEAD
+    const handleRoute = () => {
+        router.push("/ClientScreen/(tabs)"); // Use router.push()
+=======
     const handleLogin = () => {
         console.log("Password entered:", password);
         if (password === "client") {
@@ -50,6 +58,7 @@ export default function LoginScreen() {
         } else {
             router.push("/");
         }
+>>>>>>> origin/master
     };
 
     return (
@@ -125,13 +134,17 @@ export default function LoginScreen() {
                                 <ThemedView style={styles.line} />
                             </ThemedView>
                             <ThemedView style={styles.socialsView}>
-                                <TouchableOpacity activeOpacity={0.8} >
+                                <TouchableOpacity activeOpacity={0.8} onPress={handleRoute}>
                                     <Image style={styles.image} source={require("../../assets/images/googlelogo.png")} />
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.8}>
+<<<<<<< HEAD
+                                    <Image style={styles.facebookImage} source={require("../../assets/images/facebooklogo.png")}  />
+=======
                                     <Image style={styles.facebookImage} source={require("../../assets/images/facebooklogo.png")} />
+>>>>>>> origin/master
                                 </TouchableOpacity>
-                                <TouchableOpacity activeOpacity={0.8}>
+                                <TouchableOpacity activeOpacity={0.8} >
                                     <Image style={styles.appleImage} source={require("../../assets/images/applelogo.png")} />
                                 </TouchableOpacity>
                             </ThemedView>
