@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, FlatList, TouchableOpacity, StyleSheet, Image, Modal } from 'react-native';
+import { View, Text, TextInput, ScrollView, FlatList, TouchableOpacity, StyleSheet, Image, Modal} from 'react-native';
 import { useState, useEffect, useRef } from 'react';
 import { Ionicons, MaterialIcons, FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons';
 import { ThemedView } from '@/components/ThemedView';
@@ -8,6 +8,7 @@ import { Link } from 'expo-router';
 import DrawerMenu from '@/components/DrawerMenu';
 import FilterPage from '@/components/FilterComponent';
 import ClientsHome from '@/components/ClientsHome';
+import { SafeAreaView } from 'react-native-safe-area-context';
 // import StoryCircle from '@/components/SegmentedStoryCircle';
 
 export default function ClientScreen() {

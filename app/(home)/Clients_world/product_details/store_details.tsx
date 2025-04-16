@@ -12,7 +12,7 @@ import {
 import { MaterialIcons, Ionicons, AntDesign, Feather, SimpleLineIcons, Octicons } from '@expo/vector-icons';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useRouter } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 

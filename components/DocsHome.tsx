@@ -6,6 +6,7 @@ import { ThemedText } from '@/components/ThemedText';
 import Svg, { Circle } from 'react-native-svg';
 import { Link } from 'expo-router';
 import { RatingComponent } from '@/components/RatingComponent';
+import DoctorStoryScreen from './StoryComponent';
 
 const PharmacyCard = ({ item }: any) => {
     return (
@@ -52,6 +53,10 @@ export default function DocsHome() {
     const flatListRef = useRef<FlatList>(null);
     const truncateText = (text: any, maxLength: any) =>
         text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+
+    const closeStory = () => {
+       setSelectedStory(null)
+    }
 
     const storiesData = [
         { id: "1", user: "Your shorts", image: require("../assets/images/doc1.png"), storyCount: 0, isYourStory: true },
@@ -170,8 +175,8 @@ export default function DocsHome() {
             />
             {/* Story Viewer */}
             <Modal visible={!!selectedStory} transparent>
-                <TouchableOpacity style={styles.modalBackground} onPress={() => setSelectedStory(null)}>
-                    <Image source={require("../assets/images/docbg.jpeg")} style={styles.modalImage} />
+                <TouchableOpacity style={styles.modalBackground}>
+                    <DoctorStoryScreen closeStory={closeStory} />
                 </TouchableOpacity>
             </Modal>
 
@@ -356,9 +361,7 @@ const styles = StyleSheet.create({
     },
     modalBackground: {
         flex: 1,
-        backgroundColor: "rgba(0,0,0,0.9)",
-        justifyContent: "center",
-        alignItems: "center",
+        // backgroundColor: "rgba(0,0,0,0.9)",
     },
     modalImage: {
         width: "100%",

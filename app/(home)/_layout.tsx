@@ -64,6 +64,9 @@ export default function HomeLayout() {
             <Stack.Screen name="Clients_world/doctors_profile" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Clients_world/product_details/store_products" options={{
+                headerShown: false,
+            }} />
 
 
             {/* Doctor's routes */}
@@ -127,6 +130,13 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/Call_screens/video_call_screen" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/product_details/store_products" options={{
+                headerShown: false,
+            }} />
+
+
+
+
             <Stack.Screen name="registration_screens/client_registration" options={{
                 headerShown: false,
             }} />

@@ -191,9 +191,11 @@ const ProductDetailScreen = () => {
                 <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
                     {Object.entries(moreProducts).map(([category, items]) => (
                         <ThemedView key={category} style={styles.categoryContainer}>
-                            <ThemedView style={styles.categoryHeader}>
+                            <Link href="/Clients_world/product_details/store_products" asChild>
+                            <TouchableOpacity style={styles.categoryHeader} activeOpacity={0.7}>
                                 <ThemedText style={styles.categoryText}>{category}</ThemedText>
-                            </ThemedView>
+                            </TouchableOpacity>
+                            </Link>
                             <ScrollView style={{ marginTop: 15, flexGrow: 1, gap: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 {items.map((product) => (
                                     <ThemedView key={product.id} style={styles.productCard}>

@@ -16,83 +16,83 @@ import {
   Ionicons,
   AntDesign,
   MaterialCommunityIcons,
+  Feather,
 } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useRouter } from "expo-router";
 import OptionDrawer from "@/components/VideoOptionDrawer";
 
 const { width, height } = Dimensions.get("window");
 const reelHeight = height - 75;
 
-interface User {
-  name: string;
-  profileImage: string;
-}
-
-interface Reel {
+interface VideoPost {
   id: string;
-  videoUrl: string;
-  user: User;
-  description: string;
+  title: string;
+  user: {
+    name: string;
+    profileImage: string;
+  };
   likes: number;
   comments: number;
   shares: number;
   postedTime: string;
+  videoUrl: string;
 }
 
-interface ReelItemProps {
-  item: Reel;
-  isActive: boolean;
+interface VideoProps {
+  videoPosts: VideoPost[];
+  closeModal: () => void;
 }
 
-const reelsData = [
-  {
-    id: "1",
-    videoUrl:
-      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    user: {
-      name: "Dr Emeka James",
-      profileImage: "https://randomuser.me/api/portraits/men/43.jpg",
-    },
-    description: "Boost your immune system with fruits",
-    likes: 100,
-    comments: 4,
-    shares: 12,
-    postedTime: "4 hours ago",
-  },
-  {
-    id: "2",
-    videoUrl:
-      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    user: {
-      name: "Dr Chisom Okoli",
-      profileImage: "https://randomuser.me/api/portraits/women/3.jpg",
-    },
-    description: "7 reasons why you should eat dates",
-    likes: 100,
-    comments: 4,
-    shares: 12,
-    postedTime: "4 hours ago",
-  },
-  {
-    id: "3",
-    videoUrl:
-      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-    user: {
-      name: "Dr Okoli Comfort",
-      profileImage: "https://randomuser.me/api/portraits/women/43.jpg",
-    },
-    description: "7 benefits of prenatal visitation during pregnancy",
-    likes: 100,
-    comments: 4,
-    shares: 12,
-    postedTime: "4 hours ago",
-  },
-  // Add more reels as needed
-];
+// const reelsData = [
+//   {
+//     id: "1",
+//     videoUrl:
+//       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+//     user: {
+//       name: "Dr Emeka James",
+//       profileImage: "https://randomuser.me/api/portraits/men/43.jpg",
+//     },
+//     description: "Boost your immune system with fruits",
+//     likes: 100,
+//     comments: 4,
+//     shares: 12,
+//     postedTime: "4 hours ago",
+//   },
+//   {
+//     id: "2",
+//     videoUrl:
+//       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+//     user: {
+//       name: "Dr Chisom Okoli",
+//       profileImage: "https://randomuser.me/api/portraits/women/3.jpg",
+//     },
+//     description: "7 reasons why you should eat dates",
+//     likes: 100,
+//     comments: 4,
+//     shares: 12,
+//     postedTime: "4 hours ago",
+//   },
+//   {
+//     id: "3",
+//     videoUrl:
+//       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+//     user: {
+//       name: "Dr Okoli Comfort",
+//       profileImage: "https://randomuser.me/api/portraits/women/43.jpg",
+//     },
+//     description: "7 benefits of prenatal visitation during pregnancy",
+//     likes: 100,
+//     comments: 4,
+//     shares: 12,
+//     postedTime: "4 hours ago",
+//   },
+//   // Add more reels as needed
+// ];
 
-function ReelItem({ item, isActive }: ReelItemProps) {
+function ReelItem({ item, isActive, closeModal }: any) {
   const [muted, setMuted] = useState<boolean>(false);
   const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
+  const router = useRouter();
   // Create a player for each video
   const player = useVideoPlayer(item.videoUrl, (player) => {
     player.loop = true;
@@ -150,24 +150,18 @@ function ReelItem({ item, isActive }: ReelItemProps) {
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.leftView}>
-          <TouchableOpacity onPress={router.back} activeOpacity={0.7}>
+          <TouchableOpacity onPress={closeModal} activeOpacity={0.7}>
             <AntDesign name="arrowleft" size={24} color="#fff" />
           </TouchableOpacity>
-          <View style={styles.userInfo}>
-            <Image
-              source={{ uri: item.user.profileImage }}
-              style={styles.profilePic}
-            />
-            <Text style={styles.username}>{item.user.name}</Text>
-          </View>
         </View>
-        <TouchableOpacity activeOpacity={0.7} onPress={() => setDrawerVisible(true)}>
-          <Ionicons name="ellipsis-vertical" size={24} color="#fff" />
+
+          <Text style={styles.description}>{item.title}</Text>
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+        >
+          <Feather name="bookmark" size={24} color="#fff" />
         </TouchableOpacity>
-      </View>
-      {/* Description */}
-      <View style={styles.descriptionContainer}>
-        <Text style={styles.description}>{item.description}</Text>
       </View>
       {/* Bottom controls */}
       <View style={styles.controls}>
@@ -191,54 +185,64 @@ function ReelItem({ item, isActive }: ReelItemProps) {
         </View>
         <View style={styles.rightControls}>
           <Text style={styles.timeText}>{item.postedTime}</Text>
-          <TouchableOpacity activeOpacity={0.7} onPress={toggleMute}>
-            <Ionicons
-              name={muted ? "volume-mute-outline" : "volume-high-outline"}
-              size={28}
-              color="#fff"
-            />
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => setDrawerVisible(true)}
+          >
+            <Ionicons name="ellipsis-vertical" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
       </View>
       <OptionDrawer
         visible={drawerVisible}
         onClose={() => setDrawerVisible(false)}
-        onSelectCaption={() => {/* show caption picker */}}
-        onSelectQuality={() => {/* show quality picker */}}
-        onReport={() => {/* handle report */}}
+        onSelectCaption={() => {
+          /* show caption picker */
+        }}
+        onSelectQuality={() => {
+          /* show quality picker */
+        }}
+        onReport={() => {
+          /* handle report */
+        }}
       />
     </View>
   );
 }
 
-export default function ReelsScreen() {
+const PostReels: React.FC<VideoProps> = ({ videoPosts, closeModal }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-    if (viewableItems.length > 0 && viewableItems[0].index !== null) {
-      setActiveIndex(viewableItems[0].index!);
+      if (viewableItems.length > 0 && viewableItems[0].index !== null) {
+        setActiveIndex(viewableItems[0].index!);
+      }
     }
-  }).current;
+  ).current;
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={reelsData}
-        renderItem={({ item, index }: ListRenderItemInfo<Reel>) => (
-          <ReelItem item={item} isActive={index === activeIndex} />
+        data={videoPosts}
+        renderItem={({ item, index }: ListRenderItemInfo<VideoPost>) => (
+          <ReelItem
+            item={item}
+            closeModal={closeModal}
+            isActive={index === activeIndex}
+          />
         )}
         keyExtractor={(item) => item.id}
         pagingEnabled
         showsVerticalScrollIndicator={false}
         snapToInterval={reelHeight}
-        // decelerationRate="fast"
+        decelerationRate="fast"
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={{ itemVisiblePercentThreshold: 90 }}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#000" },
@@ -280,7 +284,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontFamily: "OpenSans_600SemiBold",
-    marginTop: 10,
+    // marginTop: 10,
   },
   controls: {
     position: "absolute",
@@ -312,3 +316,5 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans_600SemiBold",
   },
 });
+
+export default PostReels;
