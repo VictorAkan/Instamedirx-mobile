@@ -167,6 +167,9 @@ export default function HomeLayout() {
             <Stack.Screen name="registration_screens/pharmacists_registration_screens/pharm_email_verification" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="ClientScreen/(tabs)" options={{
+                headerShown: false,
+            }} />
         </Stack>
     )
 }

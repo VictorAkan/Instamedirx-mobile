@@ -57,19 +57,19 @@ const DocCartScreen = () => {
                 <ThemedView style={styles.itemBottom}>
                     <ThemedText style={styles.price}>₦{item.price.toLocaleString()}</ThemedText>
                     <ThemedView style={styles.controls}>
-                    <TouchableOpacity
-                        onPress={() => updateQuantity(item.id, 'decrease')}
-                        disabled={item.quantity === 1}
-                        activeOpacity={0.8}
-                        style={[styles.button, item.quantity === 1 && styles.disabledButton]}
-                    >
-                        <AntDesign name="minus" size={24} color={item.quantity === 1 ? "#9bb4dd" : "#0544AA"} />
-                    </TouchableOpacity>
-                    <ThemedText style={styles.quantity}>{item.quantity}</ThemedText>
-                    <TouchableOpacity onPress={() => updateQuantity(item.id, 'increase')} style={styles.button} activeOpacity={0.8}>
-                        <AntDesign name="plus" size={24} color="#0544AA" />
-                    </TouchableOpacity>
-                </ThemedView>
+                        <TouchableOpacity
+                            onPress={() => updateQuantity(item.id, 'decrease')}
+                            disabled={item.quantity === 1}
+                            activeOpacity={0.8}
+                            style={[styles.button, item.quantity === 1 && styles.disabledButton]}
+                        >
+                            <AntDesign name="minus" size={24} color={item.quantity === 1 ? "#9bb4dd" : "#0544AA"} />
+                        </TouchableOpacity>
+                        <ThemedText style={styles.quantity}>{item.quantity}</ThemedText>
+                        <TouchableOpacity onPress={() => updateQuantity(item.id, 'increase')} style={styles.button} activeOpacity={0.8}>
+                            <AntDesign name="plus" size={24} color="#0544AA" />
+                        </TouchableOpacity>
+                    </ThemedView>
                 </ThemedView>
             </ThemedView>
             <TouchableOpacity onPress={() => removeItem(item.id)} style={styles.removeButton}>
@@ -96,7 +96,7 @@ const DocCartScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff', padding: 10, paddingTop: 50 },
+    container: { flex: 1, backgroundColor: '#fff', padding: 10, paddingTop: 70 },
     itemContainer: { flexDirection: 'row', alignItems: 'center', marginBottom: 15, paddingBottom: 25, padding: 10, borderRadius: 10, position: 'relative', borderBottomWidth: 1, borderColor: '#ADCCFF' },
     itemBottom: {
         flexDirection: 'row',

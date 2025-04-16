@@ -47,7 +47,7 @@ const PharmacyCard = ({ item }: any) => {
         </ThemedView>
     );
 };
-
+ 
 export default function DocsHome() {
     const [selectedStory, setSelectedStory] = useState<any | null>(null);
     const flatListRef = useRef<FlatList>(null);
