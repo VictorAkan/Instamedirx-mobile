@@ -375,7 +375,7 @@ export default function StoreProducts() {
                 <ThemedText style={styles.header}>
                   PharmC Medical Store
                 </ThemedText>
-                <Link href="/Doctors_world/product_details/pharmacy_store_details" asChild>
+                <Link href="/Doctors_world/product_details/pharmcy_store_details" asChild>
                 <TouchableOpacity activeOpacity={0.7}>
                    <MaterialIcons name="info-outline" size={24} color="#9F9900" />
                 </TouchableOpacity>

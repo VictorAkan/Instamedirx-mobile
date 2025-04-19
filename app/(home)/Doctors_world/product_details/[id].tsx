@@ -1,77 +1,23 @@
 // import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  Animated,
-  Dimensions,
-} from "react-native";
-import {
-  Ionicons,
-  AntDesign,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  Feather,
-} from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter, Link } from "expo-router";
-import { ThemedView } from "@/components/ThemedView";
-import { ThemedText } from "@/components/ThemedText";
-import { useDocCart } from "@/utils/context/cart_context";
-import { useState, useRef } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Dimensions, Animated, TextInput } from 'react-native';
+import { Ionicons, AntDesign, MaterialCommunityIcons, MaterialIcons, Feather } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter, Link } from 'expo-router';
+import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/ThemedText';
+import { useDocCart } from '@/utils/context/cart_context';
+import { useState, useRef } from 'react';
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const moreProducts = {
-  "More from the store": [
-    {
-      id: 1,
-      name: "Vitacillin Met 5...",
-      price: "₦3,500",
-      image: require("../../../../assets/images/malaria1.png"),
-      discount: 20,
-    },
-    {
-      id: 2,
-      name: "Vitacillin Met 5...",
-      price: "₦3,500",
-      image: require("../../../../assets/images/malaria2.png"),
-    },
-    {
-      id: 3,
-      name: "Vitacillin Met 5...",
-      price: "₦3,500",
-      image: require("../../../../assets/images/malaria3.png"),
-    },
-    {
-      id: 4,
-      name: "Vitacillin Met 5...",
-      price: "₦3,500",
-      image: require("../../../../assets/images/malaria2.png"),
-      discount: 50,
-    },
-    {
-      id: 5,
-      name: "Vitacillin Met 5...",
-      price: "₦3,500",
-      image: require("../../../../assets/images/malaria2.png"),
-    },
-    {
-      id: 6,
-      name: "Vitacillin Met 5...",
-      price: "₦3,500",
-      image: require("../../../../assets/images/malaria2.png"),
-    },
-    {
-      id: 7,
-      name: "Vitacillin Met 5...",
-      price: "₦3,500",
-      image: require("../../../../assets/images/malaria2.png"),
-      discount: 20,
-    },
+  'More from the store': [
+    { id: 1, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria1.png'), discount: 20 },
+    { id: 2, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria2.png') },
+    { id: 3, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria3.png') },
+    { id: 4, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria2.png'), discount: 50 },
+    { id: 5, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria2.png') },
+    { id: 6, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria2.png') },
+    { id: 7, name: 'Vitacillin Met 5...', price: '₦3,500', image: require('../../../../assets/images/malaria2.png'), discount: 20 },
   ],
 };
 
@@ -79,10 +25,9 @@ const ProductDetailScreen = () => {
   const { image, id, store } = useLocalSearchParams() as {
     image: string;
     id: string;
-    store: string;
+    store: string
   };
-  const [search, setSearch] = useState("");
-  const router = useRouter();
+  const [search, setSearch] = useState('');
   const {
     docCartCount,
     setDocCartCount,
@@ -91,6 +36,7 @@ const ProductDetailScreen = () => {
     docDisabledButtons,
     setDocDisabledButtons,
   } = useDocCart();
+  const router = useRouter();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const slideAnim = useRef(new Animated.Value(SCREEN_WIDTH)).current;
 
@@ -114,40 +60,46 @@ const ProductDetailScreen = () => {
   const truncateText = (text: string, maxLength: number) =>
     text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 
-  // const addToCart = () => {
-  //     setCartCount(cartCount + 1);
-  // };
-
   const isDisabled = docDisabledButtons[id];
+  // const isMoreDisabled = disabledButtons[moreProducts];
 
   const toggleCartItem = (id: any) => {
     if (isDisabled) {
       // Remove item from cart
       setDocCartCount(docCartCount - 1);
-      setDocCartItems((prev) => ({ ...prev, [id]: false }));
-      setDocDisabledButtons((prev) => ({ ...prev, [id]: false }));
+      setDocCartItems(prev => ({ ...prev, [id]: false }));
+      setDocDisabledButtons(prev => ({ ...prev, [id]: false }));
     } else {
       // Add item to cart
       setDocCartCount(docCartCount + 1);
-      setDocCartItems((prev) => ({ ...prev, [id]: true }));
-      setDocDisabledButtons((prev) => ({ ...prev, [id]: true }));
+      setDocCartItems(prev => ({ ...prev, [id]: true }));
+      setDocDisabledButtons(prev => ({ ...prev, [id]: true }));
+    }
+  };
+
+  const toggleMoreCartItem = (id: any) => {
+    if (docDisabledButtons[id]) {
+      // Remove item from cart
+      setDocCartCount(docCartCount - 1);
+      setDocCartItems(prev => ({ ...prev, [id]: false }));
+      setDocDisabledButtons(prev => ({ ...prev, [id]: false }));
+    } else {
+      // Add item to cart
+      setDocCartCount(docCartCount + 1);
+      setDocCartItems(prev => ({ ...prev, [id]: true }));
+      setDocDisabledButtons(prev => ({ ...prev, [id]: true }));
     }
   };
 
   return (
-    <ThemedView
-      style={{
-        flex: 1,
-      }}
-    >
+    <ThemedView style={{
+      flex: 1
+    }}>
       <ThemedView style={styles.headerView}>
         {!isSearchVisible && (
           <>
             <ThemedView style={styles.leftSide}>
-              <TouchableOpacity
-                onPress={() => router.back()}
-                activeOpacity={0.9}
-              >
+              <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
                 <AntDesign name="arrowleft" size={24} color="#032255" />
               </TouchableOpacity>
             </ThemedView>
@@ -158,75 +110,18 @@ const ProductDetailScreen = () => {
               <Link href="/Doctors_world/doc_cart_screen" asChild>
                 <TouchableOpacity activeOpacity={0.9}>
                   <View style={styles.cartIconContainer}>
-                    <MaterialCommunityIcons
-                      name="cart-outline"
-                      size={24}
-                      color="#698fcc"
-                    />
-<<<<<<< HEAD
+                    <MaterialCommunityIcons name="cart-outline" size={24} color="#698fcc" />
                     {docCartCount > 0 && (
                       <View style={styles.cartBadge}>
                         <Text style={styles.cartBadgeText}>{docCartCount}</Text>
                       </View>
                     )}
                   </View>
-=======
-                </ThemedView>
-
-                {/* Product Details */}
-                <ThemedText style={styles.category}>Antibiotics</ThemedText>
-                <ThemedText style={styles.title}>Amoxil (amoxicillin) 250mg - 1000mg</ThemedText>
-                <ThemedText style={styles.price}>₦12,000</ThemedText>
-
-                <ThemedText style={styles.description}>
-                    Amoxicillin is an antibiotic effective against a broad range of bacterial infections. It works by inhibiting the formation of bacterial cell walls, making it useful in treating respiratory, urinary, and skin infections, among others.
-                </ThemedText>
-
-                {/* Store Link */}
-<<<<<<< HEAD
-                <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
-                    <ThemedText style={styles.storeText}>Visit PharmC Store</ThemedText>
-                    <ThemedView style={styles.arrowContainer}>
-                        <Feather name="arrow-right" size={15} color="white" />
-                    </ThemedView>
-                </TouchableOpacity>
-
-                {/* Add to Cart Button */}
-                <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>
-                    <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                    <ThemedView style={styles.sideView}>
-                        <AntDesign name="arrowright" size={20} color="#0866FF" />
-                    </ThemedView>
-                </TouchableOpacity>
-
-=======
-                <Link href="/Doctors_world/product_details/pharmcy_store_details" asChild>
-                    <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
-                        <ThemedText style={styles.storeText}>Visit {store}</ThemedText>
-                        <ThemedView style={styles.arrowContainer}>
-                            <Feather name="arrow-right" size={15} color="white" />
-                        </ThemedView>
-                    </TouchableOpacity>
-                </Link>
-
-                {/* Add to Cart Button */}
-                <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
-                    backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF"
-                }]} onPress={() => toggleCartItem(id)}>
-                    <ThemedText style={[styles.addToCartText, {
-                        color: isDisabled ? '#8F8F8F' : '#fff'
-                    }]}>Add to Cart</ThemedText>
-                    <ThemedView style={styles.sideView}>
-                        <AntDesign name="arrowright" size={18} color={isDisabled ? '#D6D6D6' : '#0866FF'} />
-                    </ThemedView>
->>>>>>> origin/master
                 </TouchableOpacity>
               </Link>
             </ThemedView>
           </>
         )}
-
-<<<<<<< HEAD
         {isSearchVisible && (
           <Animated.View
             style={[
@@ -253,14 +148,10 @@ const ProductDetailScreen = () => {
                 <AntDesign name="close" size={20} color="#032255" />
               </TouchableOpacity>
             </ThemedView>
-            <Link href="/Clients_world/client_cart_screen" asChild>
+            <Link href="/Doctors_world/doc_cart_screen" asChild>
               <TouchableOpacity activeOpacity={0.9}>
                 <View style={styles.cartIconContainer}>
-                  <MaterialCommunityIcons
-                    name="cart-outline"
-                    size={24}
-                    color="#0544AA"
-                  />
+                  <MaterialCommunityIcons name="cart-outline" size={24} color="#0544AA" />
                   {docCartCount > 0 && (
                     <View style={styles.cartBadge}>
                       <Text style={styles.cartBadgeText}>{docCartCount}</Text>
@@ -277,76 +168,23 @@ const ProductDetailScreen = () => {
 
         {/* Product Image */}
         <ThemedView style={styles.imageContainer}>
-          <Image source={image as any} style={styles.productImage} />
-=======
->>>>>>> origin/master
-                <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
-                    {Object.entries(moreProducts).map(([category, items]) => (
-                        <ThemedView key={category} style={styles.categoryContainer}>
-                            <ThemedView style={styles.categoryHeader}>
-                                <ThemedText style={styles.categoryText}>{category}</ThemedText>
-                            </ThemedView>
-                            <ScrollView style={{ marginTop: 15, flexGrow: 1, gap: 10 }} horizontal showsHorizontalScrollIndicator={false}>
-                                {items.map((product) => (
-                                    <ThemedView key={product.id} style={styles.productCard}>
-                                        <TouchableOpacity style={styles.bottomImageContainer} activeOpacity={0.8}>
-                                            <Image source={product.image} style={styles.productImageB} />
-                                        </TouchableOpacity>
-<<<<<<< HEAD
-                                        <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
-                                        <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                                        <TouchableOpacity activeOpacity={0.8} style={styles.addToCartButton} onPress={addToCart}>
-                                            <ThemedText style={styles.addToCartText}>Add to Cart</ThemedText>
-                                            <ThemedView style={styles.sideView}>
-                                                <AntDesign name="arrowright" size={20} color="#0866FF" />
-=======
-                                        <ThemedText style={styles.productTxt}>{truncateText(product.name, 16)}</ThemedText>
-                                        {product.discount && <ThemedView style={styles.discountRow}>
-                                            <Feather name="tag" size={16} color="#FF5E5E" />
-                                            <ThemedText style={styles.discountTxt}>{product.discount}% discount</ThemedText>
-                                        </ThemedView>}
-                                        <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                                        <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
-                                            backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF",
-                                            marginTop: product.discount ? 0 : 22
-                                        }]} onPress={() => toggleCartItem(product.id)} disabled={isDisabled}>
-                                            <ThemedText style={[styles.addToCartText, {
-                                                color: isDisabled ? '#8F8F8F' : '#fff'
-                                            }]}>Add to Cart</ThemedText>
-                                            <ThemedView style={styles.sideView}>
-                                                <AntDesign name="arrowright" size={18} color={isDisabled ? '#D6D6D6' : '#0866FF'} />
->>>>>>> origin/master
-                                            </ThemedView>
-                                        </TouchableOpacity>
-                                    </ThemedView>
-                                ))}
-                            </ScrollView>
-                        </ThemedView>
-                    ))}
-                </ScrollView>
-            </ScrollView>
->>>>>>> origin/master
+          <Image
+            source={image as any}
+            style={styles.productImage}
+          />
         </ThemedView>
 
         {/* Product Details */}
         <ThemedText style={styles.category}>Antibiotics</ThemedText>
-        <ThemedText style={styles.title}>
-          Amoxil (amoxicillin) 250mg - 1000mg
-        </ThemedText>
+        <ThemedText style={styles.title}>Amoxil (amoxicillin) 250mg - 1000mg</ThemedText>
         <ThemedText style={styles.price}>₦12,000</ThemedText>
 
         <ThemedText style={styles.description}>
-          Amoxicillin is an antibiotic effective against a broad range of
-          bacterial infections. It works by inhibiting the formation of
-          bacterial cell walls, making it useful in treating respiratory,
-          urinary, and skin infections, among others.
+          Amoxicillin is an antibiotic effective against a broad range of bacterial infections. It works by inhibiting the formation of bacterial cell walls, making it useful in treating respiratory, urinary, and skin infections, among others.
         </ThemedText>
 
         {/* Store Link */}
-        <Link
-          href="/Doctors_world/product_details/pharmcy_store_details"
-          asChild
-        >
+        <Link href="/Doctors_world/product_details/pharmcy_store_details" asChild>
           <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
             <ThemedText style={styles.storeText}>Visit {store}</ThemedText>
             <ThemedView style={styles.arrowContainer}>
@@ -356,112 +194,46 @@ const ProductDetailScreen = () => {
         </Link>
 
         {/* Add to Cart Button */}
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={[
-            styles.addToCartButton,
-            {
-              backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF",
-            },
-          ]}
-          onPress={() => toggleCartItem(id)}
-        >
-          <ThemedText
-            style={[
-              styles.addToCartText,
-              {
-                color: isDisabled ? "#8F8F8F" : "#fff",
-              },
-            ]}
-          >
-            Add to Cart
-          </ThemedText>
+        <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
+          backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF"
+        }]} onPress={() => toggleCartItem(id)}>
+          <ThemedText style={[styles.addToCartText, {
+            color: isDisabled ? '#8F8F8F' : '#fff'
+          }]}>Add to Cart</ThemedText>
           <ThemedView style={styles.sideView}>
-            <AntDesign
-              name="arrowright"
-              size={18}
-              color={isDisabled ? "#D6D6D6" : "#0866FF"}
-            />
+            <AntDesign name="arrowright" size={18} color={isDisabled ? '#D6D6D6' : '#0866FF'} />
           </ThemedView>
         </TouchableOpacity>
 
-        <ScrollView
-          style={styles.scrollcontainer}
-          showsVerticalScrollIndicator={false}
-        >
+        <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
           {Object.entries(moreProducts).map(([category, items]) => (
             <ThemedView key={category} style={styles.categoryContainer}>
-              <Link
-                href="/Doctors_world/products_details/store_products"
-                asChild
-              >
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  style={styles.categoryHeader}
-                >
-                  <ThemedText style={styles.categoryText}>
-                    {category}
-                  </ThemedText>
-                </TouchableOpacity>
+              <Link href="/Doctors_world/product_details/store_products" asChild>
+              <TouchableOpacity activeOpacity={0.7} style={styles.categoryHeader}>
+                <ThemedText style={styles.categoryText}>{category}</ThemedText>
+              </TouchableOpacity>
               </Link>
-              <ScrollView
-                style={{ marginTop: 15, flexGrow: 1, gap: 10 }}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-              >
+              <ScrollView style={{ marginTop: 15, flexGrow: 1, gap: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                 {items.map((product) => (
                   <ThemedView key={product.id} style={styles.productCard}>
-                    <TouchableOpacity
-                      style={styles.bottomImageContainer}
-                      activeOpacity={0.8}
-                    >
-                      <Image
-                        source={product.image}
-                        style={styles.productImageB}
-                      />
+                    <TouchableOpacity style={styles.bottomImageContainer} activeOpacity={0.8}>
+                      <Image source={product.image} style={styles.productImageB} />
                     </TouchableOpacity>
-                    <ThemedText style={styles.productTxt}>
-                      {truncateText(product.name, 16)}
-                    </ThemedText>
-                    {product.discount && (
-                      <ThemedView style={styles.discountRow}>
-                        <Feather name="tag" size={16} color="#FF5E5E" />
-                        <ThemedText style={styles.discountTxt}>
-                          {product.discount}% discount
-                        </ThemedText>
-                      </ThemedView>
-                    )}
-                    <ThemedText style={styles.productPrice}>
-                      {product.price}
-                    </ThemedText>
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      style={[
-                        styles.addToCartButton,
-                        {
-                          backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF",
-                          marginTop: product.discount ? 0 : 22,
-                        },
-                      ]}
-                      onPress={() => toggleCartItem(product.id)}
-                      disabled={isDisabled}
-                    >
-                      <ThemedText
-                        style={[
-                          styles.addToCartText,
-                          {
-                            color: isDisabled ? "#8F8F8F" : "#fff",
-                          },
-                        ]}
-                      >
-                        Add to Cart
-                      </ThemedText>
+                    <ThemedText style={styles.productTxt}>{truncateText(product.name, 16)}</ThemedText>
+                    {product.discount && <ThemedView style={styles.discountRow}>
+                      <Feather name="tag" size={16} color="#FF5E5E" />
+                      <ThemedText style={styles.discountTxt}>{product.discount}% discount</ThemedText>
+                    </ThemedView>}
+                    <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
+                    <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
+                      backgroundColor: docDisabledButtons[product.id] ? "#CEE0FF" : "#0866FF",
+                      marginTop: product.discount ? 0 : 22
+                    }]} onPress={() => toggleMoreCartItem(product.id)}>
+                      <ThemedText style={[styles.addToCartText, {
+                        color: docDisabledButtons[product.id] ? '#8F8F8F' : '#fff'
+                      }]}>Add to Cart</ThemedText>
                       <ThemedView style={styles.sideView}>
-                        <AntDesign
-                          name="arrowright"
-                          size={18}
-                          color={isDisabled ? "#D6D6D6" : "#0866FF"}
-                        />
+                        <AntDesign name="arrowright" size={18} color={docDisabledButtons[product.id] ? '#D6D6D6' : '#0866FF'} />
                       </ThemedView>
                     </TouchableOpacity>
                   </ThemedView>
@@ -478,13 +250,13 @@ const ProductDetailScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     // padding: 16,
   },
   headerView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 60,
     // marginBottom: 10,
     paddingHorizontal: 15,
@@ -498,27 +270,27 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     // backgroundColor: '#fff',
     zIndex: 10,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 10,
     paddingLeft: 2,
-    width: "90%",
+    width: '90%'
   },
   searchInput: {
     flex: 1,
-    fontFamily: "OpenSans_400Regular",
+    fontFamily: 'OpenSans_400Regular',
   },
   leftSide: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 30,
   },
   searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: 27,
-    borderColor: "#ADCCFF",
+    borderColor: '#ADCCFF',
     borderWidth: 1,
     padding: 8,
     // marginTop: 5,
@@ -526,41 +298,41 @@ const styles = StyleSheet.create({
   },
   sideLine: {
     borderLeftWidth: 2,
-    borderLeftColor: "#ADCCFF",
-    backgroundColor: "white",
+    borderLeftColor: '#ADCCFF',
+    backgroundColor: 'white',
     paddingLeft: 5,
   },
   edgeIcons: {
     gap: 40,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   header: {
     fontSize: 16,
-    fontFamily: "OpenSans_700Bold",
-    color: "#0755D4",
+    fontFamily: 'OpenSans_700Bold',
+    color: '#0755D4',
   },
   cartIconContainer: {
-    position: "relative",
+    position: 'relative',
   },
   cartBadge: {
-    position: "absolute",
+    position: 'absolute',
     right: -8,
     top: -5,
-    backgroundColor: "red",
+    backgroundColor: 'red',
     borderRadius: 10,
     width: 18,
     height: 18,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cartBadgeText: {
-    color: "white",
+    color: 'white',
     fontSize: 12,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   iconRow: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   icon: {
     marginRight: 10,
@@ -568,13 +340,13 @@ const styles = StyleSheet.create({
   imageContainer: {
     borderWidth: 1,
     padding: 25,
-    borderColor: "#0866FF",
+    borderColor: '#0866FF',
     borderTopRightRadius: 16,
     borderTopLeftRadius: 16,
     marginBottom: 10,
     marginTop: 30,
-    width: "80%",
-    alignItems: "center",
+    width: '80%',
+    alignItems: 'center',
     marginHorizontal: 16,
   },
   productImage: {
@@ -583,29 +355,29 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   category: {
-    color: "#9F9900",
+    color: '#9F9900',
     fontSize: 14,
-    fontFamily: "OpenSans_400Regular",
+    fontFamily: 'OpenSans_400Regular',
     marginBottom: 5,
     marginHorizontal: 16,
   },
   title: {
     fontSize: 18,
-    fontFamily: "OpenSans_700Bold",
-    color: "#0866FF",
+    fontFamily: 'OpenSans_700Bold',
+    color: '#0866FF',
     marginHorizontal: 16,
   },
   price: {
     fontSize: 18,
-    fontFamily: "OpenSans_700Bold",
-    color: "#0866FF",
+    fontFamily: 'OpenSans_700Bold',
+    color: '#0866FF',
     marginBottom: 10,
     marginHorizontal: 16,
   },
   description: {
     fontSize: 14,
-    color: "#043380CC",
-    fontFamily: "OpenSans_400Regular",
+    color: '#043380CC',
+    fontFamily: 'OpenSans_400Regular',
     marginBottom: 15,
     marginHorizontal: 16,
   },
@@ -617,15 +389,15 @@ const styles = StyleSheet.create({
   addToCartButton: {
     backgroundColor: "#0866FF",
     padding: 7,
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: 12,
     // height: 47,
     paddingHorizontal: 15,
-    flexDirection: "row",
+    flexDirection: 'row',
     // justifyContent: 'space-between',
     gap: 10,
     // width: '100%',
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
     marginHorizontal: 16,
     marginTop: 10,
   },
@@ -635,7 +407,7 @@ const styles = StyleSheet.create({
   },
   scrollcontainer: {
     // flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     // paddingVertical: 50,
     // paddingTop: 40,
     marginTop: 40,
@@ -646,34 +418,34 @@ const styles = StyleSheet.create({
   },
   addToCartText: {
     color: "#FFFFFF",
-    fontFamily: "OpenSans_700Bold",
+    fontFamily: 'OpenSans_700Bold',
     fontSize: 14,
   },
   storeButton: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 20,
     gap: 5,
     marginHorizontal: 16,
   },
   storeText: {
     fontSize: 14,
-    color: "#043380",
+    color: '#043380',
     marginRight: 5,
-    fontFamily: "OpenSans_700Bold",
+    fontFamily: 'OpenSans_700Bold',
   },
   cartButton: {
-    backgroundColor: "blue",
+    backgroundColor: 'blue',
     padding: 12,
     borderRadius: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cartText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginRight: 5,
   },
   categoryContainer: {
@@ -681,33 +453,33 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   categoryHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingRight: 20,
     marginHorizontal: 16,
   },
   categoryText: {
-    fontFamily: "OpenSans_700Bold",
+    fontFamily: 'OpenSans_700Bold',
     fontSize: 14,
-    backgroundColor: "#F9F8C5",
+    backgroundColor: '#F9F8C5',
     padding: 5,
     paddingHorizontal: 10,
   },
   viewAll: {
-    color: "#0866FF",
+    color: '#0866FF',
     fontSize: 16,
-    fontFamily: "OpenSans_400Regular",
+    fontFamily: 'OpenSans_400Regular',
   },
   productCard: {
     // width: 150,
     // padding: 10,
-    alignItems: "center",
-    backgroundColor: "white",
+    alignItems: 'center',
+    backgroundColor: 'white',
     // marginRight: 10,
     // borderRadius: 10,
     // borderWidth: 1,
-    borderColor: "#EAEAEA",
+    borderColor: '#EAEAEA',
     marginTop: 20,
     marginLeft: 5,
   },
@@ -726,39 +498,39 @@ const styles = StyleSheet.create({
     height: 100,
   },
   discountRow: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 4,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
     marginLeft: 16,
   },
   discountTxt: {
-    color: "#FF5E5E",
+    color: '#FF5E5E',
     fontSize: 14,
-    fontFamily: "OpenSans_700Bold",
+    fontFamily: 'OpenSans_700Bold',
   },
   productTxt: {
     marginTop: 10,
     // width: '80%',
     fontSize: 16,
-    fontFamily: "OpenSans_700Bold",
-    color: "#0544AA",
+    fontFamily: 'OpenSans_700Bold',
+    color: '#0544AA',
     marginLeft: 16,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
   bottomImageContainer: {
     borderWidth: 1,
     padding: 20,
-    borderColor: "#CEE0FF",
+    borderColor: '#CEE0FF',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
   },
   productPrice: {
     fontSize: 16,
-    fontFamily: "OpenSans_700Bold",
+    fontFamily: 'OpenSans_700Bold',
     // width: '80%',
-    color: "#0544AA",
+    color: '#0544AA',
     marginLeft: 16,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
 });
 

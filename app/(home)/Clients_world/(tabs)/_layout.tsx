@@ -39,7 +39,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="personalization"
+                name="appointment"
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <ThemedView

@@ -53,14 +53,25 @@ const ProductDetailScreen = () => {
   const truncateText = (text: string, maxLength: number) =>
     text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 
-  // const addToCart = () => {
-  //     setCartCount(cartCount + 1);
-  // };
-
   const isDisabled = disabledButtons[id];
+  // const isMoreDisabled = disabledButtons[moreProducts];
 
   const toggleCartItem = (id: any) => {
     if (isDisabled) {
+      // Remove item from cart
+      setCartCount(cartCount - 1);
+      setCartItems(prev => ({ ...prev, [id]: false }));
+      setDisabledButtons(prev => ({ ...prev, [id]: false }));
+    } else {
+      // Add item to cart
+      setCartCount(cartCount + 1);
+      setCartItems(prev => ({ ...prev, [id]: true }));
+      setDisabledButtons(prev => ({ ...prev, [id]: true }));
+    }
+  };
+
+  const toggleMoreCartItem = (id: any) => {
+    if (disabledButtons[id]) {
       // Remove item from cart
       setCartCount(cartCount - 1);
       setCartItems(prev => ({ ...prev, [id]: false }));
@@ -104,47 +115,6 @@ const ProductDetailScreen = () => {
             </ThemedView>
           </>
         )}
-
-<<<<<<< HEAD
-                <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
-                    {Object.entries(moreProducts).map(([category, items]) => (
-                        <ThemedView key={category} style={styles.categoryContainer}>
-                            <Link href="/Clients_world/product_details/store_products" asChild>
-                            <TouchableOpacity style={styles.categoryHeader} activeOpacity={0.7}>
-                                <ThemedText style={styles.categoryText}>{category}</ThemedText>
-                            </TouchableOpacity>
-                            </Link>
-                            <ScrollView style={{ marginTop: 15, flexGrow: 1, gap: 10 }} horizontal showsHorizontalScrollIndicator={false}>
-                                {items.map((product) => (
-                                    <ThemedView key={product.id} style={styles.productCard}>
-                                        <TouchableOpacity style={styles.bottomImageContainer} activeOpacity={0.8}>
-                                            <Image source={product.image} style={styles.productImageB} />
-                                        </TouchableOpacity>
-                                        <ThemedText style={styles.productTxt}>{truncateText(product.name, 16)}</ThemedText>
-                                        {product.discount && <ThemedView style={styles.discountRow}>
-                                            <Feather name="tag" size={16} color="#FF5E5E" />
-                                            <ThemedText style={styles.discountTxt}>{product.discount}% discount</ThemedText>
-                                        </ThemedView>}
-                                        <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
-                                        <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
-                                            backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF",
-                                            marginTop: product.discount ? 0 : 22
-                                        }]} onPress={() => toggleCartItem(product.id)}>
-                                            <ThemedText style={[styles.addToCartText, {
-                                                color: isDisabled ? '#8F8F8F' : '#fff'
-                                            }]}>Add to Cart</ThemedText>
-                                            <ThemedView style={styles.sideView}>
-                                                <AntDesign name="arrowright" size={18} color={isDisabled ? '#D6D6D6' : '#0866FF'} />
-                                            </ThemedView>
-                                        </TouchableOpacity>
-                                    </ThemedView>
-                                ))}
-                            </ScrollView>
-                        </ThemedView>
-                    ))}
-                </ScrollView>
-            </ScrollView>
-=======
         {isSearchVisible && (
           <Animated.View
             style={[
@@ -195,7 +165,6 @@ const ProductDetailScreen = () => {
             source={image as any}
             style={styles.productImage}
           />
->>>>>>> origin/master
         </ThemedView>
 
         {/* Product Details */}
@@ -232,9 +201,11 @@ const ProductDetailScreen = () => {
         <ScrollView style={styles.scrollcontainer} showsVerticalScrollIndicator={false}>
           {Object.entries(moreProducts).map(([category, items]) => (
             <ThemedView key={category} style={styles.categoryContainer}>
-              <ThemedView style={styles.categoryHeader}>
+              <Link href="/Clients_world/product_details/store_products" asChild>
+              <TouchableOpacity activeOpacity={0.7} style={styles.categoryHeader}>
                 <ThemedText style={styles.categoryText}>{category}</ThemedText>
-              </ThemedView>
+              </TouchableOpacity>
+              </Link>
               <ScrollView style={{ marginTop: 15, flexGrow: 1, gap: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                 {items.map((product) => (
                   <ThemedView key={product.id} style={styles.productCard}>
@@ -248,14 +219,14 @@ const ProductDetailScreen = () => {
                     </ThemedView>}
                     <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
                     <TouchableOpacity activeOpacity={0.8} style={[styles.addToCartButton, {
-                      backgroundColor: isDisabled ? "#CEE0FF" : "#0866FF",
+                      backgroundColor: disabledButtons[product.id] ? "#CEE0FF" : "#0866FF",
                       marginTop: product.discount ? 0 : 22
-                    }]} onPress={() => toggleCartItem(product.id)}>
+                    }]} onPress={() => toggleMoreCartItem(product.id)}>
                       <ThemedText style={[styles.addToCartText, {
-                        color: isDisabled ? '#8F8F8F' : '#fff'
+                        color: disabledButtons[product.id] ? '#8F8F8F' : '#fff'
                       }]}>Add to Cart</ThemedText>
                       <ThemedView style={styles.sideView}>
-                        <AntDesign name="arrowright" size={18} color={isDisabled ? '#D6D6D6' : '#0866FF'} />
+                        <AntDesign name="arrowright" size={18} color={disabledButtons[product.id] ? '#D6D6D6' : '#0866FF'} />
                       </ThemedView>
                     </TouchableOpacity>
                   </ThemedView>
