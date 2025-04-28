@@ -61,10 +61,10 @@ const DrawerMenu = ({ isVisible, onClose }: any) => {
 const styles = StyleSheet.create({
     drawer: {
         position: "absolute",
-        top: 0,
+        top: 40,
         left: 0,
         width: width * 0.7,
-        height: "100%",
+        height: "40%",
         backgroundColor: "white",
         padding: 20,
         shadowColor: "#000",
@@ -72,11 +72,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 8,
         elevation: 5,
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20
     },
     closeButton: {
         alignSelf: "flex-end",
         marginBottom: 30,
-        marginTop: 40,
+        // marginTop: 10,
     },
     menuItem: {
         paddingVertical: 15,

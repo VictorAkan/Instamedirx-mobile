@@ -21,6 +21,8 @@ import {
 import { router, useRouter } from "expo-router";
 import OptionDrawer from "@/components/VideoOptionDrawer";
 
+import { SafeAreaView } from "react-native-safe-area-context";
+
 const { width, height } = Dimensions.get("window");
 const reelHeight = height - 75;
 
@@ -42,52 +44,6 @@ interface VideoProps {
   videoPosts: VideoPost[];
   closeModal: () => void;
 }
-
-// const reelsData = [
-//   {
-//     id: "1",
-//     videoUrl:
-//       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-//     user: {
-//       name: "Dr Emeka James",
-//       profileImage: "https://randomuser.me/api/portraits/men/43.jpg",
-//     },
-//     description: "Boost your immune system with fruits",
-//     likes: 100,
-//     comments: 4,
-//     shares: 12,
-//     postedTime: "4 hours ago",
-//   },
-//   {
-//     id: "2",
-//     videoUrl:
-//       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-//     user: {
-//       name: "Dr Chisom Okoli",
-//       profileImage: "https://randomuser.me/api/portraits/women/3.jpg",
-//     },
-//     description: "7 reasons why you should eat dates",
-//     likes: 100,
-//     comments: 4,
-//     shares: 12,
-//     postedTime: "4 hours ago",
-//   },
-//   {
-//     id: "3",
-//     videoUrl:
-//       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-//     user: {
-//       name: "Dr Okoli Comfort",
-//       profileImage: "https://randomuser.me/api/portraits/women/43.jpg",
-//     },
-//     description: "7 benefits of prenatal visitation during pregnancy",
-//     likes: 100,
-//     comments: 4,
-//     shares: 12,
-//     postedTime: "4 hours ago",
-//   },
-//   // Add more reels as needed
-// ];
 
 function ReelItem({ item, isActive, closeModal }: any) {
   const [muted, setMuted] = useState<boolean>(false);
@@ -222,7 +178,7 @@ const PostReels: React.FC<VideoProps> = ({ videoPosts, closeModal }) => {
   ).current;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={videoPosts}
         renderItem={({ item, index }: ListRenderItemInfo<VideoPost>) => (
@@ -240,7 +196,7 @@ const PostReels: React.FC<VideoProps> = ({ videoPosts, closeModal }) => {
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={{ itemVisiblePercentThreshold: 90 }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -268,7 +224,7 @@ const styles = StyleSheet.create({
   },
   header: {
     position: "absolute",
-    top: 50,
+    top: 10,
     left: 0,
     right: 0,
     flexDirection: "row",
@@ -279,7 +235,7 @@ const styles = StyleSheet.create({
   userInfo: { flexDirection: "row", alignItems: "center" },
   profilePic: { width: 32, height: 32, borderRadius: 16, marginRight: 10 },
   username: { color: "#fff", fontFamily: "OpenSans_700Bold", fontSize: 16 },
-  descriptionContainer: { position: "absolute", top: 80, left: 16, right: 100 },
+  descriptionContainer: { position: "absolute", top: 40, left: 16, right: 100 },
   description: {
     color: "#fff",
     fontSize: 16,

@@ -1615,6 +1615,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hookform/resolvers@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@hookform/resolvers@npm:5.0.1"
+  dependencies:
+    "@standard-schema/utils": "npm:^0.3.0"
+  peerDependencies:
+    react-hook-form: ^7.55.0
+  checksum: 10c0/8260de1cd1b8b53629ea67555f3f027fdeabf4cd6da7f20cb76e646d353d998e61cf3a338d6313c94a31f32c23447403df5e584e5c8dddbca766ed7776513f8b
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -2391,6 +2402,13 @@ __metadata:
   dependencies:
     "@sinonjs/commons": "npm:^3.0.0"
   checksum: 10c0/2e2fb6cc57f227912814085b7b01fede050cd4746ea8d49a1e44d5a0e56a804663b0340ae2f11af7559ea9bf4d087a11f2f646197a660ea3cb04e19efc04aa63
+  languageName: node
+  linkType: hard
+
+"@standard-schema/utils@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@standard-schema/utils@npm:0.3.0"
+  checksum: 10c0/6eb74cd13e52d5fc74054df51e37d947ef53f3ab9e02c085665dcca3c38c60ece8d735cebbdf18fbb13c775fbcb9becb3f53109b0e092a63f0f7389ce0993fd0
   languageName: node
   linkType: hard
 
@@ -4464,10 +4482,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-checkbox@npm:2.1.0":
-  version: 2.1.0
-  resolution: "expo-checkbox@npm:2.1.0"
-  checksum: 10c0/38a49e7afee0c506ccc44bb83837cca740c95cd879a9f7c2719b49350b63c9b82d440fddcc499b0dea1044877395c2491d6c0e1e2149bea7b430721fc4f1084c
+"expo-checkbox@npm:4.0.1":
+  version: 4.0.1
+  resolution: "expo-checkbox@npm:4.0.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-web: "*"
+  peerDependenciesMeta:
+    react-native-web:
+      optional: true
+  checksum: 10c0/c5fa8a1829522ad24834553e05f973c9e38cadd8b8ee724fc49b7e50833a2b849fef74c28f76558c53c046f4212198a2f5b4080998c8010e3029e41705aa0f03
   languageName: node
   linkType: hard
 
@@ -4484,12 +4509,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-document-picker@npm:^13.0.3":
-  version: 13.1.2
-  resolution: "expo-document-picker@npm:13.1.2"
+"expo-document-picker@npm:13.0.3":
+  version: 13.0.3
+  resolution: "expo-document-picker@npm:13.0.3"
   peerDependencies:
     expo: "*"
-  checksum: 10c0/969561d04d7a9b53974cb181fd21a407114dd507ec0e71d6340a3f0220e46cb9f4cfce656bbf4e6afe83a459db53fd1faa0ae5bd61f9da44aec2cd46746a73d7
+  checksum: 10c0/333f8b6fe1a8bac0a19c660417c7878093739acdad308f78c370e4977e252b372d0671d35de478eaf2c071e0578d63a8c3bd97325ea2e505b9c22c6e1a39404b
   languageName: node
   linkType: hard
 
@@ -4526,23 +4551,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-image-loader@npm:~5.1.0":
-  version: 5.1.0
-  resolution: "expo-image-loader@npm:5.1.0"
+"expo-image-loader@npm:~5.0.0":
+  version: 5.0.0
+  resolution: "expo-image-loader@npm:5.0.0"
   peerDependencies:
     expo: "*"
-  checksum: 10c0/2897a2c3623f752cc277677b170ca9b3db826439641ccc93dcc3a94ece76dcbf084ecc108eddfebb42c34bcb339ef00996726995112c99561f262696c3e23300
+  checksum: 10c0/d9982e94c0437967d61b231ab12b32a47e3f96ceee0674b243621d87a9eedbedbc6e6879962ba7fe032c18dbc801cbb54034b56d1426e847dc7b9a8a29bfc740
   languageName: node
   linkType: hard
 
-"expo-image-picker@npm:^16.0.6":
-  version: 16.1.2
-  resolution: "expo-image-picker@npm:16.1.2"
+"expo-image-picker@npm:16.0.6":
+  version: 16.0.6
+  resolution: "expo-image-picker@npm:16.0.6"
   dependencies:
-    expo-image-loader: "npm:~5.1.0"
+    expo-image-loader: "npm:~5.0.0"
   peerDependencies:
     expo: "*"
-  checksum: 10c0/26ca83800a3205e01c85e32051fa481aec8ce55c60f38de1c293a47e3933bd054d80243e6cbe2d9f9af92f7bf7bfc1e753b1fbdf54f61f9287768ce6cfdb9191
+  checksum: 10c0/6cadacb09e902ee87fac1f081f3047bed233380a45bbe6313b320e67a966adf92787689c3bf76948dc0faffb0ab7543e7dd83ebd8bcdd901e5cfbacd5e2e2429
   languageName: node
   linkType: hard
 
@@ -4692,14 +4717,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-video@npm:^2.0.6":
-  version: 2.1.2
-  resolution: "expo-video@npm:2.1.2"
+"expo-video@npm:2.0.6":
+  version: 2.0.6
+  resolution: "expo-video@npm:2.0.6"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10c0/32022e062aadcad6d84e9fc1ce829cfc5fbc86ea0a71a5a3f4e0351301ba481a00c43b9fcf54f83f7ed4811b9844b6960c70b7a04e382705c30430ddce8e5efb
+  checksum: 10c0/46c5efea19c693ec4b3f1218acb499aa259fd4ae164e5301e09c81a7c577f3a5df3fd259f3bf94e75c89e463c466c81acaea66a55c7bbd47dcd725b9115c8684
   languageName: node
   linkType: hard
 
@@ -5537,6 +5562,7 @@ __metadata:
     "@expo-google-fonts/inter": "npm:^0.2.3"
     "@expo-google-fonts/open-sans": "npm:^0.2.3"
     "@expo/vector-icons": "npm:^14.0.2"
+    "@hookform/resolvers": "npm:^5.0.1"
     "@react-native-community/slider": "npm:4.5.5"
     "@react-native-picker/picker": "npm:2.9.0"
     "@react-navigation/bottom-tabs": "npm:^7.2.0"
@@ -5546,12 +5572,12 @@ __metadata:
     "@types/react-test-renderer": "npm:^18.3.0"
     expo: "npm:52.0.46"
     expo-blur: "npm:~14.0.3"
-    expo-checkbox: "npm:2.1.0"
+    expo-checkbox: "npm:4.0.1"
     expo-constants: "npm:17.0.8"
-    expo-document-picker: "npm:^13.0.3"
+    expo-document-picker: "npm:13.0.3"
     expo-font: "npm:~13.0.4"
     expo-haptics: "npm:~14.0.1"
-    expo-image-picker: "npm:^16.0.6"
+    expo-image-picker: "npm:16.0.6"
     expo-linear-gradient: "npm:14.0.2"
     expo-linking: "npm:~7.0.5"
     expo-router: "npm:4.0.20"
@@ -5559,12 +5585,13 @@ __metadata:
     expo-status-bar: "npm:~2.0.1"
     expo-symbols: "npm:~0.2.2"
     expo-system-ui: "npm:4.0.9"
-    expo-video: "npm:^2.0.6"
+    expo-video: "npm:2.0.6"
     expo-web-browser: "npm:~14.0.2"
     jest: "npm:^29.2.1"
     jest-expo: "npm:52.0.6"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
+    react-hook-form: "npm:^7.56.1"
     react-native: "npm:0.76.9"
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-modal: "npm:^14.0.0-rc.1"
@@ -5579,6 +5606,7 @@ __metadata:
     react-test-renderer: "npm:18.3.1"
     typescript: "npm:^5.3.3"
     undici: "npm:^7.5.0"
+    zod: "npm:^3.24.3"
   languageName: unknown
   linkType: soft
 
@@ -8218,6 +8246,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.56.1":
+  version: 7.56.1
+  resolution: "react-hook-form@npm:7.56.1"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18 || ^19
+  checksum: 10c0/26eafd54bf47167628e34c2f22ea27ea7bdd5b4231a56af5be31ccedfb2a721708b308026ea4a17f2fb15c7b5fff83c0feb4acc7aa07bd6faa8506e917810cab
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.12.0 || ^17.0.0 || ^18.0.0, react-is@npm:^18.0.0, react-is@npm:^18.2.0, react-is@npm:^18.3.1":
   version: 18.3.1
   resolution: "react-is@npm:18.3.1"
@@ -10316,5 +10353,12 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: 10c0/dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.24.3":
+  version: 3.24.3
+  resolution: "zod@npm:3.24.3"
+  checksum: 10c0/ab0369810968d0329a1a141e9418e01e5c9c2a4905cbb7cb7f5a131d6e9487596e1400e21eeff24c4a8ee28dacfa5bd6103893765c055b7a98c2006a5a4fc68d
   languageName: node
   linkType: hard

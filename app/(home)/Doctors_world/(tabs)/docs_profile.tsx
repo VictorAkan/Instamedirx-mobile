@@ -8,6 +8,9 @@ import Svg, { Circle } from 'react-native-svg';
 import FeedScreen from "@/components/Posts";
 import Qualifications from "@/components/Qualifications";
 import DocDrawerMenu from "@/components/DocDrawerMenu";
+import DocsPostsComponent from "@/components/main_docs_profile/docs_profile_posts";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DocsProfile = () => {
     const [selectedTab, setSelectedTab] = useState("Posts");
@@ -69,8 +72,11 @@ const DocsProfile = () => {
         };
 
     return (
-            <ScrollView style={{ flexGrow: 1, flex: 1 }} showsVerticalScrollIndicator={false}>
-                <ThemedView style={styles.container}>
+            <SafeAreaView style={{ 
+              flex: 1
+             }}>
+              <ScrollView style={{ flexGrow: 1, }} showsVerticalScrollIndicator={false}>
+                <View style={styles.container}>
                 {/* Profile Cover Photo */}
                 <ThemedView style={styles.coverPhoto}>
                     <Image
@@ -143,14 +149,15 @@ const DocsProfile = () => {
             {/* Tab Content */}
             <ThemedView style={styles.tabContent}>
                 {selectedTab === "Posts" ? (
-                    <FeedScreen />
+                    <DocsPostsComponent />
                 ) : (
                     <Qualifications />
                 )}
             </ThemedView>
             <DocDrawerMenu isVisible={isDrawerVisible} onClose={() => setDrawerVisible(false)} />
-        </ThemedView>
+        </View>
         </ScrollView>
+            </SafeAreaView>
     );
 };
 
@@ -165,7 +172,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: '80%',
         marginBottom: 20,
-        marginTop: 30,
+        // marginTop: 10,
         paddingVertical: 20,
         position: "absolute",
         backgroundColor: "transparent",
@@ -174,10 +181,10 @@ const styles = StyleSheet.create({
         width: "100%",
         ...Platform.select({
             ios: {
-                height: 150,
+                height: 100,
             },
             android: {
-                height: 200,
+                height: 150,
             }
         }),
         position: "relative",
@@ -195,7 +202,7 @@ const styles = StyleSheet.create({
     profileContainer: {
         position: "absolute",
         // justifyContent: "center",
-        top: 150,
+        top: 100,
         alignItems: "center",
         padding: 5,
         borderRadius: 65,

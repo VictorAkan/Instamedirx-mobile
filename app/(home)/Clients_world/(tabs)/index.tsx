@@ -15,28 +15,31 @@ export default function ClientScreen() {
     const [search, setSearch] = useState('');
     const [showFilter, setShowFilter] = useState(false);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
-    const { cartCount, setCartCount, cartItems, setCartItems, disabledButtons, setDisabledButtons } = useCart();
+    const { cartCount, setCartCount, cartItems, addToCart, removeFromCart, setCartItems, disabledButtons, setDisabledButtons } = useCart();
 
     const revealFilter = () => {
         setShowFilter(!showFilter);
     }
 
-    const toggleCartItem = (id: any) => {
-        if (disabledButtons[id]) {
+    const toggleCartItem = (product: any) => {
+        if (disabledButtons[product.id]) {
             // Remove item from cart
-            setCartCount(cartCount - 1);
-            setCartItems(prev => ({ ...prev, [id]: false }));
-            setDisabledButtons(prev => ({ ...prev, [id]: false }));
+            removeFromCart(product.id.toString());
         } else {
             // Add item to cart
-            setCartCount(cartCount + 1);
-            setCartItems(prev => ({ ...prev, [id]: true }));
-            setDisabledButtons(prev => ({ ...prev, [id]: true }));
+            addToCart({
+              id: product.id.toString(),
+              name: product.name,
+              price: Number(product.price.replace(/[^0-9]/g, '')),
+              store: product.store,
+              category: "Top Deals",
+              image: product.image,
+            });
         }
     };
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ThemedView style={styles.headerContainer}>
                 {showFilter === true ? "" : <ThemedView style={styles.header}>
                     <ThemedText style={styles.welcomeText}>Welcome, Alfred</ThemedText>
@@ -53,7 +56,7 @@ export default function ClientScreen() {
                         </Link>
                         <Link href="/Clients_world/client_messages_screen" asChild>
                             <TouchableOpacity activeOpacity={0.9}>
-                                <Image source={require("../../../../assets/images/chaticon.png")} style={{ width: 18, height: 18 }} />
+                                <Image resizeMode='contain' source={require("../../../../assets/images/chaticon.png")} style={{ width: 18, height: 18 }} />
                             </TouchableOpacity>
                         </Link>
                     </ThemedView>
@@ -81,18 +84,18 @@ export default function ClientScreen() {
                 {showFilter === true ? <FilterPage /> : <ClientsHome toggleCartItem={toggleCartItem} disabledButtons={disabledButtons} />}
             </ThemedView>
             {isDrawerVisible && <DrawerMenu isVisible={isDrawerVisible} onClose={() => setDrawerVisible(false)} />}
-        </ThemedView>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#fff',
     },
     headerContainer: {
-        backgroundColor: '#fff',
         paddingVertical: 10,
-        marginTop: 60,
+        marginTop: 10,
         flex: 1,
         // paddingHorizontal: 20,
     },

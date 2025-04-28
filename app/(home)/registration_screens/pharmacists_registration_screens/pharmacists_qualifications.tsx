@@ -2,7 +2,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { Link } from "expo-router";
 import { StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, ScrollView } from "react-native";
-import { RegTextInput } from "@/components/RegTextInput";
+import RegTextInput from "@/components/RegTextInput";
 import { AppBtn } from "@/components/AppButton";
 import { CustomDropdown } from "@/components/CustomDropDown";
 import { useState } from "react";
@@ -13,6 +13,30 @@ import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-na
 import { GestureDetector, GestureHandlerRootView, Gesture } from "react-native-gesture-handler";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import * as DocumentPicker from "expo-document-picker";
+
+// form validation
+import { z } from "zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const CertificationSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  licenseNumber: z.string().min(1, "License number is required"),
+  issueDate: z.string().min(1, "Issue date is required"),
+  expirationDate: z.string().min(1, "Expiration date is required"),
+  file: z.any().nullable().refine(val => !!val, { message: "File is required" }),
+});
+
+const DegreeSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  institution: z.string().min(1, "Institution is required"),
+  year: z.string().min(1, "Year is required"),
+});
+
+const FormSchema = z.object({
+  certifications: z.array(CertificationSchema).min(1),
+  degrees: z.array(DegreeSchema).min(1),
+});
 
 const { height } = Dimensions.get("window");
 const WHITE_HEIGHT = height * 0.02;
@@ -76,10 +100,22 @@ export default function PharmacistsQualifications() {
         setCertifications(newCerts);
     };
 
+    const form = useForm<z.infer<typeof FormSchema>>({
+          resolver: zodResolver(FormSchema),
+          defaultValues: {
+            certifications: certifications,
+            degrees: degrees,
+          },
+          mode: "onChange",
+        });
+    
+        const { isValid, isDirty } = form.formState;
+
 
     return (
         // <GestureHandlerRootView style={{ flex: 1 }}>
-            <ThemedView style={{ flex: 1, backgroundColor: "#0866FF" }}>
+           <FormProvider {...form}>
+               <ThemedView style={{ flex: 1, backgroundColor: "#0866FF" }}>
                 <ThemedView style={styles.arrowView}>
                     <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
                         <AntDesign name="arrowleft" size={24} color="black" />
@@ -99,29 +135,13 @@ export default function PharmacistsQualifications() {
                             {certifications.map((cert, index) => (
                                 <ThemedView key={cert.id} style={{ marginBottom: 10, paddingBottom: 5, gap: 25 }}>
                                     {/* <Text>Title</Text> */}
-                                    <RegTextInput value={cert.title} label="Title" onChangeText={(text: any) => {
-                                        const newCerts = [...certifications];
-                                        newCerts[index].title = text;
-                                        setCertifications(newCerts);
-                                    }} />
+                                    <RegTextInput value={cert.title} label="Title" name={`certifications.${index}.title`} />
                                     {/* <Text>License number</Text> */}
-                                    <RegTextInput value={cert.licenseNumber} label="License number" onChangeText={(text: any) => {
-                                        const newCerts = [...certifications];
-                                        newCerts[index].licenseNumber = text;
-                                        setCertifications(newCerts);
-                                    }} />
+                                    <RegTextInput value={cert.licenseNumber} label="License Number" name={`certifications.${index}.licenseNumber`} />
                                     {/* <Text>Issue date</Text> */}
-                                    <RegTextInput value={cert.issueDate} label="Issue date" onChangeText={(text: any) => {
-                                        const newCerts = [...certifications];
-                                        newCerts[index].issueDate = text;
-                                        setCertifications(newCerts);
-                                    }} />
+                                    <RegTextInput value={cert.issueDate} label="Issue Date" name={`certifications.${index}.issueDate`} />
                                     {/* <Text>Expiration date</Text> */}
-                                    <RegTextInput value={cert.expirationDate} label="Expiration date" onChangeText={(text: any) => {
-                                        const newCerts = [...certifications];
-                                        newCerts[index].expirationDate = text;
-                                        setCertifications(newCerts);
-                                    }} />
+                                    <RegTextInput value={cert.expirationDate} label="Expiration date" name={`certifications.${index}.expirationDate`} />
                                     <ThemedView style={styles.uploadView}>
                                         <ThemedText style={styles.uploadTxt}>Upload certificate/license</ThemedText>
                                         <ThemedText style={styles.secondTxt}>( doc,pdf,jpg,jpeg )</ThemedText>
@@ -148,21 +168,9 @@ export default function PharmacistsQualifications() {
                             {degrees.map((deg, index) => (
                                 <ThemedView key={deg.id} style={{ marginBottom: 10, paddingBottom: 5, gap: 25 }}>
                                     {/* <Text>Title</Text> */}
-                                    <RegTextInput label="Title" value={deg.title} onChangeText={(text: any) => {
-                                        const newDegrees = [...degrees];
-                                        newDegrees[index].title = text;
-                                        setDegrees(newDegrees);
-                                    }} />
-                                    <RegTextInput label="Institution" value={deg.institution} onChangeText={(text: any) => {
-                                        const newDegrees = [...degrees];
-                                        newDegrees[index].institution = text;
-                                        setDegrees(newDegrees);
-                                    }} />
-                                    <RegTextInput label="Year" value={deg.year} onChangeText={(text: any) => {
-                                        const newDegrees = [...degrees];
-                                        newDegrees[index].year = text;
-                                        setDegrees(newDegrees);
-                                    }} />
+                                    <RegTextInput value={deg.title} label="Title" name={`degrees.${index}.title`} />
+                                    <RegTextInput value={deg.institution} label="Institution" name={`degrees.${index}.insitution`} />
+                                     <RegTextInput value={deg.year} label="Year" name={`degrees.${index}.year`} />
                                     <ThemedView style={styles.uploadView}>
                                         <ThemedText style={styles.uploadTxt}>Upload certificate</ThemedText>
                                         <ThemedText style={styles.secondTxt}>( doc,pdf,jpg,jpeg )</ThemedText>
@@ -187,13 +195,14 @@ export default function PharmacistsQualifications() {
                                         <ThemedText style={styles.lgOutTxt}>Log out</ThemedText>
                                     </TouchableOpacity>
                                 </Link>
-                                <AppBtn route="/" value="Continue" />
+                                <AppBtn route="/" value="Continue"  disabled={!isDirty || !isValid} />
                             </ThemedView>
                         </ThemedView>
                     </ScrollView>
                 </ThemedView>
                 {/* </GestureDetector> */}
             </ThemedView>
+           </FormProvider>
         // </GestureHandlerRootView>
     );
 }

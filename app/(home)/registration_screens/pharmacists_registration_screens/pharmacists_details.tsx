@@ -2,11 +2,51 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { Link, useRouter } from "expo-router"; // Import useRouter
 import { StyleSheet, TouchableOpacity, ScrollView, View, Dimensions } from "react-native";
-import { RegTextInput } from "@/components/RegTextInput";
+import RegTextInput from "@/components/RegTextInput";
 import { AppBtn } from "@/components/AppButton";
 import { CustomDropdown } from "@/components/CustomDropDown";
 import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
+
+// form validation
+import { z } from "zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const FormSchema = z.object({
+  pharmacyName: z.string({
+    required_error: 'Pharmacy name is required',
+    invalid_type_error: 'Pharmacy name must be a string',
+  }),
+  pharmacyAddress: z.string({
+    required_error: 'Pharmacy name is required',
+    invalid_type_error: 'Pharmacy name must be a string',
+  }),
+  zipcode: z.string({
+    required_error: 'Zip code is required',
+    invalid_type_error: 'Zip code must be a string',
+  }),
+  city: z.string({
+    required_error: 'City is required',
+    invalid_type_error: 'City must be a string',
+  }),
+  country: z.string({
+    required_error: 'Country is required',
+    invalid_type_error: 'Country must be a string',
+  }),
+  state: z.string({
+    required_error: 'Province/State is required',
+    invalid_type_error: 'State must be a string',
+  }),
+  experience: z.string({
+    required_error: 'Years of experience is required',
+    invalid_type_error: 'Years of experience must be a string',
+  }),
+  pharmacyLicense: z.string({
+    required_error: 'licenseis required',
+    invalid_type_error: 'Pharmacy license must be a string',
+  }),
+});
 
 const { height } = Dimensions.get("window");
 
@@ -14,6 +54,26 @@ export default function PharmacistsDetails() {
     const [email, onChangeEmail] = useState("");
     const [password, onChangePassword] = useState("");
     const router = useRouter(); // Initialize useRouter
+
+    const form = useForm<z.infer<typeof FormSchema>>({
+                  resolver: zodResolver(FormSchema),
+                  mode: "onChange",
+                  defaultValues: {
+                    zipcode: '',
+                    city: '',
+                    country: '',
+                    state: '',
+                    experience: '',
+                    // medicalLicense: '',
+                  }
+                })
+            
+                const { isValid, isDirty } = form.formState;
+            
+            
+                function onSubmit(data: z.infer<typeof FormSchema>) {
+            // 
+                }
 
     const ethOptions = [
         { label: "Yoruba", value: "1" },
@@ -45,7 +105,8 @@ export default function PharmacistsDetails() {
     }
 
     return (
-        <ThemedView style={{ flex: 1, backgroundColor: "#0866FF" }}>
+        <FormProvider {...form}>
+          <ThemedView style={{ flex: 1, backgroundColor: "#0866FF" }}>
             <ThemedView style={styles.arrowView}>
                 <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
                     <AntDesign name="arrowleft" size={24} color="black" />
@@ -61,16 +122,16 @@ export default function PharmacistsDetails() {
                     contentContainerStyle={styles.scrollContent} // Use separate style for scroll content
                 >
                     <ThemedView style={styles.inputContainer}>
-                        <RegTextInput label="Pharmacy name" onChangeText={onChangeEmail} />
-                        <RegTextInput label="Pharmacy address" onChangeText={onChangeEmail} />
-                        <RegTextInput label="Zip code" onChangeText={onChangeEmail} />
-                        <RegTextInput label="City" onChangeText={onChangeEmail} keyboardType="numberpad" />
-                        <RegTextInput label="Country" onChangeText={onChangePassword} />
-                        <RegTextInput label="Province/State" onChangeText={onChangePassword} />
+                        <RegTextInput label="Pharmacy name" name="pharmacyName" />
+                        <RegTextInput label="Pharmacy address" name="pharmacyAddress" />
+                        <RegTextInput label="Zip code" name="zipcode" />
+                        <RegTextInput label="City" name="" keyboardType="numberpad" />
+                        <RegTextInput label="Country" name="country" />
+                        <RegTextInput label="Province/State" name="state" />
                         <CustomDropdown scope="Ethnicity" data={ethOptions} />
                         <CustomDropdown scope="Language" data={langOptions} />
-                        <RegTextInput label="Years of experience" onChangeText={onChangeEmail} />
-                        <RegTextInput label="Pharmacy license number" onChangeText={onChangeEmail} />
+                        <RegTextInput label="Years of experience" name="experience"  />
+                        <RegTextInput label="Pharmacy license number" onChangeText={onChangeEmail} name="/../../" />
                         <ThemedView style={styles.buttonView}>
                             <TouchableOpacity activeOpacity={0.9} style={styles.lgOutBtn} onPress={handleLogout}>
                                 <ThemedText style={styles.lgOutTxt}>Log out</ThemedText>
@@ -81,12 +142,14 @@ export default function PharmacistsDetails() {
                             <AppBtn 
                                 route="/registration_screens/pharmacists_registration_screens/pharmacists_qualifications"
                                 value="Continue"
+                                disabled={!isDirty || !isValid}
                             />
                         </ThemedView>
                     </ThemedView>
                 </ScrollView>
             </ThemedView>
         </ThemedView>
+        </FormProvider>
     );
 }
 

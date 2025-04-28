@@ -5,6 +5,8 @@ import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 export default function Appointment() {
     const [search, setSearch] = useState('');
     const [appointments, setAppointments] = useState([
@@ -17,7 +19,7 @@ export default function Appointment() {
     };
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <StatusBar style="auto" />
             <ThemedView style={styles.searchBar}>
                 <TouchableOpacity activeOpacity={0.9}>
@@ -67,7 +69,7 @@ export default function Appointment() {
                 ))}
             </ScrollView>
 
-        </ThemedView>
+        </SafeAreaView>
     );
 }
 
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
         borderColor: '#ADCCFF',
         borderWidth: 1,
         padding: 8,
-        marginTop: 60,
+        // marginTop: 10,
         marginHorizontal: 20,
     },
     sideLine: {
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         color: '#0866FF',
         fontFamily: 'OpenSans_700Bold',
-        marginTop: 40,
+        marginTop: 10,
         marginHorizontal: 20,
     },
     subtitle: {

@@ -2,7 +2,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { Link } from "expo-router";
 import { StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
-import { RegTextInput } from "@/components/RegTextInput";
+import RegTextInput from "@/components/RegTextInput";
 import { AppBtn } from "@/components/AppButton";
 import { useState } from "react";
 import { useFonts } from "expo-font";
@@ -12,6 +12,44 @@ import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-na
 import { GestureDetector, GestureHandlerRootView, Gesture } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 
+// form validation
+import { z } from "zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const FormSchema = z.object({
+  firstname: z.string({
+    required_error: 'Name is required',
+    invalid_type_error: 'Name must be a string',
+  }),
+  lastname: z.string({
+    required_error: 'Name is required',
+    invalid_type_error: 'Name must be a string',
+  }),
+  email: z.string().email({
+    message: 'Invalid email address, please try again.',
+  }),
+  password: z
+      .string()
+      .min(
+        8,
+        'at least 8 characters minimum, an uppercase and a lowercase, a number and a symbol.'
+      )
+      .regex(/[A-Z]/, 'at least one uppercase letter')
+      .regex(/[a-z]/, 'at least one lowercase letter')
+      .regex(/\d/, 'at least one number')
+      .regex(/[!@#$%^&*]/, 'at least one special character'),
+  confirmPassword: z.string(),
+}).superRefine(({ password, confirmPassword }, ctx) => {
+  if (password !== confirmPassword) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['confirmPassword'],
+      message: 'Passwords must match.',
+    });
+  }
+});
+
 const { height } = Dimensions.get("window");
 const WHITE_HEIGHT = height * 0.15;
 
@@ -20,6 +58,25 @@ export default function PharmacistRegistration() {
     const [password, onChangePassword] = useState("");
     const router = useRouter();
     const translateY = useSharedValue(WHITE_HEIGHT);
+
+    const form = useForm<z.infer<typeof FormSchema>>({
+                  resolver: zodResolver(FormSchema),
+                  mode: "onChange",
+                  defaultValues: {
+                    firstname: '',
+                    lastname: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: '',
+                  }
+                })
+            
+                const { isValid, isDirty } = form.formState;
+            
+            
+                function onSubmit(data: z.infer<typeof FormSchema>) {
+            // 
+                }
 
     const panGesture = Gesture.Pan()
         .onUpdate((event) => {
@@ -38,7 +95,8 @@ export default function PharmacistRegistration() {
     }));
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+       <FormProvider {...form}>
+         <GestureHandlerRootView style={{ flex: 1 }}>
             <View style={{ flex: 1, backgroundColor: "#0866FF" }}>
             <ThemedView style={styles.arrowView}>
                     <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
@@ -66,38 +124,38 @@ export default function PharmacistRegistration() {
                             <ThemedText style={styles.procTxt}>Fill in the following information</ThemedText>
                         </View>
                         <ThemedView style={styles.inputContainer}>
-                            <RegTextInput
-                                label="First name"
-                                onChangeText={onChangeEmail}
-                            // required={true}
-                            />
-                            <RegTextInput
-                                label="Last name"
-                                onChangeText={onChangeEmail}
-                            // required={true}
-                            />
-                            <RegTextInput
-                                label="Email address"
-                                onChangeText={onChangeEmail}
-                            // required={true}
-                            />
-                            <RegTextInput
-                                label="Phone number"
-                                onChangeText={onChangeEmail}
-                            // required={true}
-                            />
-                            <RegTextInput
-                                label="Password"
-                                onChangeText={onChangePassword}
-                                secureTextEntry={true}
-                            // required={true}
-                            />
-                            <RegTextInput
-                                label="Confirm Password"
-                                onChangeText={onChangePassword}
-                                secureTextEntry={true}
-                            // required={true}
-                            />
+                           <RegTextInput
+                                                           label="First name"
+                                                           name="firstname"
+                                                       // required={true}
+                                                       />
+                                                       <RegTextInput
+                                                           label="Last name"
+                                                           name="lastname"
+                                                       // required={true}
+                                                       />
+                                                       <RegTextInput
+                                                           label="Email address"
+                                                           name="email"
+                                                       // required={true}
+                                                       />
+                                                       <RegTextInput
+                                                           label="Phone number"
+                                                           name="phone"
+                                                       // required={true}
+                                                       />
+                                                       <RegTextInput
+                                                           label="Password"
+                                                           name="password"
+                                                           secureTextEntry={true}
+                                                       // required={true}
+                                                       />
+                                                       <RegTextInput
+                                                           label="Confirm Password"
+                                                           name="confirmPassword"
+                                                           secureTextEntry={true}
+                                                       // required={true}
+                                                       />
                             <ThemedView style={styles.buttonView}>
                                 {/* <TouchableOpacity activeOpacity={0.9} style={styles.loginButton}>
                             <ThemedText style={styles.loginTxt}>Login</ThemedText>
@@ -105,6 +163,7 @@ export default function PharmacistRegistration() {
                                 <AppBtn
                                     route="/registration_screens/pharmacists_registration_screens/pharm_email_verification"
                                     value="Sign up"
+                                    disabled={!isDirty || !isValid}
                                 />
                             </ThemedView>
                             <ThemedView style={styles.separatorContainer}>
@@ -140,6 +199,7 @@ export default function PharmacistRegistration() {
                 </GestureDetector>
             </View>
         </GestureHandlerRootView>
+       </FormProvider>
     )
 }
 

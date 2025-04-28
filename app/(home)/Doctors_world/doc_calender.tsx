@@ -11,6 +11,8 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { Calendar } from "@/components/Calendar";
 
+import { SafeAreaView } from "react-native-safe-area-context";
+
 export default function CalendarScreen() {
     const [step, setStep] = useState(1);
     const router = useRouter();
@@ -76,7 +78,7 @@ export default function CalendarScreen() {
     });
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {/* <TouchableOpacity onPress={() => setStep(1)}>
                 <Text style={styles.backButton}>{"< Back"}</Text>
             </TouchableOpacity> */}
@@ -100,7 +102,7 @@ export default function CalendarScreen() {
             </ThemedView>
 
             <ScrollView style={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-                {step === 1 && (
+                {step === 2 && (
                     <ThemedView style={styles.emptySection}>
                         <ThemedView style={{ justifyContent:'center', alignItems: 'center' }}>
                             <FontAwesome name="calendar" size={40} color="#0866FF" />
@@ -109,7 +111,7 @@ export default function CalendarScreen() {
                     </ThemedView>
                 )}
 
-                {step === 2 && (
+                {step === 3 && (
                     <ThemedView style={styles.section}>
                         <ThemedText style={styles.label}>Interval between appointments</ThemedText>
                         <TextInput
@@ -130,7 +132,7 @@ export default function CalendarScreen() {
                     </ThemedView>
                 )}
 
-                {step === 3 && (
+                {step === 1 && (
                     <ThemedView style={styles.section}>
                         {Object.keys(availability).map((day) => (
                             <ThemedView key={day} style={styles.availabilityRow}>
@@ -172,7 +174,7 @@ export default function CalendarScreen() {
                     </ThemedView>
                 </ThemedView>
             </ScrollView>
-        </ThemedView>
+        </SafeAreaView>
     );
 }
 
@@ -192,7 +194,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 20,
         marginBottom: 20,
-        marginTop: 40,
+        // marginTop: 10,
     },
     header: {
         fontSize: 20,

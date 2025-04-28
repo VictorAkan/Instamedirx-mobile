@@ -8,6 +8,7 @@ import {
   Animated,
   Dimensions,
   TextInput,
+  FlatList,
 } from "react-native";
 import { useState, useRef } from "react";
 import { useRouter } from "expo-router";
@@ -21,7 +22,9 @@ import {
   Feather,
 } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import { useCart } from "@/utils/context/cart_context";
+import { useDocCart } from "@/utils/context/cart_context";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -277,6 +280,7 @@ const topDeals = [
     id: 34,
     name: "Vitacillin Met 5...",
     price: "₦11,900",
+    store: 'GreenLeaf Pharmacy',
     image: require("../../../../assets/images/prod1.png"),
     discount: 20,
   },
@@ -284,6 +288,7 @@ const topDeals = [
     id: 35,
     name: "Vitacillin Met 5...",
     price: "₦3,500",
+    store: 'PharmC Stores',
     image: require("../../../../assets/images/prod2.png"),
     discount: 50,
   },
@@ -291,6 +296,7 @@ const topDeals = [
     id: 36,
     name: "Vitacillin Met 5...",
     price: "₦23,500",
+    store: 'Amazing Pharmacy',
     image: require("../../../../assets/images/prod3.png"),
     discount: 20,
   },
@@ -298,6 +304,7 @@ const topDeals = [
     id: 37,
     name: "Vitacillin Met 5...",
     price: "₦19,500",
+    store: 'GreenLeaf Pharmacy',
     image: require("../../../../assets/images/prod4.png"),
     discount: 20,
   },
@@ -309,17 +316,24 @@ const categoriesWithIds = Object.keys(products).map((category, index) => ({
   category,
 }));
 
-export default function StoreProducts() {
+const moreCategoriesWithIds = Object.keys(moreProducts).map((category, index) => ({
+  id: index + 1, // Simple incrementing ID
+  category,
+}));
+
+export default function DocsPharmShop() {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const {
-    cartCount,
-    setCartCount,
-    cartItems,
-    setCartItems,
-    disabledButtons,
-    setDisabledButtons,
-  } = useCart();
+    docCartCount,
+    setDocCartCount,
+    docCartItems,
+    addToCart,
+    removeFromCart,
+    setDocCartItems,
+    docDisabledButtons,
+    setDocDisabledButtons,
+  } = useDocCart();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const slideAnim = useRef(new Animated.Value(SCREEN_WIDTH)).current;
 
@@ -343,24 +357,32 @@ export default function StoreProducts() {
   const truncateText = (text: string, maxLength: number) =>
     text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 
-  const toggleCartItem = (id: any) => {
-    if (disabledButtons[id]) {
+  const toggleCartItem = (product: any) => {
+    if (docDisabledButtons[product.id]) {
       // Remove item from cart
-      setCartCount(cartCount - 1);
-      setCartItems((prev) => ({ ...prev, [id]: false }));
-      setDisabledButtons((prev) => ({ ...prev, [id]: false }));
+      removeFromCart(product.id.toString());
     } else {
       // Add item to cart
-      setCartCount(cartCount + 1);
-      setCartItems((prev) => ({ ...prev, [id]: true }));
-      setDisabledButtons((prev) => ({ ...prev, [id]: true }));
+      addToCart({
+        id: product.id.toString(),
+        name: product.name,
+        price: Number(product.price.replace(/[^0-9]/g, "")),
+        store: product.store,
+        category:
+          Object.keys(products).find((cat) =>
+            products[cat as keyof typeof products].some(
+              (p) => p.id === product.id
+            )
+          ) || "",
+        image: product.image,
+      });
     }
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ThemedView style={styles.headerView}>
-        {!isSearchVisible && (
+      {!isSearchVisible && (
           <>
             <ThemedView style={styles.leftSide}>
               <TouchableOpacity
@@ -387,6 +409,7 @@ export default function StoreProducts() {
                 <TouchableOpacity activeOpacity={0.9}>
                   <Image
                     source={require("../../../../assets/images/chaticon.png")}
+                    resizeMode='contain'
                     style={{ width: 20, height: 19 }}
                   />
                 </TouchableOpacity>
@@ -399,9 +422,9 @@ export default function StoreProducts() {
                       size={24}
                       color="#0544AA"
                     />
-                    {cartCount > 0 && (
+                    {docCartCount > 0 && (
                       <View style={styles.cartBadge}>
-                        <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                        <Text style={styles.cartBadgeText}>{docCartCount}</Text>
                       </View>
                     )}
                   </View>
@@ -445,9 +468,9 @@ export default function StoreProducts() {
                     size={24}
                     color="#0544AA"
                   />
-                  {cartCount > 0 && (
+                  {docCartCount > 0 && (
                     <View style={styles.cartBadge}>
-                      <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                      <Text style={styles.cartBadgeText}>{docCartCount}</Text>
                     </View>
                   )}
                 </View>
@@ -468,6 +491,19 @@ export default function StoreProducts() {
             <ThemedView key={category} style={styles.categoryContainer}>
               <ThemedView style={styles.categoryHeader}>
                 <ThemedText style={styles.categoryText}>{category}</ThemedText>
+                <TouchableOpacity activeOpacity={0.7}
+                  onPress={() => router.push({
+                    pathname: "/Doctors_world/pharm_drugs_categories/[id]",
+                    params: {
+                      id: categoryId,
+                      products: JSON.stringify(products),
+                      category: category,
+                      // category: category
+                    }
+                  })}
+                > 
+                  <ThemedText style={styles.viewAll}>View all</ThemedText>
+                </TouchableOpacity>
               </ThemedView>
               <ScrollView
                 style={{ marginTop: 15, flexGrow: 1 }}
@@ -512,18 +548,18 @@ export default function StoreProducts() {
                       style={[
                         styles.addToCartButton,
                         {
-                          backgroundColor: disabledButtons[product.id]
+                          backgroundColor: docDisabledButtons[product.id]
                             ? "#CEE0FF"
                             : "#0866FF",
                         },
                       ]}
-                      onPress={() => toggleCartItem(product.id)}
+                      onPress={() => toggleCartItem(product)}
                     >
                       <ThemedText
                         style={[
                           styles.addToCartText,
                           {
-                            color: disabledButtons[product.id]
+                            color: docDisabledButtons[product.id]
                               ? "#8F8F8F"
                               : "#fff",
                           },
@@ -536,7 +572,7 @@ export default function StoreProducts() {
                           name="arrowright"
                           size={18}
                           color={
-                            disabledButtons[product.id] ? "#D6D6D6" : "#0866FF"
+                            docDisabledButtons[product.id] ? "#D6D6D6" : "#0866FF"
                           }
                         />
                       </ThemedView>
@@ -549,11 +585,24 @@ export default function StoreProducts() {
         })}
 
         {Object.entries(moreProducts).map(([category, items]) => {
-          // const categoryId = categoriesWithIds.find(c => c.category === category)!.id;
+          const categoryId = moreCategoriesWithIds.find(c => c.category === category)!.id;
           return (
             <ThemedView key={category} style={styles.categoryContainer}>
               <ThemedView style={styles.categoryHeader}>
                 <ThemedText style={styles.categoryText}>{category}</ThemedText>
+                <TouchableOpacity activeOpacity={0.7}
+                  onPress={() => router.push({
+                    pathname: "/Doctors_world/pharm_drugs_categories/[id]",
+                    params: {
+                      id: categoryId,
+                      products: JSON.stringify(products),
+                      category: category,
+                      // category: category
+                    }
+                  })}
+                > 
+                  <ThemedText style={styles.viewAll}>View all</ThemedText>
+                </TouchableOpacity>
               </ThemedView>
               <ScrollView
                 style={{ marginTop: 15, flexGrow: 1 }}
@@ -595,18 +644,18 @@ export default function StoreProducts() {
                       style={[
                         styles.addToCartButton,
                         {
-                          backgroundColor: disabledButtons[product.id]
+                          backgroundColor: docDisabledButtons[product.id]
                             ? "#CEE0FF"
                             : "#0866FF",
                         },
                       ]}
-                      onPress={() => toggleCartItem(product.id)}
+                      onPress={() => toggleCartItem(product)}
                     >
                       <ThemedText
                         style={[
                           styles.addToCartText,
                           {
-                            color: disabledButtons[product.id]
+                            color: docDisabledButtons[product.id]
                               ? "#8F8F8F"
                               : "#fff",
                           },
@@ -619,7 +668,7 @@ export default function StoreProducts() {
                           name="arrowright"
                           size={18}
                           color={
-                            disabledButtons[product.id] ? "#D6D6D6" : "#0866FF"
+                            docDisabledButtons[product.id] ? "#D6D6D6" : "#0866FF"
                           }
                         />
                       </ThemedView>
@@ -643,54 +692,62 @@ export default function StoreProducts() {
                                 </TouchableOpacity> */}
         </ThemedView>
         <ThemedView style={styles.productGrid}>
-          {topDeals.map((product) => (
-            <ThemedView key={product.id} style={styles.productListCard}>
+          <FlatList 
+            data={topDeals}
+            scrollEnabled={false}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            numColumns={2}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <ThemedView key={item.id} style={styles.productListCard}>
               <TouchableOpacity
                 style={styles.tImageContainer}
                 activeOpacity={0.8}
                 onPress={() => {
                   router.push({
-                    pathname: "/Doctors_world/product_details/[id]",
+                    pathname: "/Doctors_world/product_details/pharmcy_store_details",
                     params: {
-                      id: product.id,
-                      image: product.image,
+                      id: item.id,
+                      image: item.image,
                       store: "PharmC Store",
                     },
                   });
                 }}
               >
-                <Image source={product.image} style={styles.tImage} />
+                <Image source={item.image} style={styles.tImage} />
               </TouchableOpacity>
-              <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
-              {product.discount && (
+              <ThemedText style={styles.productTxt}>{item.name}</ThemedText>
+              {/* {item.discount && (
                 <ThemedView style={styles.discountRow}>
                   <Feather name="tag" size={16} color="#FF5E5E" />
                   <ThemedText style={styles.discountTxt}>
-                    {product.discount}% discount
+                    {item.discount}% discount
                   </ThemedText>
                 </ThemedView>
-              )}
+              )} */}
+              <ThemedText style={styles.storeTxt}>{item.store}</ThemedText>
               <ThemedText style={styles.productPrice}>
-                {product.price}
+                {item.price}
               </ThemedText>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={[
                   styles.addToCartButton,
                   {
-                    backgroundColor: disabledButtons[product.id]
+                    backgroundColor: docDisabledButtons[item.id]
                       ? "#CEE0FF"
                       : "#0866FF",
-                    marginTop: product.discount ? 0 : 25,
+                    marginTop: item.discount ? 0 : 25,
                   },
                 ]}
-                onPress={() => toggleCartItem(product.id)}
+                onPress={() => toggleCartItem(item)}
               >
                 <ThemedText
                   style={[
                     styles.addToCartText,
                     {
-                      color: disabledButtons[product.id] ? "#8F8F8F" : "#fff",
+                      color: docDisabledButtons[item.id] ? "#8F8F8F" : "#fff",
                     },
                   ]}
                 >
@@ -700,15 +757,16 @@ export default function StoreProducts() {
                   <AntDesign
                     name="arrowright"
                     size={18}
-                    color={disabledButtons[product.id] ? "#D6D6D6" : "#0866FF"}
+                    color={docDisabledButtons[item.id] ? "#D6D6D6" : "#0866FF"}
                   />
                 </ThemedView>
               </TouchableOpacity>
             </ThemedView>
-          ))}
+            )}
+          />
         </ThemedView>
       </ScrollView>
-    </ThemedView>
+    </SafeAreaView>
   );
 }
 
@@ -723,7 +781,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     // paddingVertical: 50,
     // paddingTop: 40,
-    marginTop: 20,
+    marginTop: 10,
     // paddingLeft: 20,
     flexGrow: 1,
     // marginBottom: 60,
@@ -752,7 +810,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 70,
+    marginTop: 20,
     // marginBottom: 10,
     paddingHorizontal: 15,
   },
@@ -777,6 +835,13 @@ const styles = StyleSheet.create({
     borderLeftColor: "#ADCCFF",
     backgroundColor: "white",
     paddingLeft: 5,
+  },
+  storeTxt: {
+    textAlign: 'left',
+    fontSize: 14,
+    color: '#FF5E5E',
+    fontFamily: "OpenSans_400Regular",
+    alignSelf: 'flex-start',
   },
   edgeIcons: {
     gap: 30,

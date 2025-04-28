@@ -7,6 +7,8 @@ import { Link } from 'expo-router';
 import DrawerMenu from '@/components/DrawerMenu';
 import DocsHome from '@/components/DocsHome';
 import FilterPage from '@/components/FilterComponent';
+
+import { SafeAreaView } from 'react-native-safe-area-context';
 // import StoryCircle from '@/components/SegmentedStoryCircle';
 
  export default function HomeScreen() {
@@ -19,7 +21,7 @@ import FilterPage from '@/components/FilterComponent';
     }
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ThemedView style={styles.headerContainer}>
                 { showFilter === true ? "" : <ThemedView style={styles.header}>
                     <ThemedText style={styles.welcomeText}>Welcome, Dr. Sandra</ThemedText>
@@ -57,18 +59,18 @@ import FilterPage from '@/components/FilterComponent';
                 { showFilter === true ? <FilterPage /> : <DocsHome /> }
             </ThemedView>
             {isDrawerVisible && <DrawerMenu isVisible={isDrawerVisible} onClose={() => setDrawerVisible(false)} />}
-        </ThemedView>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#fff',
     },
     headerContainer: {
-        backgroundColor: '#fff',
         paddingVertical: 10,
-        marginTop: 60,
+        marginTop: 10,
         flex: 1,
         // paddingHorizontal: 20,
     },

@@ -98,7 +98,6 @@ export default function TabLayout() {
                     ),
                 }}
             />
-
             <Tabs.Screen
                 name="clients_profile"
                 options={{
@@ -114,7 +113,6 @@ export default function TabLayout() {
                                 // padding: 10,
                             }}
                         >
-
                             <Image style={{ width: 25, height: 25, borderWidth: 1, borderColor: '#0866FF', borderRadius: 30 }} source={require("../../../../assets/images/client_profile.png")} />
                         </ThemedView>
                     ),

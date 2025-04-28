@@ -5,6 +5,8 @@ import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 import { AntDesign } from '@expo/vector-icons';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 const messages = [
     { id: '1', name: 'Oscar Felix', message: 'Goodday Dr. Sandra', time: '11:15', avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
     { id: '2', name: 'Oscar Felix', message: 'Goodday Dr. Sandra', time: '11:15', avatar: 'https://randomuser.me/api/portraits/men/2.jpg' },
@@ -25,7 +27,7 @@ export default function DocMessagesScreen() {
     const router = useRouter();
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ThemedView style={styles.headerView}>
                 <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
                     <AntDesign name="arrowleft" size={24} color="#032255" />
@@ -57,7 +59,7 @@ export default function DocMessagesScreen() {
                     </TouchableOpacity>
                 )}
             />
-        </ThemedView>
+        </SafeAreaView>
     );
 }
 
@@ -65,9 +67,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        backgroundColor: 'white',
     },
     headerView: {
-        marginTop: 40,
+        // marginTop: 10,
         flexDirection: 'row',
         gap: 20,
         // alignItems: 'center',

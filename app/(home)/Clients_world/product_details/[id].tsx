@@ -7,6 +7,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { useCart } from '@/utils/context/cart_context';
 import { useState, useRef } from 'react';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const moreProducts = {
@@ -28,7 +30,7 @@ const ProductDetailScreen = () => {
     store: string
   };
   const [search, setSearch] = useState('');
-  const { cartCount, setCartCount, cartItems, setCartItems, disabledButtons, setDisabledButtons } = useCart();
+  const { cartCount, addToCart, removeFromCart, setCartCount, cartItems, setCartItems, disabledButtons, setDisabledButtons } = useCart();
   const router = useRouter();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const slideAnim = useRef(new Animated.Value(SCREEN_WIDTH)).current;
@@ -70,23 +72,27 @@ const ProductDetailScreen = () => {
     }
   };
 
-  const toggleMoreCartItem = (id: any) => {
-    if (disabledButtons[id]) {
+  const toggleMoreCartItem = (product: any) => {
+    if (disabledButtons[product.id]) {
       // Remove item from cart
-      setCartCount(cartCount - 1);
-      setCartItems(prev => ({ ...prev, [id]: false }));
-      setDisabledButtons(prev => ({ ...prev, [id]: false }));
+      removeFromCart(product.id.toString());
     } else {
       // Add item to cart
-      setCartCount(cartCount + 1);
-      setCartItems(prev => ({ ...prev, [id]: true }));
-      setDisabledButtons(prev => ({ ...prev, [id]: true }));
+      addToCart({
+        id: product.id.toString(),
+        name: product.name,
+        price: Number(product.price.replace(/[^0-9]/g, '')),
+        store: product.store,
+        category: 'More from the store',
+        image: product.image,
+      });
     }
   };
 
   return (
-    <ThemedView style={{
-      flex: 1
+    <SafeAreaView style={{
+      flex: 1,
+      backgroundColor: 'white',
     }}>
       <ThemedView style={styles.headerView}>
         {!isSearchVisible && (
@@ -236,7 +242,7 @@ const ProductDetailScreen = () => {
           ))}
         </ScrollView>
       </ScrollView>
-    </ThemedView>
+    </SafeAreaView>
   );
 };
 
@@ -250,7 +256,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 60,
+    marginTop: 20,
     // marginBottom: 10,
     paddingHorizontal: 15,
   },

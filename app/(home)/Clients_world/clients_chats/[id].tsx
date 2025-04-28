@@ -5,6 +5,8 @@ import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 import { AntDesign, MaterialIcons, FontAwesome6, Entypo, Ionicons } from '@expo/vector-icons';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 export default function ClientsChatScreen() {
     const { user, image } = useLocalSearchParams();
     const router = useRouter();
@@ -34,7 +36,7 @@ export default function ClientsChatScreen() {
     const imageUrl = typeof image === 'string' ? image : '';
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ThemedView style={styles.headerView}>
                 <ThemedView style={styles.leftView}>
                     <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
@@ -159,7 +161,7 @@ export default function ClientsChatScreen() {
                     <Image source={require("../../../../assets/images/emailsend.png")} />
                 </TouchableOpacity> */}
             </ThemedView>
-        </ThemedView>
+        </SafeAreaView>
     );
 }
 
@@ -167,6 +169,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingVertical: 20,
+        backgroundColor: 'white',
     },
     currentDay: {
         // justifyContent: 'center',
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
     headerView: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 30,
+        // marginTop: 10,
         justifyContent: 'space-between',
         // marginBottom: 30,
         paddingHorizontal: 20,

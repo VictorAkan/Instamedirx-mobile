@@ -25,7 +25,7 @@ import { Link, useRouter } from "expo-router";
 import DoctorStoryScreen from "./StoryComponent";
 
 interface ClientsHomeProps {
-  toggleCartItem: (id: any) => void;
+  toggleCartItem: (product: any) => void;
   disabledButtons: { [key: string]: boolean };
 }
 
@@ -104,12 +104,14 @@ const ClientsHome: React.FC<ClientsHomeProps> = ({
       id: 34,
       name: "Vitacillin Met 5...",
       price: "₦11,900",
+      store: "GreenLeaf Pharmacy",
       image: require("../assets/images/prod1.png"),
     },
     {
       id: 35,
       name: "Vitacillin Met 5...",
       price: "₦3,500",
+      store: "PharmC Stores",
       image: require("../assets/images/prod2.png"),
       discount: 50,
     },
@@ -117,6 +119,7 @@ const ClientsHome: React.FC<ClientsHomeProps> = ({
       id: 36,
       name: "Vitacillin Met 5...",
       price: "₦23,500",
+      store: "Goodwill Pharmacy",
       image: require("../assets/images/prod3.png"),
       discount: 20,
     },
@@ -124,6 +127,7 @@ const ClientsHome: React.FC<ClientsHomeProps> = ({
       id: 37,
       name: "Vitacillin Met 5...",
       price: "₦19,500",
+      store: "Amazing Stores",
       image: require("../assets/images/prod4.png"),
     },
   ];
@@ -273,15 +277,30 @@ const ClientsHome: React.FC<ClientsHomeProps> = ({
             >
               <Image source={product.image} style={styles.productImage} />
             </TouchableOpacity>
+            <TouchableOpacity
+               activeOpacity={0.8}
+               onPress={() => {
+                 router.push({
+                   pathname: "/Clients_world/product_details/[id]",
+                   params: {
+                     id: product.id,
+                     image: product.image,
+                     store: "PharmC Store",
+                   },
+                 });
+               }}
+            >
             <ThemedText style={styles.productTxt}>{product.name}</ThemedText>
-            {product.discount && (
+            </TouchableOpacity>
+            {/* {product.discount && (
               <ThemedView style={styles.discountRow}>
                 <Feather name="tag" size={16} color="#FF5E5E" />
                 <ThemedText style={styles.discountTxt}>
                   {product.discount}% discount
                 </ThemedText>
               </ThemedView>
-            )}
+            )} */}
+            <ThemedText style={styles.storeTxt}>{product.store}</ThemedText>
             <ThemedText style={styles.productPrice}>{product.price}</ThemedText>
             <TouchableOpacity
               activeOpacity={0.8}
@@ -291,10 +310,10 @@ const ClientsHome: React.FC<ClientsHomeProps> = ({
                   backgroundColor: disabledButtons[product.id]
                     ? "#CEE0FF"
                     : "#0866FF",
-                  marginTop: product.discount ? 0 : 25,
+                  // marginTop: product.discount ? 0 : 25,
                 },
               ]}
-              onPress={() => toggleCartItem(product.id)}
+              onPress={() => toggleCartItem(product)}
             >
               <ThemedText
                 style={[
@@ -435,6 +454,12 @@ const styles = StyleSheet.create({
     height: 70,
     justifyContent: "center",
     alignItems: "center",
+  },
+  storeTxt: {
+    fontSize: 14,
+    color: '#FF5E5E',
+    fontFamily: "OpenSans_400Regular",
+    alignSelf: 'flex-start',
   },
   segmentContainer: {
     position: "absolute",
@@ -631,6 +656,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "OpenSans_700Bold",
     color: "#0544AA",
+    alignSelf: 'flex-start',
   },
   imageContainer: {
     borderWidth: 1,

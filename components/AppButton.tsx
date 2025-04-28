@@ -8,6 +8,7 @@ export function AppBtn({
     value,
     route,
     width,
+    disabled,
 }: any) {
     return (
         <Link href={route} asChild>
@@ -22,7 +23,7 @@ export function AppBtn({
                 flexDirection: 'row',
                 // justifyContent: 'space-between',
                 gap: 10,
-            }} activeOpacity={0.9}>
+            }} activeOpacity={0.9} disabled={disabled}>
                 <ThemedText style={styles.buttonTxt}>
                     {value}
                 </ThemedText>

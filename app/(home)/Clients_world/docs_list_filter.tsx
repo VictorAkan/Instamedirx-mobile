@@ -14,6 +14,8 @@ import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 const DoctorCard = () => {
     const router = useRouter();
     const truncateText = (text: any, maxLength: any) =>
@@ -58,7 +60,7 @@ export default function DoctorsScreen() {
     const router = useRouter();
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ThemedView style={styles.searchContainer}>
                 <TouchableOpacity onPress={() => router.back()} activeOpacity={0.8}>
                     <AntDesign name="arrowleft" size={24} color="#032255" />
@@ -88,7 +90,7 @@ export default function DoctorsScreen() {
                     <DoctorCard key={i} />
                 ))}
             </ScrollView>
-        </ThemedView>
+        </SafeAreaView>
     );
 }
 
@@ -97,14 +99,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         paddingHorizontal: 10,
-        paddingTop: 40,
+        paddingTop: 10,
     },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
         // gap: 8,
-        marginTop: 20,
+        marginTop: 10,
         marginHorizontal: 10,
     },
     searchInput: {

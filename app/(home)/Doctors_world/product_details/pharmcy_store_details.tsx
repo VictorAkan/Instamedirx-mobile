@@ -16,12 +16,14 @@ import { useRouter } from 'expo-router';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 const PharmCMedicalStore = () => {
     const [selectedHMO, setSelectedHMO] = useState('');
     const router = useRouter();
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ThemedView style={styles.leftSide}>
                 <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
                     <AntDesign name="arrowleft" size={24} color="#032255" />
@@ -176,7 +178,7 @@ const PharmCMedicalStore = () => {
                     </TouchableOpacity>
                 </ThemedView>
             </ScrollView>
-        </ThemedView>
+        </SafeAreaView>
     );
 };
 
@@ -192,7 +194,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 30,
-        marginTop: 30,
+        // marginTop: 10,
     },
     header: {
         fontSize: 16,

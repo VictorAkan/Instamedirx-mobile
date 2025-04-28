@@ -67,6 +67,18 @@ export default function HomeLayout() {
             <Stack.Screen name="Clients_world/product_details/store_products" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Clients_world/product_categories/[id]" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/checkout_screens/delivery_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/checkout_screens/shipping_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/checkout_screens/payment_screen" options={{
+                headerShown: false,
+            }} />
 
 
             {/* Doctor's routes */}
@@ -131,6 +143,15 @@ export default function HomeLayout() {
                 headerShown: false,
             }} />
             <Stack.Screen name="Doctors_world/product_details/store_products" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/checkout_screens/delivery_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/checkout_screens/payment_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/checkout_screens/shipping_screen" options={{
                 headerShown: false,
             }} />
 

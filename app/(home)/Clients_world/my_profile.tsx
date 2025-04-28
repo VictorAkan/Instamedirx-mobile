@@ -15,6 +15,7 @@ import { useRouter, Link } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const MyProfile = () => {
     const router = useRouter();
@@ -56,7 +57,11 @@ const MyProfile = () => {
     };
 
     return (
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.container}>
+        <SafeAreaView style={{
+          backgroundColor: 'white',
+          flex: 1
+        }}>
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.container}>
             {/* Header */}
             <ThemedView style={styles.header}>
                 <TouchableOpacity onPress={() => router.back()} activeOpacity={0.8}>
@@ -222,6 +227,7 @@ const MyProfile = () => {
                 </TouchableOpacity>
             </Link>
         </ScrollView>
+        </SafeAreaView>
     );
 };
 
@@ -237,7 +243,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 15,
         marginBottom: 20,
-        marginTop: 40,
+        // marginTop: 10,
     },
     headerText: {
         fontSize: 16,

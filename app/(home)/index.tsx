@@ -2,7 +2,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { Link, useRouter } from "expo-router";
 import { StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
-import { RegTextInput } from "@/components/RegTextInput";
+import RegTextInput from "@/components/RegTextInput";
 import { CustomBtn } from "@/components/CustomButton";
 import { useState } from "react";
 import { useFonts } from "expo-font";
@@ -11,6 +11,26 @@ import { View, Text, Dimensions } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { GestureDetector, GestureHandlerRootView, Gesture } from "react-native-gesture-handler";
 
+// form validation
+import { z } from "zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const FormSchema = z.object({
+  email: z.string().email({
+    message: 'Invalid email address, please try again.',
+  }),
+  password: z
+      .string()
+      .min(
+        8,
+        'at least 8 characters minimum, an uppercase and a lowercase, a number and a symbol.'
+      )
+      .regex(/[A-Z]/, 'at least one uppercase letter')
+      .regex(/[a-z]/, 'at least one lowercase letter')
+      .regex(/\d/, 'at least one number')
+      .regex(/[!@#$%^&*]/, 'at least one special character'),
+})
 
 const { height } = Dimensions.get("window");
 const WHITE_HEIGHT = height * 0.33;
@@ -19,6 +39,22 @@ export default function LoginScreen() {
     const [email, onChangeEmail] = useState("");
     const [password, setPassword] = useState("");
     const translateY = useSharedValue(WHITE_HEIGHT);
+
+    const form = useForm<z.infer<typeof FormSchema>>({
+      resolver: zodResolver(FormSchema),
+      mode: "onChange",
+      defaultValues: {
+        email: '',
+        password: '',
+      }
+    })
+
+    const { isValid, isDirty } = form.formState;
+
+
+    function onSubmit(data: z.infer<typeof FormSchema>) {
+// 
+    }
 
     // const onChangePassword = (text:any) => {
     //     console.log("Password changed to:", text);
@@ -43,19 +79,21 @@ export default function LoginScreen() {
         transform: [{ translateY: translateY.value }],
     }));
 
-    const handleLogin = () => {
+    const handleLogin = (data:any) => {
         console.log("Password entered:", password);
-        if (password === "client") {
+        if (data.password === "Client@2025") {
             router.push("/(home)/Clients_world/(tabs)");
-        } else if (password === "doctor") {
+        } else if (data.password === "Doctor@2025") {
             router.push("/(home)/Doctors_world/(tabs)");
         } else {
             router.push("/");
         }
+
     };
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <FormProvider {...form}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
             <ThemedView style={{ flex: 1, backgroundColor: "#0866FF" }}>
                 <Image
                     source={require("../../assets/images/logtopimg.png")}
@@ -92,14 +130,14 @@ export default function LoginScreen() {
                         <ThemedView style={styles.inputContainer}>
                             <RegTextInput
                                 label="Email address"
-                                onChangeText={onChangeEmail}
+                                name="email"
                             // required={true}
                             />
                             <RegTextInput
                                 label="Password"
-                                onChangeText={setPassword}
                                 secureTextEntry={true}
-                                value={password}
+                                name="password"
+                                password
                             // required={true}
                             />
                             <ThemedView style={styles.changePwdView}>
@@ -116,7 +154,8 @@ export default function LoginScreen() {
                                 <TouchableOpacity
                                     activeOpacity={0.9}
                                     style={styles.btn}
-                                    onPress={handleLogin}
+                                    onPress={form.handleSubmit(handleLogin)}
+                                    disabled={!isDirty || !isValid} 
                                 >
                                     <ThemedText style={styles.buttonTxt}>Login</ThemedText>
                                 </TouchableOpacity>
@@ -154,6 +193,7 @@ export default function LoginScreen() {
                 </GestureDetector>
             </ThemedView>
         </GestureHandlerRootView>
+        </FormProvider>
     )
 }
 

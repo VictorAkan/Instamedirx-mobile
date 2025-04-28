@@ -19,6 +19,8 @@ import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
 import PostReels from "./post_video";
 
+import { SafeAreaView } from "react-native-safe-area-context";
+
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width / 3;
 
@@ -144,7 +146,7 @@ const PostsComponent = () => {
   }
 
   return (
-    <ThemedView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ThemedView style={styles.infoContainer}>
         <ThemedText style={styles.infoText}>
           Hello, I share health tips and preventive care advice. Follow to
@@ -196,7 +198,7 @@ const PostsComponent = () => {
       <Modal visible={modalVisible} animationType="slide" transparent={false}>
         <PostReels closeModal={closeModal} videoPosts={posts} />
       </Modal>
-    </ThemedView>
+    </SafeAreaView>
   );
 };
 

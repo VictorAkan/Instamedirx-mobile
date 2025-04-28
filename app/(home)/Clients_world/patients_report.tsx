@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     },
     backButton: {
         marginBottom: 20,
-        marginTop: 50,
+        marginTop: 10,
     },
     header: {
         fontSize: 16,

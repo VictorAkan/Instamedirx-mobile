@@ -5,6 +5,8 @@ import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 const messages = [
     { id: '1', name: 'Dr. Emmanuel', message: 'Good day Fred, here is a report of your session', time: '11:35pm', avatar: 'https://randomuser.me/api/portraits/men/1.jpg', status: "un-read" },
     { id: '2', name: 'PharmC', message: 'Thank you for ordering your medications from us', time: '11:15pm', avatar: 'https://randomuser.me/api/portraits/men/2.jpg', status: "un-read" },
@@ -29,7 +31,7 @@ export default function ClientMessagesScreen() {
         text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 
     return (
-        <ThemedView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ThemedView style={styles.headerView}>
                 <TouchableOpacity onPress={() => router.back()} activeOpacity={0.9}>
                     <AntDesign name="arrowleft" size={24} color="#032255" />
@@ -82,7 +84,7 @@ export default function ClientMessagesScreen() {
                     </TouchableOpacity>
                 )}
             />
-        </ThemedView>
+        </SafeAreaView>
     );
 }
 
@@ -90,6 +92,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        backgroundColor: 'white',
     },
     searchInput: {
         flex: 1,
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     headerView: {
-        marginTop: 40,
+        // marginTop: 10,
         flexDirection: 'row',
         gap: 20,
         // alignItems: 'center',
