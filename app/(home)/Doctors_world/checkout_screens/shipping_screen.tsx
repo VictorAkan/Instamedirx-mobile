@@ -68,11 +68,11 @@ export default function ShippingScreen() {
         <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
           <AntDesign name="arrowleft" size={24} color="#032255" />
         </TouchableOpacity>
-        <ThemedText style={styles.headerText}>Checkout</ThemedText>
+        {/* <ThemedText style={styles.headerText}>Checkout</ThemedText> */}
       </ThemedView>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <StepIndicator step={2} />
-        <View style={styles.card}>
+        {/* <StepIndicator step={2} /> */}
+        {/* <View style={styles.card}>
           <View style={styles.topRow}>
             <Text style={styles.sectionTitle}>ORDER SUMMARY</Text>
             <Feather name="edit-2" size={16} color="#b5c1d7" />
@@ -87,6 +87,13 @@ export default function ShippingScreen() {
             <Text style={styles.summaryLabel}>Total</Text>
             <Text style={styles.summaryValue}>₦14,000</Text>
           </View>
+        </View> */}
+
+        <View style={{
+          marginBottom: 20
+        }}>
+          <Text style={styles.topText}>Enter Shipping Address</Text>
+          <Text style={styles.topSubText}>Where do you want the product delivered? Enter a valid shipping and billing address</Text>
         </View>
 
         <FormProvider {...form}>
@@ -134,7 +141,7 @@ export default function ShippingScreen() {
             <AppBtn
               route="/Doctors_world/checkout_screens/payment_screen"
               value="Proceed to payment"
-              disabled={!isDirty || !isValid}
+              // disabled={!isDirty || !isValid}
             />
           </View>
         </View>
@@ -185,13 +192,24 @@ function StepLine({ active }:any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff", padding: 16 },
+  container: { flex: 1, backgroundColor: "#fff", paddingHorizontal: 16, paddingBottom: 16 },
   header: {
     flexDirection: "row",
     alignItems: "center",
     padding: 16,
     // marginTop: 10,
     gap: 10,
+  },
+  topText: {
+    fontFamily: "OpenSans_600SemiBold",
+    color: '#0544AA',
+    fontSize: 20,
+  },
+  topSubText: {
+    color: '#04338099',
+    fontSize: 16,
+    fontFamily: "OpenSans_400Regular",
+    marginTop: 10,
   },
   headerText: {
     fontSize: 16,

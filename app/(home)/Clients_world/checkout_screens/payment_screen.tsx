@@ -83,12 +83,22 @@ export default function PaymentScreen() {
         <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
           <AntDesign name="arrowleft" size={24} color="#032255" />
         </TouchableOpacity>
-        <ThemedText style={styles.headerText}>Checkout</ThemedText>
+        {/* <ThemedText style={styles.headerText}>Checkout</ThemedText> */}
       </ThemedView>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <StepIndicator step={3} />
+        {/* <StepIndicator step={3} /> */}
+        <View
+          style={{
+            marginBottom: 20,
+          }}
+        >
+          <Text style={styles.topText}>Payment Method</Text>
+          <Text style={styles.topSubText}>
+            Select your preferred payment option
+          </Text>
+        </View>
         <View style={styles.card}>
-          <View
+          {/* <View
             style={[
               styles.topRow,
               {
@@ -98,7 +108,7 @@ export default function PaymentScreen() {
           >
             <Text style={styles.sectionTitle}>ORDER SUMMARY</Text>
             <Entypo name="chevron-down" size={18} color="#b5c1d7" />
-          </View>
+          </View> */}
           <View style={styles.topView}>
             <View style={styles.topRow}>
               <Text style={styles.summaryText}>Sub total</Text>
@@ -116,124 +126,127 @@ export default function PaymentScreen() {
         </View>
 
         <FormProvider {...form}>
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>PAYMENT METHOD</Text>
-          <Image style={{
-            width: 179,
-            height: 38,
-            marginBottom: 10,
-          }} resizeMode="contain" source={require("../../../../assets/images/sbp.png")} />
-          {paymentMethods.map((method) => (
-            <>
-              <TouchableOpacity
-              key={method.key}
-              style={[
-                styles.radioRow,
-                selected === method.key && styles.radioRowSelected,
-              ]}
-              onPress={() => setSelected(method.key)}
-              activeOpacity={0.8}
-            >
-              {/* <View
+          <View style={styles.card}>
+            <Text style={styles.sectionTitle}>PAYMENT METHOD</Text>
+            <Image
+              style={{
+                width: 179,
+                height: 38,
+                marginBottom: 10,
+              }}
+              resizeMode="contain"
+              source={require("../../../../assets/images/sbp.png")}
+            />
+            {paymentMethods.map((method) => (
+              <>
+                <TouchableOpacity
+                  key={method.key}
+                  style={[
+                    styles.radioRow,
+                    selected === method.key && styles.radioRowSelected,
+                  ]}
+                  onPress={() => setSelected(method.key)}
+                  activeOpacity={0.8}
+                >
+                  {/* <View
                 style={[
                   styles.radioCircle,
                   selected === method.key && styles.radioCircleSelected,
                 ]}
               /> */}
-              <View style={styles.radioCircle}>
-                {selected === method.key && (
-                  <View style={styles.radioCircleSelected} />
-                )}
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.radioLabel}>{method.label}</Text>
-                {method.onlineCard && (
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      flexWrap: "wrap",
-                      marginTop: 10,
-                    }}
-                  >
-                    <Image
-                      style={{
-                        width: 40,
-                        height: 22.88,
-                      }}
-                      resizeMode="contain"
-                      source={require("../../../../assets/images/mastercard.png")}
-                    />
-                    <Image
-                      style={
-                        {
-                          // width: 40,
-                          // height: 15.79
-                        }
-                      }
-                      resizeMode="contain"
-                      source={require("../../../../assets/images/visa.png")}
-                    />
+                  <View style={styles.radioCircle}>
+                    {selected === method.key && (
+                      <View style={styles.radioCircleSelected} />
+                    )}
                   </View>
-                )}
-              </View>
-              <Entypo name="chevron-down" size={18} color="#0755D4" />
-            </TouchableOpacity>
-            <View>
-              {method.key === "card" && (
-               <>
-                  <View style={{ marginTop: 20 }} />
-                           <CheckoutTextInput
-                              label="Full Name"
-                              name="fullname"
-                           />
-                           <CheckoutTextInput 
-                              label="Card Number"
-                              name="cardnumber"
-                           />
-                         <View style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.radioLabel}>{method.label}</Text>
+                    {method.onlineCard && (
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          flexWrap: "wrap",
+                          marginTop: 10,
+                        }}
+                      >
+                        <Image
+                          style={{
+                            width: 40,
+                            height: 22.88,
+                          }}
+                          resizeMode="contain"
+                          source={require("../../../../assets/images/mastercard.png")}
+                        />
+                        <Image
+                          style={
+                            {
+                              // width: 40,
+                              // height: 15.79
+                            }
+                          }
+                          resizeMode="contain"
+                          source={require("../../../../assets/images/visa.png")}
+                        />
+                      </View>
+                    )}
+                  </View>
+                  <Entypo name="chevron-down" size={18} color="#0755D4" />
+                </TouchableOpacity>
+                <View>
+                  {method.key === "card" && (
+                    <>
+                      <View style={{ marginTop: 20 }} />
+                      <CheckoutTextInput label="Full Name" name="fullname" />
+                      <CheckoutTextInput
+                        label="Card Number"
+                        name="cardnumber"
+                      />
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
                           flex: 1,
-                          gap: 10
+                          gap: 10,
                           // justifyContent: 'space-between'
-                         }}>
-                         <CheckoutTextInput 
-                              label="Expiration MM/YY"
-                              name="expiration"
-                              style={{  width: 220 }}
-                           />
-                           <CheckoutTextInput 
-                              label="CVV"
-                              name="cvv"
-                              style={{ width: 90 }}
-                           />
-                         </View>
-               </>
-              )}
-            </View>
-            </>
-          ))}
+                        }}
+                      >
+                        <CheckoutTextInput
+                          label="Expiration MM/YY"
+                          name="expiration"
+                          style={{ width: 235 }}
+                        />
+                        <CheckoutTextInput
+                          label="CVV"
+                          name="cvv"
+                          style={{ width: 104 }}
+                        />
+                      </View>
+                    </>
+                  )}
+                </View>
+              </>
+            ))}
 
-          <View
-            style={{
-              alignItems: "flex-start",
-            }}
-          >
-            <AppBtn
-              route=""
-              value="Pay #16,000"
-              disabled={!isDirty || !isValid}
-            />
+            <View
+              style={{
+                alignItems: "flex-start",
+              }}
+            >
+              <AppBtn
+                route="/Clients_world/order_successful"
+                value="Pay #16,000"
+                // disabled={!isDirty || !isValid}
+              />
+            </View>
           </View>
-        </View>
         </FormProvider>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-function StepIndicator({ step }:any) {
+function StepIndicator({ step }: any) {
   return (
     <View style={styles.stepIndicator}>
       <StepCircle
@@ -249,7 +262,7 @@ function StepIndicator({ step }:any) {
   );
 }
 
-function StepCircle({ active, label, text }:any) {
+function StepCircle({ active, label, text }: any) {
   return (
     <View style={styles.stepCircleContainer}>
       <View style={[styles.stepCircle, active && styles.stepCircleActive]}>
@@ -264,7 +277,7 @@ function StepCircle({ active, label, text }:any) {
   );
 }
 
-function StepLine({ active }:any) {
+function StepLine({ active }: any) {
   return (
     <View
       style={[
@@ -278,7 +291,12 @@ function StepLine({ active }:any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff", padding: 16 },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -304,19 +322,29 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   topView: {
-    borderWidth: 1,
-    borderColor: "#CEE0FF",
-    paddingVertical: 16,
+    // borderWidth: 1,
+    // borderColor: "#CEE0FF",
+    // paddingVertical: 16,
     paddingHorizontal: 12,
     borderRadius: 8,
-    gap: 5,
-    marginBottom: 10,
+    // gap: 5,
+    // marginBottom: 10,
   },
   topRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    // marginBottom: 20,
+    marginBottom: 10,
+  },
+  topText: {
+    fontFamily: "OpenSans_600SemiBold",
+    color: "#0544AA",
+    fontSize: 20,
+  },
+  topSubText: {
+    color: "#04338099",
+    fontSize: 16,
+    fontFamily: "OpenSans_400Regular",
   },
   sectionTitle: {
     fontFamily: "OpenSans_400Regular",
@@ -340,15 +368,23 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 6,
-    borderColor: "#CEE0FF",
-    borderWidth: 1,
+    // borderColor: "#CEE0FF",
+    // borderWidth: 1,
     backgroundColor: "#f1faff",
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: 8,
+    // borderRadius: 8,
   },
-  summaryLabel: { fontWeight: "bold", color: "#3a5ba0", fontSize: 15 },
-  summaryValue: { fontWeight: "bold", color: "#3a5ba0", fontSize: 15 },
+  summaryLabel: {
+    fontFamily: "OpenSans_600SemiBold",
+    color: "#0544AA",
+    fontSize: 16,
+  },
+  summaryValue: {
+    fontFamily: "OpenSans_600SemiBold",
+    color: "#0544AA",
+    fontSize: 16,
+  },
   radioRow: {
     flexDirection: "row",
     alignItems: "center",

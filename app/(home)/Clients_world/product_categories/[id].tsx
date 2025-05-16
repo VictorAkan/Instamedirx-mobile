@@ -140,6 +140,13 @@ const products = {
       store: 'GreenLeaf Pharmacy',
       image: require("../../../../assets/images/malaria1.png"),
     },
+    {
+      id: 16,
+      name: "Vitacillin Met 5...",
+      price: "₦3,500",
+      store: 'GreenLeaf Pharmacy',
+      image: require("../../../../assets/images/malaria1.png"),
+    },
   ],
 };
 
@@ -398,7 +405,8 @@ const styles = StyleSheet.create({
     // flexGrow: 1,
     // marginBottom: 60,
     // // marginTop: 10,
-    alignItems: 'center'
+    // alignItems: 'center',
+    paddingHorizontal: 20,
   },
   searchContainer: {
     // position: 'absolute',
@@ -511,13 +519,14 @@ const styles = StyleSheet.create({
   },
   productCard: {
     // width: 150,
-    padding: 10,
+    padding: 20,
     alignItems: "center",
     backgroundColor: "white",
     // marginRight: 10,
     // borderRadius: 10,
     // borderWidth: 1,
     borderColor: "#EAEAEA",
+    flex: 1,
   },
   moreProductCard: {
     // width: 150,

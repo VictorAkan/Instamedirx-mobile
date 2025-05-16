@@ -1,195 +1,386 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
-import { ThemedView } from '@/components/ThemedView';
-import { ThemedText } from '@/components/ThemedText';
-
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons, MaterialIcons, Feather } from '@expo/vector-icons';
 
-export default function Appointment() {
-    const [search, setSearch] = useState('');
-    const [appointments, setAppointments] = useState([
-        { id: 1, name: 'Tricia Whyte', condition: 'Diabetes', type: 'Video consultation', date: 'Wed, Sep 28', time: '11:45 am' },
-        { id: 2, name: 'Tricia Whyte', condition: 'Diabetes', type: 'Video consultation', date: 'Wed, Sep 28', time: '11:45 am' }
-    ]);
+// Dummy doctor image (replace with your own asset or remote URL)
+const doctorImg = require('../../../../assets/images/apptdocprofile.png'); // Place a placeholder doctor image here
 
-    const handleDelete = (id: any) => {
-        setAppointments(appointments.filter(appointment => appointment.id !== id));
-    };
+const TABS = ['Pending', 'Upcoming', 'Completed', 'Cancelled'];
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="auto" />
-            <ThemedView style={styles.searchBar}>
-                <TouchableOpacity activeOpacity={0.9}>
-                    <Ionicons name="filter" size={20} color="#0544AA" style={styles.searchIcon} />
-                </TouchableOpacity>
-                <ThemedView style={styles.sideLine}>
-                    <ThemedText></ThemedText>
-                </ThemedView>
-                <TextInput
-                    placeholder="Browse doctors and medications"
-                    placeholderTextColor="#8F8F8F"
-                    value={search}
-                    onChangeText={setSearch}
-                    style={styles.searchInput}
-                />
-                <TouchableOpacity activeOpacity={0.9}>
-                    <MaterialIcons name="search" size={24} color="#D6D6D6" />
-                </TouchableOpacity>
-            </ThemedView>
-            <ThemedText style={styles.title}>Appointment list</ThemedText>
-            <ThemedText style={styles.subtitle}>View appointments for the day</ThemedText>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                {appointments.map((appointment) => (
-                    <ThemedView key={appointment.id} style={styles.card}>
-                        <ThemedView style={styles.header}>
-                            <Image
-                                source={require("../../../../assets/images/tricia.png")}
-                                style={styles.avatar}
-                            />
-                            <ThemedView style={styles.info}>
-                                <ThemedText style={styles.name}>{appointment.name}</ThemedText>
-                                <ThemedText style={styles.details}>{appointment.condition}</ThemedText>
-                                <ThemedText style={styles.details}>{appointment.type}</ThemedText>
-                            </ThemedView>
-                            <TouchableOpacity onPress={() => handleDelete(appointment.id)}>
-                                <AntDesign name="close" size={24} color="#0866FF" />
-                            </TouchableOpacity>
-                        </ThemedView>
-                        <ThemedView style={styles.dateContainer}>
-                            <ThemedText style={styles.date}>{appointment.date}</ThemedText>
-                            <ThemedText style={styles.time}>{appointment.time}</ThemedText>
-                        </ThemedView>
-                        <TouchableOpacity activeOpacity={0.9} style={styles.button}>
-                            <ThemedText style={styles.buttonText}>Reschedule</ThemedText>
-                        </TouchableOpacity>
-                    </ThemedView>
-                ))}
-            </ScrollView>
+const appointments = [
+  {
+    id: 1,
+    name: 'Dr. Chisom Okoli',
+    specialty: 'Psychiatrist',
+    date: 'Tuesday, March 15',
+    time: '10:00AM',
+    type: 'Video consultation',
+    status: 'Pending',
+  },
+  {
+    id: 2,
+    name: 'Dr. Chisom Okoli',
+    specialty: 'Psychiatrist',
+    date: 'Tuesday, March 15',
+    time: '10:00AM',
+    type: 'Video consultation',
+    status: 'Upcoming',
+  },
+  {
+    id: 3,
+    name: 'Dr. Chisom Okoli',
+    specialty: 'Psychiatrist',
+    date: 'Tuesday, March 15',
+    time: '10:00AM',
+    type: 'Video consultation',
+    status: 'Completed',
+    followUp: true,
+  },
+  {
+    id: 4,
+    name: 'Dr. Chisom Okoli',
+    specialty: 'Psychiatrist',
+    date: 'Tuesday, March 15',
+    time: '10:00AM',
+    type: 'Video consultation',
+    status: 'Cancelled',
+  },
+];
 
-        </SafeAreaView>
-    );
+function AppointmentCard({ appointment, tab }: any) {
+  return (
+    <View
+      style={[
+        styles.card,
+        tab === 'Cancelled' && styles.cancelledCard,
+      ]}
+    >
+      <View style={styles.row}>
+        <Image source={doctorImg} style={[styles.avatar, 
+          tab === 'Cancelled' && styles.avatarRound,
+        ]} />
+        <View style={styles.info}>
+          <Text style={[styles.name, 
+            tab === 'Cancelled' && {
+              color: '#664488',
+            }
+          ]}>{appointment.name}</Text>
+          <Text style={[styles.specialty, 
+            tab === 'Cancelled' && {
+              color: '#664488',
+            }
+          ]}>{appointment.specialty}</Text>
+          {tab === 'Pending' && (
+            <View style={styles.detailsRow}>
+            <View style={styles.detailRow}>
+              <MaterialIcons name="date-range" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.date}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <MaterialIcons name="schedule" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.time}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Feather name="video" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.type}</Text>
+            </View>
+          </View>
+          )}
+          {tab === 'Upcoming' && (
+            <View style={styles.detailsRow}>
+            <View style={styles.detailRow}>
+              <MaterialIcons name="date-range" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.date}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <MaterialIcons name="schedule" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.time}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Feather name="video" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.type}</Text>
+            </View>
+          </View>
+          )}
+          {tab === 'Completed' && (
+            <View style={styles.detailsRow}>
+            <View style={styles.detailRow}>
+              <MaterialIcons name="date-range" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.date}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <MaterialIcons name="schedule" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.time}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Feather name="video" size={18} color="#B4C2D9" />
+              <Text style={styles.detailText}>{appointment.type}</Text>
+            </View>
+          </View>
+          )}
+        </View>
+        <TouchableOpacity style={styles.closeBtn}>
+          <Ionicons name="close" size={24} color={tab === 'Cancelled' ? "#664488" : "#043380"} />
+        </TouchableOpacity>
+      </View>
+      {tab === 'Pending' && (
+        <TouchableOpacity style={styles.completeBtn}>
+          <Text style={styles.completeBtnText}>Complete Booking</Text>
+        </TouchableOpacity>
+      )}
+      {tab === 'Upcoming' && (
+        <View style={styles.actionRow}>
+          <TouchableOpacity style={styles.joinBtn}>
+            <Text style={styles.joinBtnText}>Join Meeting</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.rescheduleBtn}>
+            <Text style={styles.rescheduleBtnText}>Reschedule</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      {tab === 'Completed' && (
+        <TouchableOpacity
+          style={appointment.followUp ? styles.followUpBtn : styles.bookAgainBtn}
+        >
+          <Text style={styles.followUpBtnText}>
+            {appointment.followUp ? 'Book Follow-up' : 'Book Again'}
+          </Text>
+        </TouchableOpacity>
+      )}
+      {tab === 'Cancelled' && (
+        <TouchableOpacity style={styles.initiateBtn}>
+          <Text style={styles.initiateBtnText}>Initiate Booking</Text>
+        </TouchableOpacity>
+      )}
+      {/* Follow-up badge */}
+      {tab === 'Completed' && appointment.followUp && (
+        <View style={styles.followUpBadge}>
+          <Text style={styles.followUpBadgeText}>Follow-up Required</Text>
+        </View>
+      )}
+    </View>
+  );
+}
+
+export default function AppointmentTabs() {
+  const [activeTab, setActiveTab] = useState('Pending');
+
+  // Filter appointments based on tab
+  const filtered = appointments.filter(
+    (a) => a.status === activeTab || (activeTab === 'Completed' && a.status === 'Completed')
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* Tabs */}
+      <View style={styles.tabsRow}>
+        {TABS.map((tab) => (
+          <TouchableOpacity
+            key={tab}
+            style={[
+              styles.tabBtn,
+              activeTab === tab && styles.tabBtnActive,
+            ]}
+            onPress={() => setActiveTab(tab)}
+            activeOpacity={0.7}
+          >
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === tab && styles.tabTextActive,
+              ]}
+            >
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Sectional Notices */}
+      {activeTab === 'Pending' && (
+        <View style={styles.noticeRow}>
+          <Text style={styles.noticeIcon}>⚠️</Text>
+          <Text style={styles.noticeText}>
+            We noticed you didn’t complete some of your bookings. Confirm your slot below.
+          </Text>
+        </View>
+      )}
+      {activeTab === 'Upcoming' && (
+        <Text style={styles.sectionText}>Keep to date on your coming appointments!</Text>
+      )}
+      {activeTab === 'Completed' && (
+        <Text style={styles.sectionText}>Re-book doctors you’ve consulted.</Text>
+      )}
+      {activeTab === 'Cancelled' && (
+        <Text style={styles.sectionText}>Re-initiate your cancelled appointments!</Text>
+      )}
+
+      {/* Appointment Cards */}
+      <ScrollView style={styles.cardsList}>
+        {filtered.map((appt) => (
+          <View key={appt.id}>
+            <AppointmentCard appointment={appt} tab={activeTab} />
+            <AppointmentCard appointment={appt} tab={activeTab} />
+          </View>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        paddingTop: 10,
-        // paddingBottom: 10,
-    },
-    searchBar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 27,
-        borderColor: '#ADCCFF',
-        borderWidth: 1,
-        padding: 8,
-        marginTop: 10,
-        marginHorizontal: 20,
-    },
-    sideLine: {
-        borderLeftWidth: 2,
-        borderLeftColor: '#ADCCFF',
-        backgroundColor: 'white',
-        paddingLeft: 5,
-    },
-    searchIcon: {
-        marginRight: 10,
-    },
-    searchInput: {
-        flex: 1,
-        fontFamily: 'OpenSans_400Regular',
-    },
-    title: {
-        fontSize: 16,
-        color: '#0866FF',
-        fontFamily: 'OpenSans_600SemiBold',
-        marginTop: 10,
-        marginHorizontal: 20,
-    },
-    subtitle: {
-        color: '#043380',
-        marginBottom: 10,
-        // marginTop: 9,
-        fontFamily: 'OpenSans_400Regular',
-        marginHorizontal: 20,
-        fontSize: 14,
-    },
-    card: {
-        backgroundColor: 'white',
-        padding: 15,
-        borderRadius: 25,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 4,
-        marginBottom: 10,
-        marginTop: 30,
-        marginHorizontal: 20,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    avatar: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        borderColor: '#0866FF',
-        marginRight: 10,
-        borderWidth: 2,
-    },
-    info: {
-        flex: 1,
-    },
-    name: {
-        fontSize: 16,
-        color: '#043380',
-        fontFamily: 'OpenSans_600SemiBold',
-    },
-    details: {
-        fontSize: 14,
-        color: '#043380',
-        fontFamily: 'OpenSans_400Regular',
-    },
-    dateContainer: {
-        backgroundColor: '#CEE0FF66',
-        borderRadius: 25,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 23,
-        marginVertical: 10,
-        paddingHorizontal: 45,
-    },
-    date: {
-        fontSize: 14,
-        color: '#043380',
-        fontFamily: 'OpenSans_400Regular',
-    },
-    time: {
-        fontSize: 14,
-        color: '#043380',
-        fontFamily: 'OpenSans_400Regular',
-    },
-    button: {
-        backgroundColor: '#0866FF',
-        paddingVertical: 10,
-        borderRadius: 15,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 4,
-        marginHorizontal: 90,
-    },
-    buttonText: {
-        color: 'white',
-        fontFamily: 'Inter_700Bold',
-        fontSize: 16,
-    },
+  container: { flex: 1, backgroundColor: '#FFF', paddingTop: 30 },
+  tabsRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    // backgroundColor: '#F7FAFC',
+    paddingHorizontal: 16,
+    marginBottom: 10,
+  },
+  tabBtn: {
+    paddingVertical: 8,
+    paddingHorizontal: 6,
+    marginRight: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: 'transparent',
+  },
+  tabBtnActive: {
+    borderBottomColor: '#C6C000',
+  },
+  tabText: {
+    fontSize: 16,
+    color: '#B4C2D9',
+    fontFamily: "OpenSans_600SemiBold",
+  },
+  tabTextActive: {
+    color: '#0544AA',
+  },
+  noticeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // backgroundColor: '#FFF9E5',
+    padding: 12,
+    marginHorizontal: 10,
+    marginBottom: 8,
+    borderRadius: 8,
+  },
+  noticeIcon: { fontSize: 18, marginRight: 6 },
+  noticeText: { fontSize: 16, color: '#04338099', flex: 1, fontFamily: "OpenSans_400Regular", },
+  sectionText: {
+    fontSize: 16, color: '#04338099', fontFamily: "OpenSans_400Regular",
+    marginHorizontal: 12,
+    marginBottom: 8,
+  },
+  cardsList: { flex: 1, paddingHorizontal: 10 },
+  card: {
+    backgroundColor: '#F1FAFF',
+    borderRadius: 12,
+    marginBottom: 16,
+    padding: 14,
+    // shadowColor: '#000',
+    // shadowOpacity: 0.05,
+    // shadowRadius: 4,
+    // elevation: 2,
+  },
+  cancelledCard: {
+    backgroundColor: '#F6ECFA',
+  },
+  row: { flexDirection: 'row', alignItems: 'center' },
+  avatar: {
+    // width: 64,
+    // height: 64,
+    // borderRadius: 32,
+    marginRight: 12,
+    // backgroundColor: '#E0E0E0',
+  },
+  avatarRound: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    borderWidth: 1,
+    borderColor: '#DDCCEE',
+  },
+  info: { flex: 1 },
+  name: { fontSize: 14, fontFamily: "OpenSans_700Bold", color: '#0544AA' },
+  specialty: { fontSize: 14, color: '#0544AA', marginBottom: 2, fontFamily: "OpenSans_400Regular", },
+  detailsRow: { marginTop: 4 },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+  },
+  detailText: { fontSize: 14, color: '#04338099', marginBottom: 2, fontFamily: "OpenSans_400Regular", },
+  closeBtn: {
+    padding: 4,
+    alignSelf: 'flex-start',
+  },
+  completeBtn: {
+    backgroundColor: '#0866FF',
+    borderRadius: 12,
+    marginTop: 14,
+    paddingVertical: 10,
+    alignItems: 'center',
+    paddingHorizontal: 12,
+  },
+  completeBtnText: { color: '#fff', fontFamily: "OpenSans_700Bold", fontSize: 14 },
+  actionRow: { flexDirection: 'row', marginTop: 14, justifyContent: 'space-between' },
+  joinBtn: {
+    backgroundColor: '#0866FF',
+    borderRadius: 12,
+    flex: 1,
+    marginRight: 8,
+    paddingVertical: 10,
+    alignItems: 'center',
+    paddingHorizontal: 12,
+  },
+  joinBtnText: { color: '#fff', fontFamily: "OpenSans_700Bold", fontSize: 14 },
+  rescheduleBtn: {
+    // backgroundColor: '#F0F4F8',
+    // borderRadius: 8,
+    flex: 1,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  rescheduleBtnText: { color: '#043380', fontFamily: "OpenSans_700Bold", fontSize: 14 },
+  followUpBtn: {
+    backgroundColor: '#0866FF',
+    borderRadius: 12,
+    marginTop: 14,
+    paddingVertical: 10,
+    alignItems: 'center',
+    paddingHorizontal: 12,
+  },
+  bookAgainBtn: {
+    backgroundColor: '#F0F4F8',
+    borderRadius: 8,
+    marginTop: 14,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  followUpBtnText: { color: '#fff', fontFamily: "OpenSans_700Bold", fontSize: 14 },
+  initiateBtn: {
+    backgroundColor: '#9966CC',
+    borderRadius: 12,
+    marginTop: 14,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  initiateBtnText: { color: '#fff', fontFamily: "OpenSans_700Bold", fontSize: 14 },
+  followUpBadge: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    backgroundColor: '#FFFFE5',
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderWidth: 1,
+    borderColor: '#9F9900',
+  },
+  followUpBadgeText: {
+    color: '#777300',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
 });

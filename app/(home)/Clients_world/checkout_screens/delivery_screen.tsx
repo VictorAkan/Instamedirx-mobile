@@ -50,14 +50,20 @@ export default function DeliveryScreen() {
         <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
           <AntDesign name="arrowleft" size={24} color="#032255" />
         </TouchableOpacity>
-        <ThemedText style={styles.headerText}>Checkout</ThemedText>
+        {/* <ThemedText style={styles.headerText}>Checkout</ThemedText> */}
       </ThemedView>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <StepIndicator step={1} />
+        {/* <StepIndicator step={1} /> */}
+        <View style={{
+          marginBottom: 20
+        }}>
+          <Text style={styles.topText}>How do you want it delivered?</Text>
+          <Text style={styles.topSubText}>Select how you'd like your order delivered.</Text>
+        </View>
         <View style={styles.card}>
           <View style={styles.topRow}>
-            <Text style={styles.sectionTitle}>ORDER SUMMARY</Text>
-            <Feather name="edit-2" size={16} color="#b5c1d7" />
+            {/* <Text style={styles.sectionTitle}>ORDER SUMMARY</Text> */}
+            {/* <Feather name="edit-2" size={16} color="#b5c1d7" /> */}
           </View>
           <View style={styles.topRow}>
             <Text style={styles.summaryText}>
@@ -157,7 +163,7 @@ function StepLine({ active }:any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff", padding: 16 },
+  container: { flex: 1, backgroundColor: "#fff", paddingBottom: 16, paddingHorizontal: 16 },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -170,6 +176,16 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans_600SemiBold",
     color: "#0755D4",
     marginLeft: 10,
+  },
+  topText: {
+    fontFamily: "OpenSans_600SemiBold",
+    color: '#0544AA',
+    fontSize: 20,
+  },
+  topSubText: {
+    color: '#04338099',
+    fontSize: 16,
+    fontFamily: "OpenSans_400Regular",
   },
   card: {
     backgroundColor: "white",
@@ -196,25 +212,25 @@ const styles = StyleSheet.create({
   },
   summaryText: {
     color: "#043380CC",
-    marginBottom: 10,
+    // marginBottom: 10,
     fontSize: 16,
     fontFamily: "OpenSans_300Light",
-    maxWidth: 310,
+    // maxWidth: 310,
   },
   summaryRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 6,
-    borderColor: "#CEE0FF",
-    borderWidth: 1,
+    // borderColor: "#CEE0FF",
+    // borderWidth: 1,
     backgroundColor: "#f1faff",
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: 8,
+    // borderRadius: 8,
   },
-  summaryLabel: { fontWeight: "bold", color: "#3a5ba0", fontSize: 15 },
-  summaryValue: { fontWeight: "bold", color: "#3a5ba0", fontSize: 15 },
+  summaryLabel: { fontFamily: "OpenSans_400Regular", color: "#0544AA", fontSize: 16 },
+  summaryValue: { fontFamily: "OpenSans_400Regular", color: "#0544AA", fontSize: 16 },
   radioRow: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -225,7 +241,7 @@ const styles = StyleSheet.create({
     borderColor: '#CEE0FF',
     paddingHorizontal: 12,
   },
-  radioRowSelected: { borderColor: "#043380" },
+  radioRowSelected: { borderColor: "#34C759" },
   radioCircle: {
     width: 20,
     height: 20,

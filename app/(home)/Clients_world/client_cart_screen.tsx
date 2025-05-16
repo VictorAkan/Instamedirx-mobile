@@ -153,9 +153,10 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     padding: 10,
     borderRadius: 10,
-    position: "relative",
+    // position: "relative",
     borderBottomWidth: 1,
     borderColor: "#ADCCFF",
+    flex: 1,
   },
   itemBottom: {
     flexDirection: "row",

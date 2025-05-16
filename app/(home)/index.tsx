@@ -6,7 +6,6 @@ import RegTextInput from "@/components/RegTextInput";
 import { CustomBtn } from "@/components/CustomButton";
 import { useState } from "react";
 import { useFonts } from "expo-font";
-import React from "react";
 import { View, Text, Dimensions } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { GestureDetector, GestureHandlerRootView, Gesture } from "react-native-gesture-handler";

@@ -914,13 +914,14 @@ const styles = StyleSheet.create({
   },
   productListCard: {
     // width: '48%',
-    padding: 10,
+    padding: 20,
     alignItems: "center",
     backgroundColor: "white",
     marginBottom: 30,
     // borderRadius: 10,
     // borderWidth: 1,
     borderColor: "#EAEAEA",
+    flex: 1
   },
   productImage: {
     width: 100,

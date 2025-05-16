@@ -79,6 +79,9 @@ export default function HomeLayout() {
             <Stack.Screen name="Clients_world/checkout_screens/payment_screen" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Clients_world/order-tracking" options={{ headerShown: false }} />
+            <Stack.Screen name="Clients_world/order/[order-details]" options={{ headerShown: false }} />
+            <Stack.Screen name="Clients_world/order_successful" options={{ headerShown: false }} />
 
 
             {/* Doctor's routes */}
@@ -101,15 +104,6 @@ export default function HomeLayout() {
                 headerShown: false,
             }} />
             <Stack.Screen name="Doctors_world/edit_profile_screens/professional_details" options={{
-                headerShown: false,
-            }} />
-            <Stack.Screen name="Doctors_world/Delivery_screens/delivery_options" options={{
-                headerShown: false,
-            }} />
-            <Stack.Screen name="Doctors_world/Delivery_screens/home_delivery" options={{
-                headerShown: false,
-            }} />
-            <Stack.Screen name="Doctors_world/Delivery_screens/click_and_collect" options={{
                 headerShown: false,
             }} />
             <Stack.Screen name="Doctors_world/Delivery_screens/order_tracking" options={{
@@ -154,6 +148,8 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/checkout_screens/shipping_screen" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/order-tracking" options={{ headerShown: false }} />
+            <Stack.Screen name="Doctors_world/order/[order-details]" options={{ headerShown: false }} />
 
 
 

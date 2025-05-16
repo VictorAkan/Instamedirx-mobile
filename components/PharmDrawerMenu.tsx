@@ -12,7 +12,7 @@ import { ThemedView } from "./ThemedView";
 import { ThemedText } from "./ThemedText";
 import { Link } from "expo-router";
 
-const DocDrawerMenu = ({ isVisible, onClose }: any) => {
+const PharmDrawerMenu = ({ isVisible, onClose }: any) => {
   const slideAnim = useRef(new Animated.Value(300)).current; // Start off-screen
 
   React.useEffect(() => {
@@ -44,25 +44,12 @@ const DocDrawerMenu = ({ isVisible, onClose }: any) => {
             <Ionicons name="close" size={24} color="#043380" />
           </TouchableOpacity>
 
-          <Link href="/Doctors_world/edit_doc_profile" asChild>
-            <TouchableOpacity style={styles.menuItem}>
-              <ThemedText style={styles.menuText}>Edit profile</ThemedText>
-            </TouchableOpacity>
-          </Link>
           <TouchableOpacity style={styles.menuItem}>
-            <ThemedText style={styles.menuText}>Add story</ThemedText>
+            <ThemedText style={styles.menuText}>Share</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity style={styles.menuItem}>
-            <ThemedText style={styles.menuText}>Notification</ThemedText>
+            <ThemedText style={styles.menuText}>Copy link</ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <ThemedText style={styles.menuText}>Settings</ThemedText>
-          </TouchableOpacity>
-          <Link href="/" asChild>
-            <TouchableOpacity style={styles.menuItem}>
-              <ThemedText style={styles.menuText}>Log out</ThemedText>
-            </TouchableOpacity>
-          </Link>
         </Animated.View>
       </TouchableOpacity>
     </>
@@ -72,7 +59,7 @@ const DocDrawerMenu = ({ isVisible, onClose }: any) => {
 const styles = StyleSheet.create({
   overlay: {
     position: "absolute",
-    top: 80,
+    top: 150,
     // left: 0,
     right: 0,
     // bottom: 0,
@@ -115,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DocDrawerMenu;
+export default PharmDrawerMenu;
