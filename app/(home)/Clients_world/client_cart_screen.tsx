@@ -148,10 +148,10 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff", padding: 10, paddingTop: 50 },
   itemContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    // alignItems: "center",
     marginBottom: 15,
     paddingBottom: 25,
-    padding: 10,
+    // padding: 10,
     borderRadius: 10,
     // position: "relative",
     borderBottomWidth: 1,

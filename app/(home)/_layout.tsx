@@ -79,9 +79,45 @@ export default function HomeLayout() {
             <Stack.Screen name="Clients_world/checkout_screens/payment_screen" options={{
                 headerShown: false,
             }} />
+             <Stack.Screen name="Clients_world/checkout_screens/bank_transfer" options={{
+                headerShown: false,
+            }} />
+             <Stack.Screen name="Clients_world/checkout_screens/bank-transfer-progress" options={{
+                headerShown: false,
+            }} />
+             <Stack.Screen name="Clients_world/checkout_screens/success_payment" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="Clients_world/order-tracking" options={{ headerShown: false }} />
             <Stack.Screen name="Clients_world/order/[order-details]" options={{ headerShown: false }} />
             <Stack.Screen name="Clients_world/order_successful" options={{ headerShown: false }} />
+            <Stack.Screen name="Clients_world/appointment_process/book_appointment" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/appointment_process/payment" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/appointment_process/payment_successful" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/call_screens/audio_call_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/call_screens/audio_call_picked" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/call_screens/video_call_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/call_screens/video_call_picked" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/call_screens/share_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Clients_world/call_screens/add_to_call" options={{
+                headerShown: false,
+            }} />
 
 
             {/* Doctor's routes */}
@@ -118,6 +154,9 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/doc_calender" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/order_successful" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="Doctors_world/doctors_chats/[id]" options={{
                 headerShown: false,
             }} />
@@ -128,12 +167,6 @@ export default function HomeLayout() {
                 headerShown: false,
             }} />
             <Stack.Screen name="Doctors_world/pharm_drugs_categories/[id]" options={{
-                headerShown: false,
-            }} />
-            <Stack.Screen name="Doctors_world/Call_screens/call_screen" options={{
-                headerShown: false,
-            }} />
-            <Stack.Screen name="Doctors_world/Call_screens/video_call_screen" options={{
                 headerShown: false,
             }} />
             <Stack.Screen name="Doctors_world/product_details/store_products" options={{
@@ -148,8 +181,36 @@ export default function HomeLayout() {
             <Stack.Screen name="Doctors_world/checkout_screens/shipping_screen" options={{
                 headerShown: false,
             }} />
+            <Stack.Screen name="Doctors_world/checkout_screens/bank_transfer" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/checkout_screens/bank-transfer-progress" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/checkout_screens/success_payment" options={{
+                headerShown: false,
+            }} />
             <Stack.Screen name="Doctors_world/order-tracking" options={{ headerShown: false }} />
             <Stack.Screen name="Doctors_world/order/[order-details]" options={{ headerShown: false }} />
+
+            <Stack.Screen name="Doctors_world/call_screens/audio_call_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/call_screens/audio_call_picked" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/call_screens/video_call_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/call_screens/video_call_picked" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/call_screens/share_screen" options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="Doctors_world/call_screens/add_to_call" options={{
+                headerShown: false,
+            }} />
 
 
 

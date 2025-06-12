@@ -136,6 +136,7 @@ export default function ShippingScreen() {
           <View
             style={{
               alignItems: "flex-start",
+              marginBottom: 100,
             }}
           >
             <AppBtn
@@ -148,46 +149,6 @@ export default function ShippingScreen() {
         </FormProvider>
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function StepIndicator({ step }:any) {
-  return (
-    <View style={styles.stepIndicator}>
-      <StepCircle active={step === 1 || step === 2} label="1" text="Delivery" />
-      <StepLine active={step === 2} />
-      <StepCircle active={step === 2} label="2" text="Shipping" />
-      <StepLine active={step === 3} />
-      <StepCircle active={step === 3} label="3" text="Payment" />
-    </View>
-  );
-}
-
-function StepCircle({ active, label, text }:any) {
-  return (
-    <View style={styles.stepCircleContainer}>
-      <View style={[styles.stepCircle, active && styles.stepCircleActive]}>
-        <Text style={[styles.stepLabel, active && styles.stepLabelActive]}>
-          {label}
-        </Text>
-      </View>
-      <Text style={[styles.stepText, active && styles.stepActiveText]}>
-        {text}
-      </Text>
-    </View>
-  );
-}
-
-function StepLine({ active }:any) {
-  return (
-    <View
-      style={[
-        styles.stepLine,
-        {
-          backgroundColor: active ? "#0866FF" : "#CEE0FF",
-        },
-      ]}
-    />
   );
 }
 
@@ -278,35 +239,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 30,
   },
-  stepCircleContainer: { alignItems: "center", width: 60 },
-  stepCircle: {
-    width: 24,
-    height: 24,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: "#CEE0FF",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-  },
-  stepCircleActive: { borderColor: "#0866FF", backgroundColor: "white" },
-  stepLabel: {
-    color: "#CEE0FF",
-    fontFamily: "OpenSans_600SemiBold",
-    fontSize: 12,
-  },
-  stepLabelActive: { color: "#0544AA" },
-  stepText: {
-    fontSize: 12,
-    color: "#04338099",
-    marginTop: 4,
-    fontFamily: "OpenSans_600SemiBold",
-  },
-  stepActiveText: { color: "#0544AA" },
-  stepLine: {
-    height: 2,
-    width: 30,
-    backgroundColor: "#CEE0FF",
-    marginBottom: 15,
-  },
+
 });

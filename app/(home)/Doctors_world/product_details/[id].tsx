@@ -192,7 +192,7 @@ const ProductDetailScreen = () => {
         </ThemedText>
 
         {/* Store Link */}
-        <Link href="/Doctors_world/product_details/pharmcy_store_details" asChild>
+        <Link href="/Doctors_world/product_details/store_products" asChild>
           <TouchableOpacity style={styles.storeButton} activeOpacity={0.8}>
             <ThemedText style={styles.storeText}>Visit {store}</ThemedText>
             <ThemedView style={styles.arrowContainer}>

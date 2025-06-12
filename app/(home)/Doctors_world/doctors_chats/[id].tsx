@@ -48,10 +48,10 @@ export default function DocsChatScreen() {
                     </ThemedView>
                 </ThemedView>
                 <ThemedView style={styles.edgeIcons}>
-                    <TouchableOpacity activeOpacity={0.9}>
+                    <TouchableOpacity onPress={() => router.push("/Doctors_world/call_screens/audio_call_screen")} activeOpacity={0.9}>
                         <MaterialIcons name="call" size={28} color="#0755D4" />
                     </TouchableOpacity>
-                    <Link href="/Doctors_world/Call_screens/call_screen" asChild>
+                    <Link href="/Doctors_world/call_screens/video_call_screen" asChild>
                         <TouchableOpacity activeOpacity={0.9}>
                             <FontAwesome6 name="video" size={24} color="#0755D4" />
                         </TouchableOpacity>

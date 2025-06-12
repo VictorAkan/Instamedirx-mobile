@@ -25,7 +25,7 @@ const PharmacyCard = ({ item, setDrawerVisible }: any) => {
   return (
     <Pressable
       onPress={() =>
-        router.push("/Doctors_world/product_details/pharmcy_store_details")
+        router.push("/Doctors_world/product_details/store_products")
       }
       style={styles.card}
     >

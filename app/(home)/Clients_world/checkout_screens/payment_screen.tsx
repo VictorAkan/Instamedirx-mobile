@@ -9,11 +9,13 @@ import {
   Image,
 } from "react-native";
 import { router, Link } from "expo-router";
-import { AntDesign, Feather, Entypo } from "@expo/vector-icons";
+import { AntDesign, Feather, Entypo, Fontisto, FontAwesome5 } from "@expo/vector-icons";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { AppBtn } from "@/components/AppButton";
 import CheckoutTextInput from "@/components/CheckoutTextInput";
+import * as Clipboard from 'expo-clipboard';
+import ToastManager, { Toast } from 'toastify-react-native';
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -72,6 +74,32 @@ export default function PaymentScreen() {
     //
   }
 
+  const copyToClipboard = async () => {
+    try {
+      await Clipboard.setStringAsync('2298172345');
+      Toast.show({
+        type: 'success',
+        text1: 'Copied!',
+        text2: 'Account number copied to clipboard',
+        position: 'bottom',
+        bottomOffset: 80,
+        visibilityTime: 2000,
+        onPress: () => {
+        Toast.hide(); // Hide toast when pressed
+      },
+      });
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Failed to copy account number',
+        position: 'bottom',
+        bottomOffset: 80,
+        visibilityTime: 2000,
+      });
+    }
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -79,6 +107,7 @@ export default function PaymentScreen() {
         flex: 1,
       }}
     >
+      <ToastManager />
       <ThemedView style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
           <AntDesign name="arrowleft" size={24} color="#032255" />
@@ -191,37 +220,85 @@ export default function PaymentScreen() {
                       </View>
                     )}
                   </View>
-                  <Entypo name="chevron-down" size={18} color="#0755D4" />
+                  {selected === method.key ? (
+                    <Entypo name="chevron-up" size={18} color="#0755D4" />
+                  ) : (
+                    <Entypo name="chevron-down" size={18} color="#0755D4" />
+                  )}
                 </TouchableOpacity>
                 <View>
-                  {method.key === "card" && (
+                  {selected === method.key && (
                     <>
-                      <View style={{ marginTop: 20 }} />
-                      <CheckoutTextInput label="Full Name" name="fullname" />
-                      <CheckoutTextInput
-                        label="Card Number"
-                        name="cardnumber"
-                      />
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          flex: 1,
-                          gap: 10,
-                          // justifyContent: 'space-between'
-                        }}
-                      >
-                        <CheckoutTextInput
-                          label="Expiration MM/YY"
-                          name="expiration"
-                          style={{ width: 235 }}
-                        />
-                        <CheckoutTextInput
-                          label="CVV"
-                          name="cvv"
-                          style={{ width: 104 }}
-                        />
-                      </View>
+                      {method.key === "card" ? (
+                        <>
+                          <View style={{ marginTop: 20 }} />
+                          <CheckoutTextInput
+                            label="Full Name"
+                            name="fullname"
+                          />
+                          <CheckoutTextInput
+                            label="Card Number"
+                            name="cardnumber"
+                          />
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              flex: 1,
+                              gap: 10,
+                            }}
+                          >
+                            <CheckoutTextInput
+                              label="Expiration MM/YY"
+                              name="expiration"
+                              style={{ width: 235 }}
+                            />
+                            <CheckoutTextInput
+                              label="CVV"
+                              name="cvv"
+                              style={{ width: 104 }}
+                            />
+                          </View>
+                        </>
+                      ) : method.key === "bank" ? (
+                        <View style={styles.bankView}>
+                          <Text style={styles.bankTopText}>
+                            Pay into the account below. Click sent when you’re done.
+                          </Text>
+                          <View style={styles.secView}>
+                            <Text style={styles.bankTxt}>Zenith Bank</Text>
+                            <View style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                            }}>
+                              <Text style={styles.bankTxt}>2298172345</Text>
+                              <Pressable onPress={copyToClipboard}>
+                                <FontAwesome5 name="copy" size={18} color="#043380CC" />
+                              </Pressable>
+                            </View>
+                            <Text style={styles.bankTxt}>Instamedirx Holding</Text>
+                          </View>
+                          <View style={styles.pressContainer}>
+                            <Pressable onPress={() => router.push("/Clients_world/checkout_screens/bank_transfer")} style={styles.pressView}>
+                              <Text style={styles.bankButtonText}>Sent</Text>
+                              <View style={styles.arrowView}>
+                                <AntDesign name="arrowright" size={15} color="white" />
+                              </View>
+                            </Pressable>
+                          </View>
+                        </View>
+                      ) 
+                      // : method.key === "ussd" ? (
+                      //   <Text style={styles.radioDesc}>
+                      //     USSD payment instructions go here.
+                      //   </Text>
+                      // ) : method.key === "cod" ? (
+                      //   <Text style={styles.radioDesc}>
+                      //     Please pay the delivery agent in cash.
+                      //   </Text>
+                      // ) 
+                      : null}
                     </>
                   )}
                 </View>
@@ -243,50 +320,6 @@ export default function PaymentScreen() {
         </FormProvider>
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function StepIndicator({ step }: any) {
-  return (
-    <View style={styles.stepIndicator}>
-      <StepCircle
-        active={step === 1 || step === 2 || step === 3}
-        label="1"
-        text="Delivery"
-      />
-      <StepLine active={step === 2 || step === 3} />
-      <StepCircle active={step === 2 || step === 3} label="2" text="Shipping" />
-      <StepLine active={step === 3} />
-      <StepCircle active={step === 3} label="3" text="Payment" />
-    </View>
-  );
-}
-
-function StepCircle({ active, label, text }: any) {
-  return (
-    <View style={styles.stepCircleContainer}>
-      <View style={[styles.stepCircle, active && styles.stepCircleActive]}>
-        <Text style={[styles.stepLabel, active && styles.stepLabelActive]}>
-          {label}
-        </Text>
-      </View>
-      <Text style={[styles.stepText, active && styles.stepActiveText]}>
-        {text}
-      </Text>
-    </View>
-  );
-}
-
-function StepLine({ active }: any) {
-  return (
-    <View
-      style={[
-        styles.stepLine,
-        {
-          backgroundColor: active ? "#0866FF" : "#CEE0FF",
-        },
-      ]}
-    />
   );
 }
 
@@ -425,6 +458,54 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: "OpenSans_400Regular",
   },
+  bankView: {
+    backgroundColor: '#F1FAFF',
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    gap: 32,
+    marginBottom: 20,
+  },
+  bankTopText: {
+    color: '#04338099',
+    fontFamily: "OpenSans_400Regular",
+    fontSize: 16,
+  },
+  secView: {
+    gap: 8,
+  },
+  bankTxt: {
+    color: '#043380CC',
+    fontFamily: "OpenSans_600SemiBold",
+    fontSize: 16,
+  },
+  bankButtonText: {
+    color: '#043380',
+    fontSize: 14,
+    fontFamily: "OpenSans_700Bold",
+    paddingVertical: 6,
+  },
+  arrowView: {
+    borderRadius: 24,
+    backgroundColor: '#043380',
+    width: 24,
+    height: 24,
+    marginVertical: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pressView: {
+    borderWidth: 1,
+    borderColor: '#043380',
+    borderRadius: 12,
+    // paddingVertical: 6,
+    paddingHorizontal: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  pressContainer: {
+    alignItems: 'flex-start',
+  },
   recommendedTag: {
     backgroundColor: "#D3FFE3",
     borderRadius: 8,
@@ -446,41 +527,4 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   buttonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
-  stepIndicator: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 22,
-  },
-  stepCircleContainer: { alignItems: "center", width: 60 },
-  stepCircle: {
-    width: 24,
-    height: 24,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: "#CEE0FF",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-  },
-  stepCircleActive: { borderColor: "#0866FF", backgroundColor: "white" },
-  stepLabel: {
-    color: "#CEE0FF",
-    fontFamily: "OpenSans_600SemiBold",
-    fontSize: 12,
-  },
-  stepLabelActive: { color: "#0544AA" },
-  stepText: {
-    fontSize: 12,
-    color: "#04338099",
-    marginTop: 4,
-    fontFamily: "OpenSans_600SemiBold",
-  },
-  stepActiveText: { color: "#0544AA" },
-  stepLine: {
-    height: 2,
-    width: 30,
-    backgroundColor: "#CEE0FF",
-    marginBottom: 15,
-  },
 });

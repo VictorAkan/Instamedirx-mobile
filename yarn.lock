@@ -3554,6 +3554,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cliui@npm:^7.0.2":
+  version: 7.0.4
+  resolution: "cliui@npm:7.0.4"
+  dependencies:
+    string-width: "npm:^4.2.0"
+    strip-ansi: "npm:^6.0.0"
+    wrap-ansi: "npm:^7.0.0"
+  checksum: 10c0/6035f5daf7383470cef82b3d3db00bec70afb3423538c50394386ffbbab135e26c3689c41791f911fa71b62d13d3863c712fdd70f0fbdffd938a1e6fd09aac00
+  languageName: node
+  linkType: hard
+
 "cliui@npm:^8.0.1":
   version: 8.0.1
   resolution: "cliui@npm:8.0.1"
@@ -4499,14 +4510,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-blur@npm:~14.0.3":
-  version: 14.0.3
-  resolution: "expo-blur@npm:14.0.3"
+"expo-blur@npm:^14.1.5":
+  version: 14.1.5
+  resolution: "expo-blur@npm:14.1.5"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10c0/fa511f6a2cf893a6b9fe2baac121e34655f5f10d7fb9fbcee1482acd9c30436bdfcb8ad0587bff65bef5cf7b7dfaf740e4c771cdd0d956e92df0ddf39173631e
+  checksum: 10c0/4ffe9014219f23d53f66bc61ea5d00b74a012d120f94a810c71cbdd34901900282a40f7d0636877cd261bc7ff8a3db20da2e0be9393b1a950b8fc677e285bf65
   languageName: node
   linkType: hard
 
@@ -4521,6 +4532,17 @@ __metadata:
     react-native-web:
       optional: true
   checksum: 10c0/c5fa8a1829522ad24834553e05f973c9e38cadd8b8ee724fc49b7e50833a2b849fef74c28f76558c53c046f4212198a2f5b4080998c8010e3029e41705aa0f03
+  languageName: node
+  linkType: hard
+
+"expo-clipboard@npm:^7.1.4":
+  version: 7.1.4
+  resolution: "expo-clipboard@npm:7.1.4"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/b53407237d4366c250877e242cefcf168133db95ed233e5b715fb99b233bdbeeb6f9b462cae11b8a29856c76fc0d48930a26e9c906f472bc1ae711ee715d9553
   languageName: node
   linkType: hard
 
@@ -4596,6 +4618,21 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 10c0/6cadacb09e902ee87fac1f081f3047bed233380a45bbe6313b320e67a966adf92787689c3bf76948dc0faffb0ab7543e7dd83ebd8bcdd901e5cfbacd5e2e2429
+  languageName: node
+  linkType: hard
+
+"expo-image@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "expo-image@npm:2.1.7"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+    react-native-web: "*"
+  peerDependenciesMeta:
+    react-native-web:
+      optional: true
+  checksum: 10c0/19f1025b031b3ec344cdf7939334063c3a0487bd604bf7c8c7620e9fd6ddde9192749a759e4e2ba59e3a75ffcbfa897ced27faa6af7240cdc855c1681c097945
   languageName: node
   linkType: hard
 
@@ -5599,12 +5636,14 @@ __metadata:
     "@types/react": "npm:~18.3.12"
     "@types/react-test-renderer": "npm:^18.3.0"
     expo: "npm:52.0.46"
-    expo-blur: "npm:~14.0.3"
+    expo-blur: "npm:^14.1.5"
     expo-checkbox: "npm:4.0.1"
+    expo-clipboard: "npm:^7.1.4"
     expo-constants: "npm:17.0.8"
     expo-document-picker: "npm:13.0.3"
     expo-font: "npm:~13.0.4"
     expo-haptics: "npm:~14.0.1"
+    expo-image: "npm:^2.1.7"
     expo-image-picker: "npm:16.0.6"
     expo-linear-gradient: "npm:14.0.2"
     expo-linking: "npm:~7.0.5"
@@ -5617,6 +5656,7 @@ __metadata:
     expo-web-browser: "npm:~14.0.2"
     jest: "npm:^29.2.1"
     jest-expo: "npm:52.0.6"
+    lucide-react-native: "npm:^0.513.0"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
     react-hook-form: "npm:^7.56.1"
@@ -5633,6 +5673,7 @@ __metadata:
     react-native-web: "npm:~0.19.13"
     react-native-webview: "npm:13.12.5"
     react-test-renderer: "npm:18.3.1"
+    toastify-react-native: "npm:^7.2.0"
     typescript: "npm:^5.3.3"
     undici: "npm:^7.5.0"
     zod: "npm:^3.24.3"
@@ -6880,6 +6921,17 @@ __metadata:
   dependencies:
     yallist: "npm:^3.0.2"
   checksum: 10c0/89b2ef2ef45f543011e38737b8a8622a2f8998cddf0e5437174ef8f1f70a8b9d14a918ab3e232cb3ba343b7abddffa667f0b59075b2b80e6b4d63c3de6127482
+  languageName: node
+  linkType: hard
+
+"lucide-react-native@npm:^0.513.0":
+  version: 0.513.0
+  resolution: "lucide-react-native@npm:0.513.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-native: "*"
+    react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
+  checksum: 10c0/5daa498611c6f7c910446c70b538a020d495830941dcb13ca96569e51c56a3e31ea97111bdd2c7b664bf3cd935df2cb2dfb0aa94d461478d928f9f72c214e0b7
   languageName: node
   linkType: hard
 
@@ -8501,6 +8553,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-vector-icons@npm:*":
+  version: 10.2.0
+  resolution: "react-native-vector-icons@npm:10.2.0"
+  dependencies:
+    prop-types: "npm:^15.7.2"
+    yargs: "npm:^16.1.1"
+  bin:
+    fa-upgrade.sh: bin/fa-upgrade.sh
+    fa5-upgrade: bin/fa5-upgrade.sh
+    fa6-upgrade: bin/fa6-upgrade.sh
+    generate-icon: bin/generate-icon.js
+  checksum: 10c0/76a7f327b40b29e567f48a49ebc3ad87b755d4e431d66fec3566dfe5e673084cee9b1663f10903a6572aab31c7bcec45100172afb1d46055dfacbbe46b92b348
+  languageName: node
+  linkType: hard
+
 "react-native-web@npm:~0.19.13":
   version: 0.19.13
   resolution: "react-native-web@npm:0.19.13"
@@ -9747,6 +9814,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"toastify-react-native@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "toastify-react-native@npm:7.2.0"
+  dependencies:
+    react-native-vector-icons: "npm:*"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/469393c19db00bbe3a1132969390a9a43519e0f226bdf573c7b79b7c35359e64bd010b46786a63dda4b2546a6efb9db81d6e7d700c453e424211777d3c539a41
+  languageName: node
+  linkType: hard
+
 "toidentifier@npm:1.0.1":
   version: 1.0.1
   resolution: "toidentifier@npm:1.0.1"
@@ -10412,10 +10491,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"yargs-parser@npm:^20.2.2":
+  version: 20.2.9
+  resolution: "yargs-parser@npm:20.2.9"
+  checksum: 10c0/0685a8e58bbfb57fab6aefe03c6da904a59769bd803a722bb098bd5b0f29d274a1357762c7258fb487512811b8063fb5d2824a3415a0a4540598335b3b086c72
+  languageName: node
+  linkType: hard
+
 "yargs-parser@npm:^21.1.1":
   version: 21.1.1
   resolution: "yargs-parser@npm:21.1.1"
   checksum: 10c0/f84b5e48169479d2f402239c59f084cfd1c3acc197a05c59b98bab067452e6b3ea46d4dd8ba2985ba7b3d32a343d77df0debd6b343e5dae3da2aab2cdf5886b2
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^16.1.1":
+  version: 16.2.0
+  resolution: "yargs@npm:16.2.0"
+  dependencies:
+    cliui: "npm:^7.0.2"
+    escalade: "npm:^3.1.1"
+    get-caller-file: "npm:^2.0.5"
+    require-directory: "npm:^2.1.1"
+    string-width: "npm:^4.2.0"
+    y18n: "npm:^5.0.5"
+    yargs-parser: "npm:^20.2.2"
+  checksum: 10c0/b1dbfefa679848442454b60053a6c95d62f2d2e21dd28def92b647587f415969173c6e99a0f3bab4f1b67ee8283bf735ebe3544013f09491186ba9e8a9a2b651
   languageName: node
   linkType: hard
 

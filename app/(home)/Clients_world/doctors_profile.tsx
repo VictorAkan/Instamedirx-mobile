@@ -68,7 +68,7 @@ const ProfilePage = () => {
                     <Ionicons name="arrow-forward-circle" size={20} color="white" />
                 </TouchableOpacity> */}
           <ThemedView style={{ marginTop: 25 }}>
-            <AppBtn route="" value="Book Consultation" />
+            <AppBtn route="/Clients_world/appointment_process/book_appointment" value="Book Consultation" />
           </ThemedView>
 
           {/* Tab Navigation */}

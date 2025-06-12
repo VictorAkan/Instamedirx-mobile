@@ -104,12 +104,12 @@ const styles = StyleSheet.create({
   inputStyle: {
     fontSize: 16,
     // paddingTop: 5,
-    // paddingBottom: 5,
+    paddingBottom: 5,
     color: 'black',
   },
   label: {
     position: 'absolute',
-    top: -15,
+    top: -20,
     left: 15,
     backgroundColor: 'white',
     paddingHorizontal: 5,
