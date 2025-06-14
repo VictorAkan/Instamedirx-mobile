@@ -52,7 +52,7 @@ export default function App() {
 
       {/* Call Controls */}
       <View style={styles.controlsContainer}>
-        <BlurView intensity={15} style={styles.controls}>
+        <BlurView intensity={15} experimentalBlurMethod="dimezisBlurView" style={styles.controls}>
           <LinearGradient
             colors={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.2)"]}
             start={{ x: 0, y: 0 }}
