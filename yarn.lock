@@ -4697,6 +4697,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-modules-core@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "expo-modules-core@npm:2.4.0"
+  dependencies:
+    invariant: "npm:^2.2.4"
+  checksum: 10c0/685baaa937e512e3d71a39174ecfccc0a5170b90e0d1cac60ab8e5d826ffd6f778eb6a500c46913c8b791747694f5ae376e0cf836186cd78f9b5e81cb197cb78
+  languageName: node
+  linkType: hard
+
 "expo-router@npm:4.0.20":
   version: 4.0.20
   resolution: "expo-router@npm:4.0.20"
@@ -5647,6 +5656,7 @@ __metadata:
     expo-image-picker: "npm:16.0.6"
     expo-linear-gradient: "npm:14.0.2"
     expo-linking: "npm:~7.0.5"
+    expo-modules-core: "npm:^2.4.0"
     expo-router: "npm:4.0.20"
     expo-splash-screen: "npm:0.29.24"
     expo-status-bar: "npm:~2.0.1"
