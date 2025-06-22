@@ -2,7 +2,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { Link } from "expo-router";
 import { StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
-import { RegTextInput } from "@/components/RegTextInput";
+import RegTextInput from "@/components/RegTextInput";
 import { CustomBtn } from "@/components/CustomButton";
 import { useState } from "react";
 import { useFonts } from "expo-font";
@@ -13,6 +13,18 @@ import { GestureDetector, GestureHandlerRootView, Gesture } from "react-native-g
 import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
+// form validation
+import { z } from "zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const FormSchema = z.object({
+  email: z.string().email({
+    message: 'Invalid email address, please try again.',
+  }),
+})
+
+
 const { height } = Dimensions.get("window");
 const WHITE_HEIGHT = height * 0.5;
 
@@ -20,6 +32,14 @@ export default function ForgotPassword() {
     const [email, onChangeEmail] = useState("");
     const router = useRouter();
     const translateY = useSharedValue(WHITE_HEIGHT);
+
+    const form = useForm<z.infer<typeof FormSchema>>({
+              resolver: zodResolver(FormSchema),
+              mode: "onChange",
+              defaultValues: {
+                    email: '',
+              }
+            })
 
     const panGesture = Gesture.Pan()
         .onUpdate((event) => {
@@ -69,10 +89,11 @@ export default function ForgotPassword() {
                             <ThemedText style={styles.forgotTitle}>Forgot password</ThemedText>
                             <ThemedText style={styles.procTxt}>Enter the email address associated with your account</ThemedText>
                         </View>
-                        <ThemedView style={styles.inputContainer}>
+                        <FormProvider {...form}>
+                          <ThemedView style={styles.inputContainer}>
                             <RegTextInput
+                                name="email"
                                 label="Email address"
-                                onChangeText={onChangeEmail}
                             // required={true}
                             />
                             <ThemedView style={styles.buttonView}>
@@ -90,6 +111,7 @@ export default function ForgotPassword() {
                         </ThemedText>
                     </ThemedView> */}
                         </ThemedView>
+                        </FormProvider>
                     </Animated.View>
                 </GestureDetector>
             </View>

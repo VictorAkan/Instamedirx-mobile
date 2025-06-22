@@ -69,7 +69,7 @@ const ClientCartScreen = () => {
         </ThemedView>
         <ThemedView style={styles.itemBottom}>
           <ThemedText style={styles.price}>
-            ₦{item.price.toLocaleString()}
+            ₦{item.price}
           </ThemedText>
           <ThemedView style={styles.controls}>
             <TouchableOpacity

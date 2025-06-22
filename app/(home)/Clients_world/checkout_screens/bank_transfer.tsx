@@ -12,28 +12,41 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { ThemedView } from "@/components/ThemedView";
-import { ThemedText } from "@/components/ThemedText";
-import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import * as ImagePicker from 'expo-image-picker';
 
-type NullableString = string | null;
+type FormData = {
+  accountName: string;
+  accountNumber: string;
+  bankName: string;
+  proof: string | null;
+};
 
 const BankTransfer = () => {
-  const [accountName, setAccountName] = useState<string>("");
-  const [accountNumber, setAccountNumber] = useState<string>("");
-  const [bankName, setBankName] = useState<string>("");
-  const [proof, setProof] = useState<NullableString>(null);
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+    defaultValues: {
+      accountName: '',
+      accountNumber: '',
+      bankName: '',
+      proof: null,
+    }
+  });
 
-  const pickImage = async (setter: (uri: string) => void) => {
+  const pickImage = async (onChange: (uri: string) => void) => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       allowsEditing: true,
       quality: 1,
     });
+    
     if (!result.canceled) {
-      setter(result.assets[0].uri);
+      onChange(result.assets[0].uri);
     }
+  };
+
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+    router.push("/Clients_world/checkout_screens/bank-transfer-progress");
   };
 
   return (
@@ -55,74 +68,146 @@ const BankTransfer = () => {
           <View style={styles.inputCollectionView}>
             <View>
               <Text style={styles.labelText}>Sender's Account Name</Text>
-              <TextInput
-                value={accountName}
-                onChangeText={setAccountName}
-                style={styles.input}
+              <Controller
+                control={control}
+                rules={{
+                  required: 'Account name is required',
+                  minLength: {
+                    value: 2,
+                    message: 'Account name must be at least 2 characters'
+                  }
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={[
+                      styles.input,
+                      errors.accountName && styles.errorInput
+                    ]}
+                  />
+                )}
+                name="accountName"
               />
+              {errors.accountName && (
+                <Text style={styles.errorText}>{errors.accountName.message}</Text>
+              )}
             </View>
+            
             <View>
               <Text style={styles.labelText}>Account Number</Text>
-              <TextInput
-                value={accountNumber}
-                onChangeText={setAccountNumber}
-                style={styles.input}
+              <Controller
+                control={control}
+                rules={{
+                  required: 'Account number is required',
+                  pattern: {
+                    value: /^\d+$/,
+                    message: 'Account number must contain only numbers'
+                  },
+                  minLength: {
+                    value: 10,
+                    message: 'Account number must be at least 10 digits'
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: 'Account number must not exceed 16 digits'
+                  }
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    keyboardType="numeric"
+                    style={[
+                      styles.input,
+                      errors.accountNumber && styles.errorInput
+                    ]}
+                  />
+                )}
+                name="accountNumber"
               />
+              {errors.accountNumber && (
+                <Text style={styles.errorText}>{errors.accountNumber.message}</Text>
+              )}
             </View>
+            
             <View>
-              <Text style={styles.labelText}>Bank Number</Text>
-              <TextInput
-                value={bankName}
-                onChangeText={setBankName}
-                style={styles.input}
+              <Text style={styles.labelText}>Bank Name</Text>
+              <Controller
+                control={control}
+                rules={{
+                  required: 'Bank name is required',
+                  minLength: {
+                    value: 2,
+                    message: 'Bank name must be at least 2 characters'
+                  }
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={[
+                      styles.input,
+                      errors.bankName && styles.errorInput
+                    ]}
+                  />
+                )}
+                name="bankName"
               />
+              {errors.bankName && (
+                <Text style={styles.errorText}>{errors.bankName.message}</Text>
+              )}
             </View>
 
-            <Pressable onPress={() => pickImage(setProof)} style={styles.uploadView}>
-              {proof ? (
-                <ImageBackground
-                  source={{ uri: proof }}
-                  style={{
-                  alignItems: "center",
-                }}
+            <Controller
+              control={control}
+              rules={{
+                required: 'Proof of payment is required'
+              }}
+              render={({ field: { onChange, value } }) => (
+                <Pressable 
+                  onPress={() => pickImage(onChange)} 
+                  style={styles.uploadView}
                 >
-                  <Image
-                  source={require("../../../../assets/images/cameraplus.png")}
-                  style={{
-                    width: 32,
-                    height: 32,
-                  }}
-                />
-                <Text style={styles.uploadText}>
-                  Upload proof of payment while we confirm your transaction
-                </Text>
-                </ImageBackground>
-              ) : (
-                <View
-                style={{
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={require("../../../../assets/images/cameraplus.png")}
-                  style={{
-                    width: 32,
-                    height: 32,
-                  }}
-                />
-                <Text style={styles.uploadText}>
-                  Upload proof of payment while we confirm your transaction
-                </Text>
-              </View>
+                  {value ? (
+                    <ImageBackground
+                      source={{ uri: value }}
+                      style={styles.imageBackground}
+                    >
+                      <Image
+                        source={require("../../../../assets/images/cameraplus.png")}
+                        style={styles.cameraIcon}
+                      />
+                      <Text style={styles.uploadText}>
+                        Upload proof of payment while we confirm your transaction
+                      </Text>
+                    </ImageBackground>
+                  ) : (
+                    <View style={styles.uploadContent}>
+                      <Image
+                        source={require("../../../../assets/images/cameraplus.png")}
+                        style={styles.cameraIcon}
+                      />
+                      <Text style={styles.uploadText}>
+                        Upload proof of payment while we confirm your transaction
+                      </Text>
+                    </View>
+                  )}
+                </Pressable>
               )}
-            </Pressable>
+              name="proof"
+            />
+            {errors.proof && (
+              <Text style={styles.errorText}>{errors.proof.message}</Text>
+            )}
           </View>
 
           <View style={styles.pressContainer}>
             <Pressable
-              onPress={() =>
-                router.push("/Clients_world/checkout_screens/bank-transfer-progress")
-              }
+              onPress={handleSubmit(onSubmit)}
               style={styles.pressView}
             >
               <Text style={styles.bankButtonText}>Done</Text>
@@ -150,16 +235,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 16,
-    // marginTop: 10,
     gap: 10,
   },
   headerText: {
     fontSize: 16,
     fontFamily: "OpenSans_600SemiBold",
     color: "#04338099",
-    // marginLeft: 10,
   },
-
   detailsView: {
     backgroundColor: "#F1FAFF",
     borderRadius: 12,
@@ -189,6 +271,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 6,
   },
+  errorInput: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginTop: 4,
+  },
   uploadView: {
     borderStyle: "dashed",
     borderColor: "#04338099",
@@ -198,13 +288,25 @@ const styles = StyleSheet.create({
     gap: 24,
     marginTop: 20,
   },
+  uploadContent: {
+    alignItems: "center",
+  },
+  imageBackground: {
+    width: '100%',
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cameraIcon: {
+    width: 32,
+    height: 32,
+  },
   uploadText: {
     color: "#04338099",
     fontFamily: "OpenSans_400Regular",
     fontSize: 16,
     textAlign: "center",
   },
-
   bankButtonText: {
     color: "#043380",
     fontSize: 14,
@@ -224,7 +326,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#043380",
     borderRadius: 12,
-    // paddingVertical: 6,
     paddingHorizontal: 12,
     flexDirection: "row",
     alignItems: "center",

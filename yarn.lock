@@ -4707,9 +4707,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-router@npm:4.0.20":
-  version: 4.0.20
-  resolution: "expo-router@npm:4.0.20"
+"expo-router@npm:4.0.21":
+  version: 4.0.21
+  resolution: "expo-router@npm:4.0.21"
   dependencies:
     "@expo/metro-runtime": "npm:4.0.1"
     "@expo/server": "npm:^0.5.3"
@@ -4727,8 +4727,8 @@ __metadata:
   peerDependencies:
     "@react-navigation/drawer": ^7.1.1
     expo: "*"
-    expo-constants: "*"
-    expo-linking: "*"
+    expo-constants: ~17.0.8
+    expo-linking: ~7.0.5
     react-native-reanimated: "*"
     react-native-safe-area-context: "*"
     react-native-screens: "*"
@@ -4739,7 +4739,7 @@ __metadata:
       optional: true
     react-native-reanimated:
       optional: true
-  checksum: 10c0/76187e9870015777606742933346eb39ce9c3c45e2d850157954d3ddfac8bbb88c3afc10c33665510709d9ac70f646f7cffd86c09010b2043c60c557b87f34e7
+  checksum: 10c0/9d8a009acca0e03fca571ee26a91c1aa7062765e815826325157df38c2f6b8baa416f3aed4e639c7b5e1d3179dd4506d226c4bb3edc23e3745bb63ecdb75b287
   languageName: node
   linkType: hard
 
@@ -5658,7 +5658,7 @@ __metadata:
     expo-image-picker: "npm:16.0.6"
     expo-linear-gradient: "npm:14.0.2"
     expo-linking: "npm:~7.0.5"
-    expo-router: "npm:4.0.20"
+    expo-router: "npm:4.0.21"
     expo-splash-screen: "npm:0.29.24"
     expo-status-bar: "npm:~2.0.1"
     expo-symbols: "npm:~0.2.2"
