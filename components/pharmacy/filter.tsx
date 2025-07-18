@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   ScrollView,
@@ -16,6 +16,7 @@ import {
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import Slider from "@react-native-community/slider";
 
 interface FilterData {
   categories: string[];
@@ -50,6 +51,7 @@ interface FilterSectionProps {
   onToggle: () => void;
   children: React.ReactNode;
 }
+
 type SectionKey =
   | "category"
   | "brand"
@@ -60,6 +62,71 @@ type SectionKey =
   | "popularity"
   | "inventoryStatus"
   | "priceRange";
+
+// Static filter options
+const CATEGORIES = [
+  "Antibiotics",
+  "Pain relief",
+  "First aid",
+  "Anti-diabetes",
+  "Anti-hypertension",
+  "Supplements",
+  "Vitamins",
+  "Wearables",
+  "STD",
+  "Toiletries",
+  "Syrups",
+  "Weight Loss",
+];
+const BRANDS = [
+  "Emzor",
+  "May & Baker",
+  "Drugfield",
+  "Bond",
+  "Qualihealth",
+  "Safco",
+  "Swiss",
+  "Sygen",
+  "Tuyil",
+];
+const FORMS = [
+  "Tablet",
+  "Capsule",
+  "Injection",
+  "Syrup",
+  "Powder/Sachet",
+  "Lozenge",
+  "Solution",
+];
+const DATE_PERIODS = [
+  "Custom period",
+  "This week",
+  "Last week",
+  "This month",
+  "Last month",
+  "This year",
+  "Last year",
+];
+const EXPIRY_PERIODS = [
+  "1 week",
+  "2 weeks",
+  "1 month",
+  "2 months",
+  "3 months",
+];
+const POPULARITY_OPTIONS = [
+  "Best sellers",
+  "Most viewed",
+  "Highest rated",
+  "Trending",
+];
+const INVENTORY_STATUS_OPTIONS = [
+  "Out of stock",
+  "Expired",
+  "In stock",
+  "Near expiry",
+];
+
 const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
   visible,
   onClose,
@@ -74,9 +141,7 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
   const [selectedExpiryPeriod, setSelectedExpiryPeriod] = useState<string>("");
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const [selectedPopularity, setSelectedPopularity] = useState<string>("");
-  const [selectedInventoryStatus, setSelectedInventoryStatus] = useState<
-    string[]
-  >([]);
+  const [selectedInventoryStatus, setSelectedInventoryStatus] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<number>(5000);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -93,15 +158,6 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
     priceRange: true,
   });
 
-  const [categories, setCategories] = useState<string[]>([]);
-  const [brands, setBrands] = useState<string[]>([]);
-  const [forms, setForms] = useState<string[]>([]);
-
-  useEffect(() => {
-    fetchCategories();
-    fetchBrands();
-    fetchForms();
-  }, []);
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
 
@@ -118,81 +174,6 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
       setCustomEndDate(selectedDate.toLocaleDateString("en-GB"));
     }
   };
-
-  const fetchCategories = () => {
-    setCategories([
-      "Antibiotics",
-      "Pain relief",
-      "First aid",
-      "Anti-diabetes",
-      "Anti-hypertension",
-      "Supplements",
-      "Vitamins",
-      "Wearables",
-      "STD",
-      "Toiletries",
-      "Syrups",
-      "Weight Loss",
-    ]);
-  };
-
-  const fetchBrands = () => {
-    setBrands([
-      "Emzor",
-      "May & Baker",
-      "Drugfield",
-      "Bond",
-      "Qualihealth",
-      "Safco",
-      "Swiss",
-      "Sygen",
-      "Tuyil",
-    ]);
-  };
-
-  const fetchForms = () => {
-    setForms([
-      "Tablet",
-      "Capsule",
-      "Injection",
-      "Syrup",
-      "Powder/Sachet",
-      "Lozenge",
-      "Solution",
-    ]);
-  };
-
-  const datePeriods = [
-    "Custom period",
-    "This week",
-    "Last week",
-    "This month",
-    "Last month",
-    "This year",
-    "Last year",
-  ];
-
-  const expiryPeriods = [
-    "1 week",
-    "2 weeks",
-    "1 month",
-    "2 months",
-    "3 months",
-  ];
-
-  const popularityOptions = [
-    "Best sellers",
-    "Most viewed",
-    "Highest rated",
-    "Trending",
-  ];
-
-  const inventoryStatusOptions = [
-    "Out of stock",
-    "Expired",
-    "In stock",
-    "Near expiry",
-  ];
 
   const toggleSection = (section: SectionKey) => {
     setExpandedSections((prev) => ({
@@ -336,7 +317,7 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
             onToggle={() => toggleSection("category")}
           >
             <View style={styles.chipContainer}>
-              {categories.map((category) => (
+              {CATEGORIES.map((category) => (
                 <FilterChip
                   key={category}
                   title={category}
@@ -352,14 +333,13 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
               ))}
             </View>
           </FilterSection>
-          {/* Brands Section */}
           <FilterSection
             title="Brands"
             expanded={expandedSections.brand}
             onToggle={() => toggleSection("brand")}
           >
             <View style={styles.chipContainer}>
-              {brands.map((brand) => (
+              {BRANDS.map((brand) => (
                 <FilterChip
                   key={brand}
                   title={brand}
@@ -371,14 +351,13 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
               ))}
             </View>
           </FilterSection>
-          {/* Forms Section */}
           <FilterSection
             title="Forms"
             expanded={expandedSections.form}
             onToggle={() => toggleSection("form")}
           >
             <View style={styles.chipContainer}>
-              {forms.map((form) => (
+              {FORMS.map((form) => (
                 <FilterChip
                   key={form}
                   title={form}
@@ -390,15 +369,13 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
               ))}
             </View>
           </FilterSection>
-          {/* Date Added Section */}
-          {/* Date Added Section */}
           <FilterSection
             title="Date Added"
             expanded={expandedSections.dateAdded}
             onToggle={() => toggleSection("dateAdded")}
           >
             <View style={styles.chipContainer}>
-              {datePeriods.map((period) => (
+              {DATE_PERIODS.map((period) => (
                 <FilterChip
                   key={period}
                   title={period}
@@ -447,14 +424,13 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
               </View>
             )}
           </FilterSection>
-          {/* Expiry Date Section */}
           <FilterSection
             title="Expiry Date"
             expanded={expandedSections.expiryDate}
             onToggle={() => toggleSection("expiryDate")}
           >
             <View style={styles.chipContainer}>
-              {expiryPeriods.map((period) => (
+              {EXPIRY_PERIODS.map((period) => (
                 <FilterChip
                   key={period}
                   title={period}
@@ -464,14 +440,49 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
               ))}
             </View>
           </FilterSection>
-          {/* Popularity Section */}
+          <FilterSection
+            title="Rating"
+            expanded={expandedSections.rating}
+            onToggle={() => toggleSection("rating")}
+          >
+            <View style={styles.sliderWrapper}>
+              <Slider
+                style={styles.ratingSlider}
+                minimumValue={1}
+                maximumValue={5}
+                step={1}
+                value={selectedRating || 1}
+                onValueChange={(val) => setSelectedRating(val)}
+                minimumTrackTintColor="#0866FF"
+                maximumTrackTintColor="#E5E5E5"
+                thumbTintColor="#0866FF"
+              />
+              <View style={styles.ratingTicks}>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <View key={i} style={styles.ratingTick} />
+                ))}
+              </View>
+            </View>
+            <View style={styles.ratingStarsContainer}>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <View key={i} style={styles.ratingStarWrapper}>
+                  <Ionicons
+                    name={i <= selectedRating ? "star" : "star-outline"}
+                    size={20}
+                    color={i <= selectedRating ? "#FFD700" : "#D6D6D6"}
+                  />
+                  <ThemedText style={styles.ratingStarLabel}>{i}</ThemedText>
+                </View>
+              ))}
+            </View>
+          </FilterSection>
           <FilterSection
             title="Popularity"
             expanded={expandedSections.popularity}
             onToggle={() => toggleSection("popularity")}
           >
             <View style={styles.chipContainer}>
-              {popularityOptions.map((option) => (
+              {POPULARITY_OPTIONS.map((option) => (
                 <FilterChip
                   key={option}
                   title={option}
@@ -481,14 +492,13 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
               ))}
             </View>
           </FilterSection>
-          {/* Inventory Status Section */}
           <FilterSection
             title="Inventory Status"
             expanded={expandedSections.inventoryStatus}
             onToggle={() => toggleSection("inventoryStatus")}
           >
             <View style={styles.chipContainer}>
-              {inventoryStatusOptions.map((status) => (
+              {INVENTORY_STATUS_OPTIONS.map((status) => (
                 <FilterChip
                   key={status}
                   title={status}
@@ -504,8 +514,41 @@ const PharmacyFilterScreen: React.FC<PharmacyFilterScreenProps> = ({
               ))}
             </View>
           </FilterSection>
+          <FilterSection
+            title="Price Range"
+            expanded={expandedSections.priceRange}
+            onToggle={() => toggleSection("priceRange")}
+          >
+            <View style={styles.priceRangeContainer}>
+              <View style={styles.priceRangeHeader}>
+                <ThemedText style={styles.priceRangeTitle}>Price range</ThemedText>
+                <ThemedText style={styles.priceRangeValue}>
+                  {Math.round(priceRange).toLocaleString()} NGN
+                </ThemedText>
+              </View>
+              <View style={styles.sliderContainer}>
+                <Slider
+                  style={{ width: "100%", height: 40 }}
+                  minimumValue={0}
+                  maximumValue={10000}
+                  onValueChange={setPriceRange}
+                  value={priceRange}
+                  minimumTrackTintColor="#0866FF"
+                  maximumTrackTintColor="#E5E5E5"
+                  thumbTintColor="#0866FF"
+                />
+              </View>
+              <View style={styles.priceInputsContainer}>
+                <View style={styles.priceInputWrapper}>
+                  <ThemedText style={styles.priceInputLabel}>0</ThemedText>
+                </View>
+                <View style={styles.priceInputWrapper}>
+                  <ThemedText style={styles.priceInputLabel}>10000</ThemedText>
+                </View>
+              </View>
+            </View>
+          </FilterSection>
         </ScrollView>
-
         <ThemedView style={styles.bottomButtons}>
           <TouchableOpacity
             style={styles.applyButton}
@@ -598,7 +641,6 @@ const styles = StyleSheet.create({
   clearButtonX: {
     padding: 2,
   },
-
   searchInputContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -614,7 +656,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     fontFamily: "OpenSans_400Regular",
-
     marginLeft: 4,
   },
   separator: {
@@ -623,7 +664,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#D6D6D6",
     marginHorizontal: 8,
   },
-
   scrollContainer: {
     flex: 1,
     paddingHorizontal: 16,
@@ -666,19 +706,16 @@ const styles = StyleSheet.create({
   selectedChipText: {
     color: "#fff",
   },
-
   applyButtonText: {
     color: "#fff",
     fontSize: 14,
     fontFamily: "OpenSans_600SemiBold",
   },
-
   clearButtonText: {
     color: "#043380",
     fontSize: 14,
     fontFamily: "OpenSans_600SemiBold",
   },
-
   datePickerContainer: {
     marginTop: 16,
     marginBottom: 8,
@@ -695,7 +732,6 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 8,
   },
-
   dateInput: {
     flexDirection: "row",
     alignItems: "center",
@@ -714,13 +750,125 @@ const styles = StyleSheet.create({
   },
   dateFieldDivider: {
     width: 1,
-
     marginHorizontal: 16,
   },
   dateLabel: {
     fontSize: 12,
     fontFamily: "OpenSans_400Regular",
     color: "#666666",
+  },
+  ratingContainer: {
+    gap: 12,
+  },
+  ratingItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 8,
+    gap: 12,
+  },
+  ratingStars: {
+    flexDirection: "row",
+    gap: 2,
+  },
+  starIcon: {
+    marginRight: 2,
+  },
+  ratingText: {
+    fontSize: 14,
+    fontFamily: "OpenSans_400Regular",
+    color: "#043380",
+    marginLeft: 8,
+  },
+  ratingDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: "#D6D6D6",
+    backgroundColor: "transparent",
+    marginLeft: "auto",
+  },
+  selectedRatingDot: {
+    borderColor: "#0866FF",
+    backgroundColor: "#0866FF",
+  },
+  priceRangeContainer: {
+    paddingVertical: 8,
+  },
+  priceRangeHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  priceRangeTitle: {
+    fontSize: 14,
+    fontFamily: "OpenSans_600SemiBold",
+    color: "#0544AA",
+  },
+  priceRangeValue: {
+    fontSize: 14,
+    fontFamily: "OpenSans_600SemiBold",
+    color: "#0866FF",
+  },
+  sliderContainer: {
+    marginBottom: 16,
+  },
+  priceInputsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 12,
+  },
+  priceInputWrapper: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#D6D6D6",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    alignItems: "center",
+  },
+  priceInputLabel: {
+    fontSize: 14,
+    fontFamily: "OpenSans_400Regular",
+    color: "#666666",
+  },
+  sliderWrapper: {
+    width: "100%",
+    alignItems: "center",
+    position: "relative",
+    paddingVertical: 12,
+  },
+  ratingSlider: {
+    width: "90%",
+    height: 40,
+  },
+  ratingTicks: {
+    position: "absolute",
+    top: 10,
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  ratingTick: {
+    width: 2,
+    height: 8,
+    backgroundColor: "#8F8F8F",
+  },
+  ratingStarsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+    marginTop: 8,
+  },
+  ratingStarWrapper: {
+    alignItems: "center",
+  },
+  ratingStarLabel: {
+    marginTop: 4,
+    fontSize: 12,
+    fontFamily: "OpenSans_400Regular",
+    color: "#043380",
   },
 });
 

@@ -7,6 +7,7 @@ import {
   TextInput,
   StyleSheet,
   Image,
+  ActivityIndicator
 } from "react-native";
 import {
   Ionicons,
@@ -26,7 +27,7 @@ interface Product {
   name: string;
   stock: number;
   price: number;
-  image: number | string; // Image can be a local asset or a URL
+  image: number | string; 
 }
 
 interface Category {
@@ -86,14 +87,14 @@ const PharmacyHomePage = () => {
           name: "metformin 500mg Tablets",
           stock: 24,
           price: 500,
-          image: require("../../../../assets/images/amoxil.png"),
+          image: "https://i.ibb.co/fYFStGxd/OIP.webp",
         },
         {
           id: 6,
           name: "Insulin Glargine 100 IU/ml",
           stock: 8,
           price: 500,
-          image: require("../../../../assets/images/amoxil.png"),
+          image: "https://i.ibb.co/9HbD7zSF/OIP.jpg",
         },
       ],
     },
@@ -105,14 +106,14 @@ const PharmacyHomePage = () => {
           name: "ketoconazole 200mg Tablets",
           stock: 15,
           price: 500,
-          image: require("../../../../assets/images/amoxil.png"),
+          image: "https://i.ibb.co/xtNWH3v0/OIP.webp",
         },
         {
           id: 8,
           name: "Clotrimazole 100mg Cream",
           stock: 8,
           price: 500,
-          image: require("../../../../assets/images/amoxil.png"),
+          image: "https://i.ibb.co/23LMFR6f/OIP.webp",
         },
       ],
     },
@@ -124,14 +125,14 @@ const PharmacyHomePage = () => {
           name: "Cetirizine 10mg Tablets",
           stock: 24,
           price: 500,
-          image: require("../../../../assets/images/amoxil.png"),
+          image: "https://i.ibb.co/1YW7TS8L/OIP.webp",
         },
         {
           id: 10,
           name: "Loratadine 10mg Tablets",
           stock: 8,
           price: 500,
-          image: require("../../../../assets/images/amoxil.png"),
+          image: "https://i.ibb.co/SwXHLz7V/OIP.webp",
         },
       ],
     },
@@ -143,14 +144,14 @@ const PharmacyHomePage = () => {
           name: "Hydrocortisone 1% Cream",
           stock: 24,
           price: 500,
-          image: require("../../../../assets/images/amoxil.png"),
+          image: "https://i.ibb.co/6cS1rM1T/OIP.webp",
         },
         {
           id: 12,
           name: "Neomycin and Polymyxin B Sulfate Ointment",
           stock: 8,
           price: 500,
-          image: require("../../../../assets/images/amoxil.png"),
+          image: "https://www.amconlabs.com/customers/images/po6334.jpg",
         },
       ],
     },
