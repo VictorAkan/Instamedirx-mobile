@@ -54,9 +54,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="appointment"
+        name="inventory"
         options={{
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <ThemedView
               style={{
                 backgroundColor: focused ? "#CEE0FF" : "transparent",

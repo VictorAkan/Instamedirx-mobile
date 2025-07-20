@@ -479,6 +479,11 @@ export default function HomeLayout() {
         options={{
           headerShown: false,
         }}
+      /><Stack.Screen
+        name="Pharmacies_world/add_product/manual"
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack>
   );
